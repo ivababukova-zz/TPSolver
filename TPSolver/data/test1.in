@@ -1,3 +1,11 @@
+# airport name, connection time, 0 for homepoint/1 for destination/2 for connection
+G, 0, 0
+A, 0, 1
+F, 0, 2
+B, 0, 1
+L, 0, 2
+M, 0, 1
+P, 0, 1
 # flight no, dep airport, arr airport, date, duration, cost
 1, G, A, 1, 1, 74
 2, G, F, 1, 1, 86
@@ -17,3 +25,5 @@
 16, B, L, 13, 1, 102
 17, A, G, 13, 1, 90
 18, L, G, 14, 1, 24
+# holiday time T
+14

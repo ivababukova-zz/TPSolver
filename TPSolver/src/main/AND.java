@@ -1,4 +1,4 @@
-package com.company;
+package main;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
