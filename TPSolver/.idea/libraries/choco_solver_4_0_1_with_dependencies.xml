@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="choco-solver-4.0.1-with-dependencies">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/choco-solver-4.0.1-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/choco-solver-4.0.1-with-dependencies.jar!/OSGI-OPT/src" />
+    </SOURCES>
+  </library>
+</component>
