@@ -2,7 +2,8 @@ package main;
 
 import java.util.ArrayList;
 import org.chocosolver.solver.Model;
-import org.chocosolver.solver.variables.IntVar;
+import org.chocosolver.solver.variables.*;
+import org.chocosolver.solver.constraints.*;
 
 /**
  * Created by ivababukova on 12/16/16.
@@ -14,6 +15,7 @@ public class Solver {
     ArrayList<Flight> flights;
     Model model;
     IntVar[] S;
+    IntVar z;
     int T;
 
     public Solver(ArrayList<Airport> as, ArrayList<Flight> fs, int T){
@@ -24,26 +26,60 @@ public class Solver {
 
     private void init(){
         this.model = new Model("TP Solver");
-        this.S = model.intVarArray("Flights Schedule", flights.size(), 0, flights.size());
-        IntVar z = model.intVar("End of schedule", 1, flights.size()-1);
+        this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
+        this.z = model.intVar("End of schedule", 2, flights.size());
 
-        for(int i = 0; i < flights.size()-1; i++) {
+        Airport a0 = getHomePoint();
+        int[] to_home = arrayToint(allTo(a0));
+        int[] from_home = arrayToint(allFrom(a0));
+
+        model.member(S[0], from_home).post();
+
+        for(int i = 1; i <= flights.size(); i++) {
+//            Flight f = getFlightByID(i);
+
+            // the first flight must be from the home point
+//            if (f.dep != a0){
+//                model.arithm(S[0], "!=", i).post();
+//            }
+
+            // if the sequence ends at i, then s[i] must be 0
             model.ifThen(
                     model.arithm(z, "=", i),
+                    model.and(model.arithm(S[i], "=", 0), model.arithm(S[i-1], "!=", 0))
+            );
+
+            // if s[i-1] is 0, then s[i] must be 0
+            model.ifThen(
+                    model.arithm(S[i-1], "=", 0),
                     model.arithm(S[i], "=", 0)
             );
+
+            // if s[i] is not 0, then s[i-1] must not be 0
             model.ifThen(
-                    model.arithm(S[i], "=", 0),
-                    model.arithm(S[i+1], "=", 0)
+                    model.arithm(S[i], "!=", 0),
+                    model.arithm(S[i-1], "!=", 0)
             );
+
+            // the last flight must go to the home point
+//            if (!toHome.contains(i)) {
+//                for (int zet = 2; zet <= flights.size(); zet++) {
+//                    model.ifThen(
+//                            model.arithm(z, "=", zet),
+//                            model.arithm(S[zet-1], "!=", i)
+//                    );
+//                }
+//            }
+            for (int zet = 2; zet <= flights.size(); zet++) {
+                model.ifThen(
+                        model.arithm(z, "=", zet),
+                        model.member(S[zet-1], to_home)
+                );
+            }
         }
         this.model.allDifferentExcept0(S).post();
 
-        // todo the dep and arr airports of two consecutive flights must be the same
-
-        // todo the first flight must be from the home point
-
-        // todo the last flight must be to the home point
+        // todo the dep and arr airports of two consecutive flights must be the same:
 
         // todo the duration + time + conn time constraint
 
@@ -51,12 +87,85 @@ public class Solver {
 
     }
 
+    // for every S[i], if S[i] = j, then S[i+1] must depart from the arrival airport of j
+    private void departureConstraint(){
+        for(int i = 1; i <= flights.size(); i++) {
+            int[] all_from = arrayToint(allFrom(getFlightByID(i).arr));
+
+            for (int j = 1; j <= flights.size(); j++) {
+                model.ifThen(
+                        model.arithm(S[j-1], "=", i),
+                        model.member(S[j], all_from)
+                );
+            }
+        }
+    }
+
     public void solve(){
         init();
+        //model.getSolver().propagate();
         model.getSolver().solve();
-        for (IntVar s: S ){
+//        while (model.getSolver().solve()) {
+//            for (IntVar s : S) {
+//                System.out.print(s.getValue() + " ");
+//            }
+//            System.out.println();
+//        }
+        for (IntVar s : S) {
             System.out.print(s.getValue() + " ");
         }
-        System.out.println("\nThat's it!");
+        System.out.print("\nAnd z is: ");
+        System.out.println(z.getValue());
     }
+
+    private  Airport getAirportByName(String name){
+        for (Airport a : this.airports) {
+            if (a.name.equals(name)) return a;
+        }
+        return null;
+    }
+
+    private Airport getHomePoint(){
+        for (Airport a: this.airports) {
+            if(a.purpose == 0) return a;
+        }
+        System.err.println("There is no specified ");
+        return null;
+    }
+
+    private Flight getFlightByID(int id){
+        for (Flight f: this.flights) {
+            if (f.id == id) return f;
+        }
+        return null;
+    }
+
+    private ArrayList<Integer> allTo(Airport a) {
+        ArrayList<Integer> toa = new ArrayList<>();
+        for (Flight f: flights) {
+            if (f.arr == a) {
+                toa.add(f.id);
+            }
+        }
+        return toa;
+    }
+
+    private ArrayList<Integer> allFrom(Airport a) {
+        ArrayList<Integer> froma = new ArrayList<>();
+        for (Flight f: flights) {
+            if (f.dep == a) {
+                froma.add(f.id);
+            }
+        }
+        return froma;
+    }
+
+    private int[] arrayToint(ArrayList<Integer> arr){
+        int[] array = new int[arr.size()];
+        for(int k = 0; k < arr.size(); k++){
+            array[k] = arr.get(k);
+        }
+        return array;
+    }
+
 }

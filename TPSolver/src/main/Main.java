@@ -1,5 +1,7 @@
 package main;
 
+import org.chocosolver.solver.exception.ContradictionException;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class Main{
         return null;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ContradictionException {
 
         BufferedReader br = null;
         FileReader fr = null;
