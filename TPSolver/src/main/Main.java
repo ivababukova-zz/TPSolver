@@ -81,6 +81,10 @@ public class Main{
 
         }
 
+        for (Flight f: flights) {
+            System.out.println(f.id + " " + f.dep.name + " " + f.arr.name);
+        }
+
         Solver s = new Solver(airports, flights, T);
         s.solve();
     }

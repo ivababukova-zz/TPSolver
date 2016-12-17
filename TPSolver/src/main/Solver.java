@@ -36,12 +36,8 @@ public class Solver {
         model.member(S[0], from_home).post();
 
         for(int i = 1; i <= flights.size(); i++) {
-//            Flight f = getFlightByID(i);
-
-            // the first flight must be from the home point
-//            if (f.dep != a0){
-//                model.arithm(S[0], "!=", i).post();
-//            }
+            Flight f = getFlightByID(i);
+            departureConstraint(f);
 
             // if the sequence ends at i, then s[i] must be 0
             model.ifThen(
@@ -61,15 +57,6 @@ public class Solver {
                     model.arithm(S[i-1], "!=", 0)
             );
 
-            // the last flight must go to the home point
-//            if (!toHome.contains(i)) {
-//                for (int zet = 2; zet <= flights.size(); zet++) {
-//                    model.ifThen(
-//                            model.arithm(z, "=", zet),
-//                            model.arithm(S[zet-1], "!=", i)
-//                    );
-//                }
-//            }
             for (int zet = 2; zet <= flights.size(); zet++) {
                 model.ifThen(
                         model.arithm(z, "=", zet),
@@ -88,16 +75,15 @@ public class Solver {
     }
 
     // for every S[i], if S[i] = j, then S[i+1] must depart from the arrival airport of j
-    private void departureConstraint(){
-        for(int i = 1; i <= flights.size(); i++) {
-            int[] all_from = arrayToint(allFrom(getFlightByID(i).arr));
-
-            for (int j = 1; j <= flights.size(); j++) {
-                model.ifThen(
-                        model.arithm(S[j-1], "=", i),
-                        model.member(S[j], all_from)
-                );
-            }
+    private void departureConstraint(Flight f){
+        ArrayList<Integer> af = allFrom(f.arr);
+        af.add(0);
+        int[] all_from = arrayToint(af);
+        for (int j = 1; j <= flights.size(); j++) {
+            model.ifThen(
+                    model.arithm(S[j-1],"=", f.id),
+                    model.member(S[j], all_from)
+            );
         }
     }
 
