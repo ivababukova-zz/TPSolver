@@ -5,9 +5,9 @@ package main;
  */
 public class Airport {
 
-    String name;
-    float conn_time;
-    int purpose; // 0 for home point, 1 for destination, 2 for connection airport
+    public String name;
+    public float conn_time;
+    public int purpose; // 0 for home point, 1 for destination, 2 for connection airport
 
     public Airport(String name, float t, int p){
         this.name = name;

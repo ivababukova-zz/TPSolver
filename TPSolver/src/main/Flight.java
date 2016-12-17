@@ -5,12 +5,12 @@ package main;
  */
 public class Flight {
 
-    int id;
-    Airport dep;
-    Airport arr;
-    float date;
-    float duration;
-    float cost;
+    public int id;
+    public Airport dep;
+    public Airport arr;
+    public float date;
+    public float duration;
+    public float cost;
 
     public Flight(int id,
                   Airport dep,
