@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import helpers.HelperMethods;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.*;
-import org.chocosolver.solver.constraints.nary.count.*;
 
 /**
  * Created by ivababukova on 12/16/16.
@@ -28,20 +27,32 @@ public class Solver {
         this.h = new HelperMethods(as, fs);
     }
 
+    // filters out flights that won't arrive within the specified travel time
+    private void filtering() {
+        for (Flight f: this.flights) {
+            if (f.date + f.duration > this.T) {
+                this.flights.remove(f);
+            }
+        }
+    }
+
     private void init(){
+//        filtering();
+
         this.model = new Model("TP Solver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
 
         Airport a0 = h.getHomePoint();
-        int[] to_home = h.arrayToint(h.allTo(a0));
+        int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
         int[] from_home = h.arrayToint(h.allFrom(a0));
 
         model.member(S[0], from_home).post();
 
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
-            departureConstraint(f);
+
+            timeConstraint(f);
 
             // if the sequence ends at i, then s[i] must be 0
             model.ifThen(
@@ -62,15 +73,13 @@ public class Solver {
             );
 
             // the last non-zero flight should arrive at the home point
-            for (int zet = 2; zet <= flights.size(); zet++) {
-                model.ifThen(
-                        model.arithm(z, "=", zet),
-                        model.member(S[zet-1], to_home)
-                );
-            }
+            model.ifThen(
+                    model.arithm(z, "=", i),
+                    model.member(S[i-1], to_home)
+            );
         }
         this.model.allDifferentExcept0(S).post();
-        
+
         // all destinations must be visited
         for (Airport d: h.getDestinations()) {
             int[] all_to = h.arrayToint(h.allTo(d));
@@ -99,6 +108,19 @@ public class Solver {
         }
     }
 
+    // enforces both time and departure constraints at the same time for all flights but the last flight
+    private void timeConstraint(Flight f){
+        ArrayList<Integer> af = h.allFromTimed(f.arr, f, f.arr.conn_time); // todo: if the flight is last, 0 conn time
+        af.add(0);
+        int[] all_from = h.arrayToint(af);
+        for (int j = 1; j <= flights.size(); j++) {
+            model.ifThen(
+                    model.and(model.arithm(S[j-1],"=", f.id), model.arithm(z, "!=", j)),
+                    model.member(S[j], all_from)
+            );
+        }
+    }
+
     public void solve(){
         init();
         //model.getSolver().propagate();
@@ -117,7 +139,7 @@ public class Solver {
                     System.out.print(s.getValue() + ", ");
                 }
             }
-            System.out.println();
+            System.out.println(z.getValue());
         }
 //        for (IntVar s : S) {
 //            if(s.getValue() != 0){

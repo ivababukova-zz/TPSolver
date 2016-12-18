@@ -50,6 +50,17 @@ public class HelperMethods {
         return toa;
     }
 
+    public ArrayList<Integer> allToHome(Airport a, float T) {
+        ArrayList<Integer> toa = new ArrayList<>();
+        for (Flight f: flights) {
+            float time = f.date + f.duration;
+            if (f.arr == a && time <= T) {
+                toa.add(f.id);
+            }
+        }
+        return toa;
+    }
+
     public ArrayList<Integer> allFrom(Airport a) {
         ArrayList<Integer> froma = new ArrayList<>();
         for (Flight f: flights) {
@@ -59,6 +70,23 @@ public class HelperMethods {
         }
         return froma;
     }
+
+    public ArrayList<Integer> allFromTimed(Airport a, Flight fl, float connTime) {
+        ArrayList<Integer> allowedFlights = new ArrayList<>();
+        System.out.print("Allowed flights after " + fl.id + ": ");
+        for (Flight f: flights) {
+            float time = fl.date + fl.duration + connTime;
+            if (f.dep == a && time <= f.date) {
+                allowedFlights.add(f.id);
+            }
+        }
+        for (int i: allowedFlights) {
+            System.out.print(i + ", ");
+        }
+        System.out.println("**********");
+        return allowedFlights;
+    }
+
 
     public int[] arrayToint(ArrayList<Integer> arr){
         int[] array = new int[arr.size()];
