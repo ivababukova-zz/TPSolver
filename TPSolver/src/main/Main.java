@@ -82,7 +82,7 @@ public class Main{
 
         }
 
-        Solver s = new Solver(airports, flights, T, B);
-        s.solve();
+        ProblemSolver s = new ProblemSolver(airports, flights, T, B);
+        s.getSolution();
     }
 }
