@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Main{
 
     private static final String FILENAME = "data/test1.in";
+    private static final int B = 1000;
     private static ArrayList<Airport> airports = new ArrayList<>();
     private static ArrayList<Flight> flights = new ArrayList<>();
     private static int T;
@@ -81,7 +82,7 @@ public class Main{
 
         }
 
-        Solver s = new Solver(airports, flights, T);
+        Solver s = new Solver(airports, flights, T, B);
         s.solve();
     }
 }

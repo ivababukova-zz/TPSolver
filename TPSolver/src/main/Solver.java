@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import helpers.HelperMethods;
 import org.chocosolver.solver.Model;
+import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.variables.*;
 
 /**
@@ -15,12 +16,15 @@ public class Solver {
     private ArrayList<Airport> airports;
     private ArrayList<Flight> flights;
     private HelperMethods h;
+    private int T;
+    private int B; // upper bound on the cost
+
     private Model model;
     private IntVar[] S;
     private IntVar z;
-    private int T;
+    private IntVar[] C;
 
-    public Solver(ArrayList<Airport> as, ArrayList<Flight> fs, int T){
+    public Solver(ArrayList<Airport> as, ArrayList<Flight> fs, int T, int B){
         this.airports = as;
         this.flights = fs;
         this.T = T;
@@ -42,6 +46,7 @@ public class Solver {
         this.model = new Model("TP Solver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
+        this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5555); // todo instead of B as upper bound, make upper bound = most expensive flight
 
         Airport a0 = h.getHomePoint();
         int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
@@ -53,6 +58,16 @@ public class Solver {
             Flight f = h.getFlightByID(i);
 
             timeConstraint(f);
+//
+            this.model.ifThen(
+                    model.arithm(S[i], "=", 0),
+                    model.arithm(C[i], "=", 0)
+            );
+//
+//            this.model.ifThen(
+//                    model.arithm(S[i], "!=", 0),
+//                    model.arithm(C[i], "=", 99)
+//            );
 
             // if the sequence ends at i, then s[i] must be 0
             model.ifThen(
@@ -77,6 +92,8 @@ public class Solver {
                     model.arithm(z, "=", i),
                     model.member(S[i-1], to_home)
             );
+
+//            costConstraint(i); // todo this is wrong
         }
         this.model.allDifferentExcept0(S).post();
 
@@ -87,12 +104,22 @@ public class Solver {
             this.model.among(X, S, all_to).post();
         }
 
-        // todo the duration + time + conn time constraint
-
-        // todo the total time of the schedule must be less or equal to T
-
         // todo when the instance has no solutions, we need to get an error
 
+        costConstraint();
+
+    }
+
+    private void costConstraint(){
+        for(int i = 1; i<=flights.size(); i++) {
+            int cost = Math.round(h.getFlightByID(i).cost);
+            for (int j = 0; j <= flights.size(); j++) {
+                this.model.ifThen(
+                        model.arithm(S[j], "=", i),
+                        model.arithm(C[j], "=", cost)
+                );
+            }
+        }
     }
 
     // for every S[i], if S[i] = j, then S[i+1] must depart from the arrival airport of j
@@ -121,39 +148,49 @@ public class Solver {
         }
     }
 
+    private void min_cost(){
+        IntVar x = this.model.intVar(0,B);
+        this.model.sum(C, "<=", x).post();
+        this.model.setObjective(Model.MINIMIZE, x);
+    }
+
     public void solve(){
         init();
         //model.getSolver().propagate();
-//        model.getSolver().solve();
-        while (model.getSolver().solve()) {
-            for (IntVar s : S) {
-                if(s.getValue() != 0){
-                    System.out.print(h.getFlightByID(
-                            s.getValue()).dep.name +
-                            "" +
-                            h.getFlightByID(s.getValue()).arr.name +
-                            ", "
-                    );
-                }
-                else{
-                    System.out.print(s.getValue() + ", ");
-                }
-            }
-            System.out.println(z.getValue());
-        }
-//        for (IntVar s : S) {
-//            if(s.getValue() != 0){
-//                System.out.print(h.getFlightByID(
-//                        s.getValue()).dep.name +
-//                        "" +
-//                        h.getFlightByID(s.getValue()).arr.name +
-//                        ", "
-//                );
+        model.getSolver().solve();
+//        while (model.getSolver().solve()) {
+//            for (IntVar s : S) {
+//                if(s.getValue() != 0){
+//                    System.out.print(h.getFlightByID(
+//                            s.getValue()).dep.name +
+//                            "" +
+//                            h.getFlightByID(s.getValue()).arr.name +
+//                            ", "
+//                    );
+//                }
+//                else{
+//                    System.out.print(s.getValue() + ", ");
+//                }
 //            }
-//            else{
-//                System.out.print(s.getValue() + ", ");
-//            }
+//            System.out.println(z.getValue());
 //        }
+        for (IntVar s : S) {
+            if(s.getValue() != 0){
+                System.out.print(h.getFlightByID(
+                        s.getValue()).dep.name +
+                        "" +
+                        h.getFlightByID(s.getValue()).arr.name +
+                        ", "
+                );
+            }
+            else{
+                System.out.print(s.getValue() + ", ");
+            }
+        }
+        System.out.println();
+        for (IntVar s : C) {
+                System.out.print(s.getValue() + ", ");
+        }
         System.out.print("\nAnd z is: ");
         System.out.println(z.getValue());
     }

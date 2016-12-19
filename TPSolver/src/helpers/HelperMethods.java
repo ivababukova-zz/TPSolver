@@ -73,17 +73,17 @@ public class HelperMethods {
 
     public ArrayList<Integer> allFromTimed(Airport a, Flight fl, float connTime) {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
-        System.out.print("Allowed flights after " + fl.id + ": ");
+//        System.out.print("Allowed flights after " + fl.id + ": ");
         for (Flight f: flights) {
             float time = fl.date + fl.duration + connTime;
             if (f.dep == a && time <= f.date) {
                 allowedFlights.add(f.id);
             }
         }
-        for (int i: allowedFlights) {
-            System.out.print(i + ", ");
-        }
-        System.out.println("**********");
+//        for (int i: allowedFlights) {
+//            System.out.print(i + ", ");
+//        }
+//        System.out.println("**********");
         return allowedFlights;
     }
 
