@@ -47,12 +47,7 @@ public class ProblemSolver {
         this.model = new Model("TP ProblemSolver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
-
-        Flight cheapest = h.getCheapestAfter(0);
-        Flight secondCheapest = h.getCheapestAfter(cheapest.cost);
-        int costLB = Math.round(cheapest.cost + secondCheapest.cost);
-
-        this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5555); // todo instead of B as upper bound, make upper bound = most expensive flight
+        this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 500);
         this.cost_sum = this.model.intVar(0, 5000);
 
         this.model.sum(C, "=", cost_sum).post();
@@ -63,30 +58,24 @@ public class ProblemSolver {
         int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
         int[] from_home = h.arrayToint(h.allFrom(a0));
 
-        for (int i: to_home) {
-            System.out.println(i);
-        }
-
         model.member(S[0], from_home).post();
         this.model.arithm(S[1], "!=", 0).post();
+        this.model.arithm(C[0], "!=", 0).post();
 
         destinationConstraint();
-        costConstraint();
 
-        for(int i = 1; i <= flights.size(); i++) {
+        for(int i = 1; i < flights.size(); i++) {
             Flight f = h.getFlightByID(i);
 
             timeConstraint(f);
 
-            this.model.ifThen(
-                    model.arithm(S[i], "=", 0),
-                    model.arithm(C[i], "=", 0)
-            );
-
             // if the sequence ends at i, then s[i] must be 0
             model.ifThen(
                     model.arithm(z, "=", i),
-                    model.and(model.arithm(S[i], "=", 0), model.arithm(S[i-1], "!=", 0))
+                    model.and(
+                            model.arithm(S[i], "=", 0),
+                            model.member(S[i-1], to_home)
+                    )
             );
 
             // if s[i-1] is 0, then s[i] must be 0
@@ -95,20 +84,23 @@ public class ProblemSolver {
                     model.arithm(S[i], "=", 0)
             );
 
+            this.model.ifThen(
+                    model.arithm(S[i], "=", 0),
+                    model.arithm(C[i], "=", 0)
+            );
+
+            this.model.ifThen(
+                    model.arithm(S[i], "!=", 0),
+                    model.arithm(C[i], "!=", 0)
+            );
+
             // if s[i] is not 0, then s[i-1] must not be 0
             model.ifThen(
                     model.arithm(S[i], "!=", 0),
                     model.arithm(S[i-1], "!=", 0)
             );
-
-            // the last non-zero flight should arrive at the home point
-            model.ifThen(
-                    model.arithm(z, "=", i),
-//                    model.arithm(S[i-1], "=", 18)
-                    model.member(S[i-1], to_home)
-            );
-
         }
+        costConstraint();
         this.model.allDifferentExcept0(S).post();
 
         // todo when the instance has no solutions, we need to get an error
@@ -126,11 +118,14 @@ public class ProblemSolver {
     private void costConstraint(){
         for(int i = 1; i<=flights.size(); i++) {
             int cost = Math.round(h.getFlightByID(i).cost);
+//            System.out.println(cost);
             for (int j = 0; j <= flights.size(); j++) {
+//                System.out.println(this.C[j].getDomainSize());
                 this.model.ifThen(
                         model.arithm(S[j], "=", i),
                         model.arithm(C[j], "=", cost)
                 );
+//                System.out.println(this.C[j].getDomainSize());
             }
         }
     }
@@ -158,37 +153,37 @@ public class ProblemSolver {
 
     public void getSolution(){
         init();
-//        min_cost();
-        solver.solve();
-//        solver.findOptimalSolution(this.z, Model.MINIMIZE);
-        printSolution();
-//        while (solver.solve()) {
-//            printSolution();
+        min_cost();
+        Solution x;
+        x = solver.findOptimalSolution(this.cost_sum, Model.MINIMIZE);
+        for (int i = 0; i < x.getIntVal(z); i++) {
+            System.out.print(h.getFlightByID(x.getIntVal(S[i])).dep.name);
+            System.out.println(h.getFlightByID(x.getIntVal(S[i])).arr.name);
+        }
+    }
+
+//    private void printSolution(Solution s) {
+//        for (IntVar s1 : S) {
+//            if(s1.getValue() != 0){
+//                System.out.print(h.getFlightByID(
+//                        s1.getValue()).dep.name +
+//                        "" +
+//                        h.getFlightByID(s1.getValue()).arr.name +
+//                        ", "
+//                );
+//            }
+//            else{
+//                System.out.print(s1.getValue() + ", ");
+//            }
 //        }
-    }
-
-    private void printSolution(){
-        for (IntVar s1 : S) {
-            if(s1.getValue() != 0){
-                System.out.print(h.getFlightByID(
-                        s1.getValue()).dep.name +
-                        "" +
-                        h.getFlightByID(s1.getValue()).arr.name +
-                        ", "
-                );
-            }
-            else{
-                System.out.print(s1.getValue() + ", ");
-            }
-        }
-        System.out.println();
-        for (IntVar c : C) {
-                System.out.print(c.getValue() + ", ");
-        }
-        System.out.print("\nAnd z is: ");
-        System.out.println(z.getValue());
-        System.out.println("And cost_sum is: " + cost_sum.getValue());
-
-    }
+//        System.out.println();
+//        for (IntVar c : C) {
+//                System.out.print(c.getValue() + ", ");
+//        }
+//        System.out.print("\nAnd z is: ");
+//        System.out.println(z.getValue());
+//        System.out.println("And cost_sum is: " + cost_sum.getValue());
+//
+//    }
 
 }
