@@ -47,8 +47,14 @@ public class ProblemSolver {
         this.model = new Model("TP ProblemSolver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
+
+        Flight cheapest = h.getCheapestAfter(0);
+        Flight secondCheapest = h.getCheapestAfter(cheapest.cost);
+        int costLB = Math.round(cheapest.cost + secondCheapest.cost);
+
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5555); // todo instead of B as upper bound, make upper bound = most expensive flight
-        this.cost_sum = this.model.intVar(0, 70000);
+        this.cost_sum = this.model.intVar(0, 5000);
+
         this.model.sum(C, "=", cost_sum).post();
         this.solver = model.getSolver();
 
@@ -57,8 +63,13 @@ public class ProblemSolver {
         int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
         int[] from_home = h.arrayToint(h.allFrom(a0));
 
+        for (int i: to_home) {
+            System.out.println(i);
+        }
+
         model.member(S[0], from_home).post();
         this.model.arithm(S[1], "!=", 0).post();
+
         destinationConstraint();
         costConstraint();
 
@@ -93,11 +104,10 @@ public class ProblemSolver {
             // the last non-zero flight should arrive at the home point
             model.ifThen(
                     model.arithm(z, "=", i),
-                    model.arithm(S[i-1], "=", 18)
-//                    model.member(S[i-1], to_home)
+//                    model.arithm(S[i-1], "=", 18)
+                    model.member(S[i-1], to_home)
             );
 
-//            costConstraint(i); // todo this is wrong
         }
         this.model.allDifferentExcept0(S).post();
 
@@ -141,12 +151,20 @@ public class ProblemSolver {
         this.model.setObjective(Model.MINIMIZE, this.cost_sum);
     }
 
+    private void min_flights(){
+//        this.model.setObjective(Model.MINIMIZE, this.z);
+
+    }
+
     public void getSolution(){
         init();
-        min_cost();
-        while (solver.solve()) {
-            printSolution();
-        }
+//        min_cost();
+        solver.solve();
+//        solver.findOptimalSolution(this.z, Model.MINIMIZE);
+        printSolution();
+//        while (solver.solve()) {
+//            printSolution();
+//        }
     }
 
     private void printSolution(){

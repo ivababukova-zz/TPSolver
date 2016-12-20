@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import ui.UserInterface;
 
 public class Main{
 
@@ -23,7 +24,11 @@ public class Main{
     }
 
     public static void main(String[] args) throws ContradictionException {
+        //UserInterface ui = new UserInterface();
+        initialising();
+    }
 
+    public static void initialising() {
         BufferedReader br = null;
         FileReader fr = null;
 
@@ -49,8 +54,8 @@ public class Main{
                     // read all airports
                     String[] attributes = sCurrentLine.split(", ");
                     Airport a = new Airport(attributes[0],
-                                            Float.parseFloat(attributes[1]),
-                                            Integer.parseInt(attributes[2])
+                            Float.parseFloat(attributes[1]),
+                            Integer.parseInt(attributes[2])
                     );
                     airports.add(a);
                 }

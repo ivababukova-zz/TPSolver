@@ -105,4 +105,17 @@ public class HelperMethods {
         }
         return destinations;
     }
+
+    public Flight getCheapestAfter(float cost){
+        float cheapest = 99999;
+        Flight cheapestF = null;
+        for (Flight f: flights) {
+            if(f.cost > cost && f.cost < cheapest) {
+                cheapest = f.cost;
+                cheapestF = f;
+            }
+        }
+        return cheapestF;
+    }
+
 }
