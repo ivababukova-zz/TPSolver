@@ -45,10 +45,10 @@ public class ProblemSolver {
 
     private void init(){
         this.model = new Model("TP ProblemSolver");
-        this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
+        this.S = model.intVarArray("Flights Schedule", flights.size() + 2, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 500);
-        this.cost_sum = this.model.intVar(0, 5000);
+        this.cost_sum = this.model.intVar(0, B);
 
         this.model.sum(C, "=", cost_sum).post();
         this.solver = model.getSolver();
@@ -64,7 +64,7 @@ public class ProblemSolver {
 
         destinationConstraint();
 
-        for(int i = 1; i < flights.size(); i++) {
+        for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
 
             timeConstraint(f);
@@ -76,6 +76,11 @@ public class ProblemSolver {
                             model.arithm(S[i], "=", 0),
                             model.member(S[i-1], to_home)
                     )
+            );
+
+            model.ifThen(
+                    model.arithm(z, ">", i),
+                    model.arithm(S[i], "!=", 0)
             );
 
             // if s[i-1] is 0, then s[i] must be 0
@@ -142,18 +147,48 @@ public class ProblemSolver {
     public void getSolution(){
         init();
         Solution x;
-//        x = solver.findOptimalSolution(this.cost_sum, Model.MINIMIZE);
-        x = solver.findOptimalSolution(this.z, Model.MINIMIZE);
-        printSolution(x);
+        x = solver.findOptimalSolution(this.cost_sum, Model.MAXIMIZE);
+//        x = solver.findOptimalSolution(this.z, Model.MINIMIZE);
+//        solver.solve();
+//        printSolution();
+        printOptSolution(x);
     }
 
-    private void printSolution(Solution x) {
-        System.out.println(x.getIntVal(z));
+    private void printSolution(){
+        for (IntVar s1 : S) {
+            if(s1.getValue() != 0){
+                System.out.print(
+                        h.getFlightByID(s1.getValue()).dep.name +
+                        "" +
+                        h.getFlightByID(s1.getValue()).arr.name +
+                        ", "
+                );
+            }
+            else{
+                System.out.print(s1.getValue() + ", ");
+            }
+        }
+        System.out.println();
+        for (IntVar c : C) {
+            System.out.print(c.getValue() + ", ");
+        }
+        System.out.print("\nAnd z is: ");
+        System.out.println(z.getValue());
+        System.out.println("And cost_sum is: " + cost_sum.getValue());
+    }
+
+    private void printOptSolution(Solution x) {
+        System.out.println("z is: " + x.getIntVal(z));
         for (int i = 0; i < x.getIntVal(z); i++) {
+//            System.out.print(x.getIntVal(S[i]) + " ");
             System.out.print(h.getFlightByID(x.getIntVal(S[i])).dep.name);
             System.out.print(h.getFlightByID(x.getIntVal(S[i])).arr.name + " ");
         }
-        System.out.println("Total cost: " + x.getIntVal(cost_sum));
+        System.out.println();
+        for (int i = 0; i < x.getIntVal(z); i++) {
+            System.out.print(x.getIntVal(C[i]) + " ");
+        }
+        System.out.println("\nTotal cost: " + x.getIntVal(cost_sum));
     }
 
 }
