@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import helpers.HelperMethods;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
@@ -18,6 +19,7 @@ public class ProblemSolver {
     private HelperMethods h;
     private int T;
     private int B; // upper bound on the cost
+    private String[] args;
 
     private Model model;
     private Solver solver;
@@ -26,12 +28,13 @@ public class ProblemSolver {
     private IntVar[] C;
     private IntVar cost_sum;
 
-    public ProblemSolver(ArrayList<Airport> as, ArrayList<Flight> fs, int T, int B){
+    public ProblemSolver(ArrayList<Airport> as, ArrayList<Flight> fs, int T, int B, String[] args){
         this.airports = as;
         this.flights = fs;
         this.T = T;
         this.B = B;
         this.h = new HelperMethods(as, fs);
+        this.args = args;
     }
 
     // filters out flights that won't arrive within the specified travel time
@@ -147,11 +150,41 @@ public class ProblemSolver {
     public void getSolution(){
         init();
         Solution x;
-        x = solver.findOptimalSolution(this.cost_sum, Model.MAXIMIZE);
-//        x = solver.findOptimalSolution(this.z, Model.MINIMIZE);
-//        solver.solve();
-//        printSolution();
-        printOptSolution(x);
+        Boolean m = null;
+        IntVar to_optimise = null;
+
+        if (args.length == 0) {
+            solver.solve();
+            printSolution();
+        }
+
+        if (args.length == 2){
+
+            if (args[0].equals("-min")) {
+                m = Model.MINIMIZE;
+            } else if (args[0].equals("-max")) {
+                m = Model.MAXIMIZE;
+            } else {
+                System.out.println("Wrong first argument provided");
+                return;
+            }
+
+            if (args[1].equals("-cost")) {
+                to_optimise = this.cost_sum;
+            } else if (args[1].equals("-flights")) {
+                to_optimise = this.z;
+            } else {
+                System.out.println("Wrong second argument provided");
+                return;
+            }
+
+            x = solver.findOptimalSolution(to_optimise, m);
+            printOptSolution(x);
+        }
+
+        else {
+            System.out.println("Not enough arguments provided");
+        }
     }
 
     private void printSolution(){

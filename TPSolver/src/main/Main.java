@@ -6,7 +6,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import ui.UserInterface;
 
 public class Main{
 
@@ -25,10 +24,10 @@ public class Main{
 
     public static void main(String[] args) throws ContradictionException {
         //UserInterface ui = new UserInterface();
-        initialising();
+        initialising(args);
     }
 
-    public static void initialising() {
+    public static void initialising(String[] args) {
         BufferedReader br = null;
         FileReader fr = null;
 
@@ -86,8 +85,7 @@ public class Main{
             } catch (IOException ex) {ex.printStackTrace();}
 
         }
-
-        ProblemSolver s = new ProblemSolver(airports, flights, T, B);
+        ProblemSolver s = new ProblemSolver(airports, flights, T, B, args);
         s.getSolution();
     }
 }
