@@ -50,6 +50,16 @@ public class HelperMethods {
         return toa;
     }
 
+    public ArrayList<Integer> allToBefore(Airport a, float date) {
+        ArrayList<Integer> toa = new ArrayList<>();
+        for (Flight f: flights) {
+            if (f.arr == a && (f.date + f.duration + a.conn_time) <= date) {
+                toa.add(f.id);
+            }
+        }
+        return toa;
+    }
+
     public ArrayList<Integer> allToHome(Airport a, float T) {
         ArrayList<Integer> toa = new ArrayList<>();
         for (Flight f: flights) {
@@ -65,6 +75,17 @@ public class HelperMethods {
         ArrayList<Integer> froma = new ArrayList<>();
         for (Flight f: flights) {
             if (f.dep == a) {
+                froma.add(f.id);
+            }
+        }
+        return froma;
+    }
+
+    public ArrayList<Integer> allFromAfter(Airport a, float date) {
+        ArrayList<Integer> froma = new ArrayList<>();
+        Flight test = this.getFlightByID(7);
+        for (Flight f: flights) {
+            if (f.dep == a && f.date >= date + 1) { // allow for at least 1 day stay at a
                 froma.add(f.id);
             }
         }

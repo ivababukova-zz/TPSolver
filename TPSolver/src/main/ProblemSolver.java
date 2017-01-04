@@ -1,8 +1,8 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import helpers.HelperMethods;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
@@ -39,24 +39,27 @@ public class ProblemSolver {
 
     // filters out flights that won't arrive within the specified travel time
     private void filtering() {
-        for (Flight f: this.flights) {
-            if (f.date + f.duration > this.T) {
-                this.flights.remove(f);
-            }
+        ArrayList<Flight> newflights = new ArrayList<>();
+        for(Flight f: this.flights) {
+            if (f.date + f.duration <= this.T) newflights.add(f);
         }
+        this.flights = newflights;
     }
 
     private void init(){
         this.model = new Model("TP ProblemSolver");
-        this.S = model.intVarArray("Flights Schedule", flights.size() + 2, 0, flights.size());
+        this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 500);
         this.cost_sum = this.model.intVar(0, B);
-
         this.model.sum(C, "=", cost_sum).post();
         this.solver = model.getSolver();
 
+        this.findSchedule();
 
+    }
+
+    private void findSchedule() {
         Airport a0 = h.getHomePoint();
         int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
         int[] from_home = h.arrayToint(h.allFrom(a0));
@@ -110,8 +113,52 @@ public class ProblemSolver {
         }
         costConstraint();
         this.model.allDifferentExcept0(S).post();
+        this.dateLocationConstraint(airports.get(3), 3);
 
-        // todo when the instance has no solutions, we need to get an error
+    }
+
+    // call this function when no flights to connection airports are allowed
+    private void removeConnections(){
+        ArrayList<Flight> newflights = new ArrayList<>();
+        for(Flight f: this.flights) {
+            if (f.arr.purpose != 2 && f.dep.purpose != 2) newflights.add(f);
+        }
+        this.flights = newflights;
+        for (Flight f: newflights) {
+            System.out.print(f.dep.name + f.arr.name + " ");
+        }
+        System.out.println();
+    }
+
+    // hard constraint 2
+    // be at date d at airport a
+    // arrive at a before d. The next flight should leave a at date after d
+    private void dateLocationConstraint(Airport a, float date) {
+        int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
+        int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
+        IntVar X = this.model.intVar(1, all_to_before.length);
+        IntVar Y = this.model.intVar(1, all_from_after.length);
+        this.model.among(X, S, all_to_before).post(); // S must contain at least one flight that goes to d
+        this.model.among(Y, S, all_from_after).post();
+
+        for(int i = 1; i <= flights.size(); i++) {
+            for (int j : all_to_before) {
+                model.ifThen(
+                        model.arithm(S[i-1], "=", j),
+                        model.member(S[i], all_from_after)
+                );
+            }
+        }
+        
+        System.out.print("All flights before ");
+        for (int j : all_to_before) {
+            System.out.print(j + " ");
+        }
+        System.out.print("\nAll flights after ");
+        for (int j : all_from_after) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
     }
 
     // all destinations must be visited
@@ -156,13 +203,16 @@ public class ProblemSolver {
         if (args.length == 0) {
             solver.solve();
             printSolution();
+            return;
         }
 
         if (args.length == 2){
 
             if (args[0].equals("-min")) {
+                System.out.print("Solution with minimum ");
                 m = Model.MINIMIZE;
             } else if (args[0].equals("-max")) {
+                System.out.print("Solution with maximum ");
                 m = Model.MAXIMIZE;
             } else {
                 System.out.println("Wrong first argument provided");
@@ -170,8 +220,10 @@ public class ProblemSolver {
             }
 
             if (args[1].equals("-cost")) {
+                System.out.println("cost:");
                 to_optimise = this.cost_sum;
             } else if (args[1].equals("-flights")) {
+                System.out.println("number of flights:");
                 to_optimise = this.z;
             } else {
                 System.out.println("Wrong second argument provided");
@@ -192,18 +244,22 @@ public class ProblemSolver {
             if(s1.getValue() != 0){
                 System.out.print(
                         h.getFlightByID(s1.getValue()).dep.name +
-                        "" +
                         h.getFlightByID(s1.getValue()).arr.name +
-                        ", "
+                        " "
                 );
             }
-            else{
-                System.out.print(s1.getValue() + ", ");
+        }
+        System.out.println();
+        for (IntVar s1 : S) {
+            if(s1.getValue() != 0){
+                int date = Math.round(h.getFlightByID(s1.getValue()).date);
+                if (date <= 9) System.out.print(date + "  ");
+                if (date > 9) System.out.print(date + " ");
             }
         }
         System.out.println();
         for (IntVar c : C) {
-            System.out.print(c.getValue() + ", ");
+            if (c.getValue() != 0) System.out.print(c.getValue() + " ");
         }
         System.out.print("\nAnd z is: ");
         System.out.println(z.getValue());
