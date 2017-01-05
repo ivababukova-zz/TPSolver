@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Main{
 
-    private static final String FILENAME = "data/test1.in";
+    private static final String FILENAME = "data/test2.in";
     private static final int B = 1000;
     private static ArrayList<Airport> airports = new ArrayList<>();
     private static ArrayList<Flight> flights = new ArrayList<>();

@@ -1,0 +1,37 @@
+# airport name, connection time, 0 for homepoint/1 for destination/2 for connection
+G, 0, 0
+A, 0, 1
+F, 0, 2
+B, 0, 1
+L, 0, 2
+M, 0, 1
+P, 0, 1
+# flight no, dep airport, arr airport, date, duration, cost
+1, G, A, 1, 1, 74
+2, G, F, 1, 1, 86
+3, F, B, 2, 1, 15
+4, A, B, 2, 1, 15
+5, G, B, 2, 1, 15
+6, G, L, 3, 1, 25
+7, M, F, 3, 1, 78
+8, B, P, 4, 1, 67
+9, A, P, 4, 1, 58
+10, P, M, 6, 1, 71
+11, F, M, 9, 1, 39
+12, M, F, 9, 1, 39
+13, F, A, 10, 1, 220
+14, F, B, 11, 1, 122
+15, F, M, 12, 1, 250
+16, P, L, 12, 1, 45
+17, B, G, 13, 1, 335
+18, B, L, 13, 1, 102
+19, A, G, 13, 1, 90
+20, L, G, 14, 1, 24
+21, F, B, 13, 1, 12
+22, M, B, 13, 1, 12
+23, A, B, 13, 1, 12
+24, B, G, 14, 1, 12
+25, B, M, 3, 1, 50
+26, B, F, 4, 1, 50
+# holiday time T
+15

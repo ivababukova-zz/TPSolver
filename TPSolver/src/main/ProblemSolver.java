@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import helpers.HelperMethods;
+import helpers.Tuple;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
 import org.chocosolver.solver.variables.*;
@@ -20,10 +21,12 @@ public class ProblemSolver {
     private int T;
     private int B; // upper bound on the cost
     private String[] args;
+    ArrayList<Tuple> tuples;
 
     private Model model;
     private Solver solver;
     private IntVar[] S;
+    private IntVar[] D;
     private IntVar z;
     private IntVar[] C;
     private IntVar cost_sum;
@@ -35,6 +38,11 @@ public class ProblemSolver {
         this.B = B;
         this.h = new HelperMethods(as, fs);
         this.args = args;
+
+        // todo: fix this hard coding of tuples. Tuples should come from arguments
+        Tuple tup = new Tuple(airports.get(3), 12);
+        this.tuples = new ArrayList<>();
+        this.tuples.add(tup);
     }
 
     // filters out flights that won't arrive within the specified travel time
@@ -69,6 +77,7 @@ public class ProblemSolver {
         this.model.arithm(C[0], "!=", 0).post();
 
         destinationConstraint();
+        hardConstraint2();
 
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
@@ -113,8 +122,6 @@ public class ProblemSolver {
         }
         costConstraint();
         this.model.allDifferentExcept0(S).post();
-        this.dateLocationConstraint(airports.get(3), 3);
-
     }
 
     // call this function when no flights to connection airports are allowed
@@ -131,34 +138,38 @@ public class ProblemSolver {
     }
 
     // hard constraint 2
-    // be at date d at airport a
-    // arrive at a before d. The next flight should leave a at date after d
-    private void dateLocationConstraint(Airport a, float date) {
+    private void dateLocationConstraint(Airport a, float date, int index) {
+        System.out.println(a.name + " " + date + " " + index);
         int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
         int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
-        IntVar X = this.model.intVar(1, all_to_before.length);
-        IntVar Y = this.model.intVar(1, all_from_after.length);
-        this.model.among(X, S, all_to_before).post(); // S must contain at least one flight that goes to d
-        this.model.among(Y, S, all_from_after).post();
 
-        for(int i = 1; i <= flights.size(); i++) {
-            for (int j : all_to_before) {
-                model.ifThen(
-                        model.arithm(S[i-1], "=", j),
-                        model.member(S[i], all_from_after)
-                );
-            }
+        for(int j = 1; j <= flights.size(); j++) {
+            model.ifThen(
+                    model.arithm(D[index], "=", j),
+                    model.and(
+                        model.member(S[j-1], all_to_before),
+                        model.member(S[j], all_from_after)
+                    )
+            );
         }
-        
-        System.out.print("All flights before ");
-        for (int j : all_to_before) {
-            System.out.print(j + " ");
+    }
+
+    private void hardConstraint2(){
+        this.D = model.intVarArray(
+                "Destinations with hard constr 2",
+                tuples.size() + 1,
+                0,
+                flights.size());
+        this.model.arithm(D[0], "=", 0).post(); // D[0] is not important
+        this.model.allDifferent(D).post();
+        int index = 1;
+        for (Tuple tup : this.tuples) {
+            Airport a = tup.getA();
+            a.setIndex(index);
+            float date = tup.getDate();
+            this.dateLocationConstraint(a, date, index);
+            index ++;
         }
-        System.out.print("\nAll flights after ");
-        for (int j : all_from_after) {
-            System.out.print(j + " ");
-        }
-        System.out.println();
     }
 
     // all destinations must be visited
@@ -201,8 +212,12 @@ public class ProblemSolver {
         IntVar to_optimise = null;
 
         if (args.length == 0) {
-            solver.solve();
-            printSolution();
+            x = solver.findSolution();
+            if (x == null) {
+                System.out.println("No solution was found");
+                return;
+            }
+            printSolution(x);
             return;
         }
 
@@ -231,7 +246,11 @@ public class ProblemSolver {
             }
 
             x = solver.findOptimalSolution(to_optimise, m);
-            printOptSolution(x);
+            if (x == null) {
+                System.out.println("No solution was found");
+                return;
+            }
+            printSolution(x);
         }
 
         else {
@@ -239,39 +258,17 @@ public class ProblemSolver {
         }
     }
 
-    private void printSolution(){
-        for (IntVar s1 : S) {
-            if(s1.getValue() != 0){
-                System.out.print(
-                        h.getFlightByID(s1.getValue()).dep.name +
-                        h.getFlightByID(s1.getValue()).arr.name +
-                        " "
-                );
-            }
-        }
-        System.out.println();
-        for (IntVar s1 : S) {
-            if(s1.getValue() != 0){
-                int date = Math.round(h.getFlightByID(s1.getValue()).date);
-                if (date <= 9) System.out.print(date + "  ");
-                if (date > 9) System.out.print(date + " ");
-            }
-        }
-        System.out.println();
-        for (IntVar c : C) {
-            if (c.getValue() != 0) System.out.print(c.getValue() + " ");
-        }
-        System.out.print("\nAnd z is: ");
-        System.out.println(z.getValue());
-        System.out.println("And cost_sum is: " + cost_sum.getValue());
-    }
-
-    private void printOptSolution(Solution x) {
+    private void printSolution(Solution x) {
         System.out.println("z is: " + x.getIntVal(z));
         for (int i = 0; i < x.getIntVal(z); i++) {
-//            System.out.print(x.getIntVal(S[i]) + " ");
             System.out.print(h.getFlightByID(x.getIntVal(S[i])).dep.name);
             System.out.print(h.getFlightByID(x.getIntVal(S[i])).arr.name + " ");
+        }
+        System.out.println();
+        for (int i = 0; i < x.getIntVal(z); i++) {
+            int date = Math.round(h.getFlightByID(x.getIntVal(S[i])).date);
+            if (date <= 9) System.out.print(date + "  ");
+            if (date > 9) System.out.print(date + " ");
         }
         System.out.println();
         for (int i = 0; i < x.getIntVal(z); i++) {
