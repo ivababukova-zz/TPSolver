@@ -50,7 +50,7 @@ public class HelperMethods {
         return toa;
     }
 
-    public ArrayList<Integer> allToBefore(Airport a, float date) {
+    public ArrayList<Integer> allToBefore(Airport a, double date) {
         ArrayList<Integer> toa = new ArrayList<>();
         for (Flight f: flights) {
             if (f.arr == a && (f.date + f.duration + a.conn_time) <= date) {
@@ -81,7 +81,7 @@ public class HelperMethods {
         return froma;
     }
 
-    public ArrayList<Integer> allFromAfter(Airport a, float date) {
+    public ArrayList<Integer> allFromAfter(Airport a, double date) {
         ArrayList<Integer> froma = new ArrayList<>();
         Flight test = this.getFlightByID(7);
         for (Flight f: flights) {
@@ -122,7 +122,7 @@ public class HelperMethods {
         return destinations;
     }
 
-    public Flight getCheapestAfter(double cost){
+    public Flight getCheapestAfter(float cost){
         double cheapest = 99999;
         Flight cheapestF = null;
         for (Flight f: flights) {

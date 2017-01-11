@@ -8,8 +8,8 @@ import main.Airport;
 public class Tuple {
 
     private Airport a;
-    private float date;
-    public Tuple(Airport x, float y) {
+    private double date;
+    public Tuple(Airport x, double y) {
         this.a = x;
         this.date = y;
     }
@@ -18,7 +18,7 @@ public class Tuple {
         return this.a;
     }
 
-    public float getDate(){
+    public double getDate(){
         return this.date;
     }
 }

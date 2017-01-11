@@ -29,18 +29,20 @@ public class ProblemSolver {
     private IntVar[] C;
     private IntVar cost_sum;
 
-    public ProblemSolver(ArrayList<Airport> as, ArrayList<Flight> fs, int T, int B, String[] args){
+    public ProblemSolver(
+            ArrayList<Airport> as,
+            ArrayList<Flight> fs,
+            int T,
+            int B,
+            String[] args,
+            ArrayList<Tuple> tuples
+    ){
         this.flights = fs;
         this.T = T;
         this.B = B;
         this.h = new HelperMethods(as, fs);
         this.args = args;
-        this.tuples = new ArrayList<>();
-
-//        // todo: fix this hard coding of tuples. Tuples should come from arguments
-//        Tuple tup = new Tuple(airports.get(3), 3);
-//        this.tuples = new ArrayList<>();
-//        this.tuples.add(tup);
+        this.tuples = tuples;
     }
 
 
@@ -76,7 +78,7 @@ public class ProblemSolver {
         this.model.arithm(C[0], "!=", 0).post();
 
         destinationConstraint();
-        hardConstraint2();
+        if (this.tuples != null) hardConstraint2();
 
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
@@ -137,7 +139,7 @@ public class ProblemSolver {
     }
 
     // hard constraint 2
-    private void dateLocationConstraint(Airport a, float date, int index) {
+    private void dateLocationConstraint(Airport a, double date, int index) {
         System.out.println(a.name + " " + date + " " + index);
         int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
         int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
@@ -165,7 +167,7 @@ public class ProblemSolver {
         for (Tuple tup : this.tuples) {
             Airport a = tup.getA();
             a.setIndex(index);
-            float date = tup.getDate();
+            double date = tup.getDate();
             this.dateLocationConstraint(a, date, index);
             index ++;
         }

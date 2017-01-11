@@ -1,5 +1,6 @@
 package main;
 
+import helpers.Tuple;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -23,11 +24,15 @@ public class Main{
         JSONObject jobj = (JSONObject) obj;
         JSONArray jairports = (JSONArray) jobj.get("airports");
         JSONArray jflights = (JSONArray) jobj.get("flights");
+        JSONArray jtuples = (JSONArray) jobj.get("hard_constraint_2");
 
         int T = ((Number)jobj.get("holiday_time")).intValue();
-        ArrayList<Airport> airports = createAirports(jairports);
+        createAirports(jairports);
         ArrayList<Flight> flights = createFlights(jflights);
-        ProblemSolver s = new ProblemSolver(airports, flights, T, B, args);
+        ArrayList<Tuple> tuples = new ArrayList<>();
+        if (jtuples != null) tuples = createHC2(jtuples);
+
+        ProblemSolver s = new ProblemSolver(airports, flights, T, B, args, tuples);
         s.getSolution();
     }
 
@@ -47,8 +52,7 @@ public class Main{
         return flights;
     }
 
-    private static ArrayList<Airport> createAirports(JSONArray jairports) {
-        ArrayList<Airport> airports = new ArrayList<>();
+    private static void createAirports(JSONArray jairports) {
         for (int i = 0; i < jairports.size(); i++) {
             JSONObject airport = (JSONObject) jairports.get(i);
             String name = (String) airport.get("name");
@@ -57,7 +61,18 @@ public class Main{
             Airport a = new Airport(name, conn_time, purpose);
             airports.add(a);
         }
-        return airports;
+    }
+
+    private static ArrayList<Tuple> createHC2 (JSONArray jtuples) {
+        ArrayList<Tuple> tuples = new ArrayList<>();
+        for (int i = 0; i < jtuples.size(); i++) {
+            JSONObject tuple = (JSONObject) jtuples.get(i);
+            Airport a = getByName((String) tuple.get("airport"));
+            double date = ((Number)tuple.get("date")).doubleValue();
+            Tuple t = new Tuple(a, date);
+            tuples.add(t);
+        }
+        return tuples;
     }
 
     private static Airport getByName(String name){

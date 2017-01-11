@@ -183,5 +183,12 @@
       "price" : 24
     }
   ],
-  "holiday_time" : 15
+  "holiday_time" : 15,
+  "hard_constraint_2" :
+  [
+    {
+      "airport" : "B",
+      "date" : 3
+    }
+  ]
 }
