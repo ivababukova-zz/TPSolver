@@ -22,8 +22,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+            <state relative-caret-position="180">
+              <caret line="12" column="54" lean-forward="false" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -34,8 +34,20 @@
       <file leaf-file-name="test1.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/test1.json">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3060">
+              <caret line="241" column="0" lean-forward="false" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="22" />
+              <folding>
+                <marker date="1484149572000" expanded="true" signature="4339:4450" ph="[...]" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test_max_flights.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/test_max_flights.json">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="622">
-              <caret line="192" column="3" lean-forward="false" selection-start-line="192" selection-start-column="3" selection-end-line="192" selection-end-column="3" />
+              <caret line="95" column="20" lean-forward="false" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -64,8 +76,8 @@
       <file leaf-file-name="ProblemSolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/ProblemSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="85" column="18" lean-forward="true" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="19" />
+            <state relative-caret-position="-1700">
+              <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="133" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -98,13 +110,13 @@
     <findStrings>
       <find>from_home</find>
       <find>to_home</find>
-      <find>cost_sum</find>
       <find>timeConstraint</find>
       <find>allFromTimed</find>
       <find>dateLocationConstraint</find>
       <find>allToBefore</find>
       <find>allFromAfter</find>
       <find>hardConstraint2</find>
+      <find>cost_sum</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -128,9 +140,10 @@
         <option value="$PROJECT_DIR$/src/main/Flight.java" />
         <option value="$PROJECT_DIR$/src/helpers/Tuple.java" />
         <option value="$PROJECT_DIR$/src/helpers/HelperMethods.java" />
-        <option value="$PROJECT_DIR$/src/main/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/ProblemSolver.java" />
         <option value="$PROJECT_DIR$/data/test1.json" />
+        <option value="$PROJECT_DIR$/data/test_max_flights.json" />
+        <option value="$PROJECT_DIR$/src/main/ProblemSolver.java" />
+        <option value="$PROJECT_DIR$/src/main/Main.java" />
       </list>
     </option>
   </component>
@@ -270,7 +283,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="main.Main" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="-min -flights" />
+      <option name="PROGRAM_PARAMETERS" value="-max -trip_duration" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -662,12 +675,12 @@
       <workItem from="1481903837318" duration="673000" />
       <workItem from="1481904726451" duration="79249000" />
       <workItem from="1482492029271" duration="27935000" />
-      <workItem from="1483959728332" duration="10715000" />
+      <workItem from="1483959728332" duration="16489000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118572000" />
+    <option name="totallyTimeSpent" value="124346000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="0" />
@@ -682,7 +695,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37578124" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37578124" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -928,28 +941,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data/test1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3060">
+          <caret line="241" column="0" lean-forward="false" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="22" />
+          <folding>
+            <marker date="1484149572000" expanded="true" signature="4339:4450" ph="[...]" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/test_max_flights.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="95" column="20" lean-forward="false" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/ProblemSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="85" column="18" lean-forward="true" selection-start-line="85" selection-start-column="18" selection-end-line="85" selection-end-column="19" />
+        <state relative-caret-position="-1700">
+          <caret line="130" column="0" lean-forward="false" selection-start-line="130" selection-start-column="0" selection-end-line="133" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/test1.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="192" column="3" lean-forward="false" selection-start-line="192" selection-start-column="3" selection-end-line="192" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+        <state relative-caret-position="180">
+          <caret line="12" column="54" lean-forward="false" selection-start-line="12" selection-start-column="54" selection-end-line="12" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

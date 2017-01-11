@@ -1,0 +1,97 @@
+{
+  "airports" : [
+    {
+      "name" : "G",
+      "connection_time" : 0,
+      "purpose" : "home_point"
+    },
+    {
+      "name" : "A",
+      "connection_time" : 0,
+      "purpose" : "destination"
+    }
+  ],
+  "flights": [
+    {
+      "id" : 1,
+      "dep_airport" : "G",
+      "arr_airport" : "A",
+      "date" : 1,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 2,
+      "dep_airport" : "A",
+      "arr_airport" : "G",
+      "date" : 2,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 3,
+      "dep_airport" : "G",
+      "arr_airport" : "A",
+      "date" : 3,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 4,
+      "dep_airport" : "A",
+      "arr_airport" : "G",
+      "date" : 4,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 5,
+      "dep_airport" : "G",
+      "arr_airport" : "A",
+      "date" : 5,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 6,
+      "dep_airport" : "A",
+      "arr_airport" : "G",
+      "date" : 6,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 7,
+      "dep_airport" : "G",
+      "arr_airport" : "A",
+      "date" : 7,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 8,
+      "dep_airport" : "A",
+      "arr_airport" : "G",
+      "date" : 8,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 9,
+      "dep_airport" : "G",
+      "arr_airport" : "A",
+      "date" : 9,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 10,
+      "dep_airport" : "A",
+      "arr_airport" : "G",
+      "date" : 10,
+      "duration" : 1,
+      "price" : 74
+    }
+  ],
+  "holiday_time" : 20
+}

@@ -23,11 +23,13 @@ public class ProblemSolver {
 
     private Model model;
     private Solver solver;
-    private IntVar[] S;
-    private IntVar[] D;
-    private IntVar z;
-    private IntVar[] C;
-    private IntVar cost_sum;
+    private IntVar[] S; // the flights schedule
+    private IntVar[] D; // for hard constraint 2
+    private IntVar z; // the number of flights in the schedule
+    private IntVar[] C; // C[i] is equal to the cost of flight S[i]
+    private IntVar cost_sum; // the total cost of the flights schedule
+    private IntVar last_flight; // the day when traveller will have finished the trip
+    private IntVar trip_duration;
 
     public ProblemSolver(
             ArrayList<Airport> as,
@@ -61,8 +63,12 @@ public class ProblemSolver {
         this.z = model.intVar("End of schedule", 2, flights.size());
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 500);
         this.cost_sum = this.model.intVar(0, B);
-        this.model.sum(C, "=", cost_sum).post();
+        this.last_flight = this.model.intVar(1, flights.size());
+        this.trip_duration = this.model.intVar(1, T);
+
         this.solver = model.getSolver();
+
+        this.model.sum(C, "=", cost_sum).post();
 
         this.findSchedule();
 
@@ -78,7 +84,7 @@ public class ProblemSolver {
         this.model.arithm(C[0], "!=", 0).post();
 
         destinationConstraint();
-        if (this.tuples != null) hardConstraint2();
+//        if (this.tuples != null) hardConstraint2();
 
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
@@ -90,7 +96,8 @@ public class ProblemSolver {
                     model.arithm(z, "=", i),
                     model.and(
                             model.arithm(S[i], "=", 0),
-                            model.member(S[i-1], to_home)
+                            model.member(S[i-1], to_home),
+                            model.arithm(last_flight, "=", S[i-1])
                     )
             );
 
@@ -120,6 +127,11 @@ public class ProblemSolver {
                     model.arithm(S[i], "!=", 0),
                     model.arithm(S[i-1], "!=", 0)
             );
+
+            model.ifThen(
+                    model.arithm(last_flight, "=", i),
+                    model.arithm(trip_duration, "=", (int) (f.date + f.duration))
+            );
         }
         costConstraint();
         this.model.allDifferentExcept0(S).post();
@@ -138,22 +150,7 @@ public class ProblemSolver {
         System.out.println();
     }
 
-    // hard constraint 2
-    private void dateLocationConstraint(Airport a, double date, int index) {
-        System.out.println(a.name + " " + date + " " + index);
-        int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
-        int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
-
-        for(int j = 1; j <= flights.size(); j++) {
-            model.ifThen(
-                    model.arithm(D[index], "=", j),
-                    model.and(
-                        model.member(S[j-1], all_to_before),
-                        model.member(S[j], all_from_after)
-                    )
-            );
-        }
-    }
+    /*** HARD CONSTRAINT 2 CODE ***/
 
     private void hardConstraint2(){
         this.D = model.intVarArray(
@@ -173,6 +170,25 @@ public class ProblemSolver {
         }
     }
 
+    // hard constraint 2
+    private void dateLocationConstraint(Airport a, double date, int index) {
+        System.out.println(a.name + " " + date + " " + index);
+        int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
+        int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
+
+        for(int j = 1; j <= flights.size(); j++) {
+            model.ifThen(
+                    model.arithm(D[index], "=", j),
+                    model.and(
+                            model.member(S[j-1], all_to_before),
+                            model.member(S[j], all_from_after)
+                    )
+            );
+        }
+    }
+
+    /*** ***/
+
     // all destinations must be visited
     private void destinationConstraint(){
         for (Airport d: h.getDestinations()) {
@@ -182,6 +198,7 @@ public class ProblemSolver {
         }
     }
 
+    // set the values of C
     private void costConstraint(){
         for(int i = 1; i<=flights.size(); i++) {
             int cost = (int) h.getFlightByID(i).cost;
@@ -241,6 +258,9 @@ public class ProblemSolver {
             } else if (args[1].equals("-flights")) {
                 System.out.println("number of flights:");
                 to_optimise = this.z;
+            } else if (args[1].equals("-trip_duration")){
+                System.out.println("trip duration:");
+                to_optimise = this.trip_duration;
             } else {
                 System.out.println("Wrong second argument provided");
                 return;
@@ -275,7 +295,9 @@ public class ProblemSolver {
         for (int i = 0; i < x.getIntVal(z); i++) {
             System.out.print(x.getIntVal(C[i]) + " ");
         }
-        System.out.println("\nTotal cost: " + x.getIntVal(cost_sum));
+        System.out.println("\nLast flight: " + x.getIntVal(last_flight));
+        System.out.println("Total cost: " + x.getIntVal(cost_sum));
+        System.out.println("Trip duration: " + x.getIntVal(trip_duration));
     }
 
 }
