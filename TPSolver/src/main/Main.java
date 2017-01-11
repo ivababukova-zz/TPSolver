@@ -1,5 +1,6 @@
 package main;
 
+import cp.CPsolver;
 import helpers.Tuple;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
@@ -32,7 +33,7 @@ public class Main{
         ArrayList<Tuple> tuples = new ArrayList<>();
         if (jtuples != null) tuples = createHC2(jtuples);
 
-        ProblemSolver s = new ProblemSolver(airports, flights, T, B, args, tuples);
+        CPsolver s = new CPsolver(airports, flights, T, B, args, tuples);
         s.getSolution();
     }
 

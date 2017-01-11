@@ -3,14 +3,10 @@ package ui;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import main.Airport;
 import main.Flight;
-import main.ProblemSolver;
 
 /**
  * Created by ivababukova on 12/19/16.
@@ -143,7 +139,7 @@ public class UserInterface extends JFrame{
 //
 //        }
 //
-//        ProblemSolver s = new ProblemSolver(airports, flights, T, B);
+//        CPsolver s = new CPsolver(airports, flights, T, B);
 //        s.getSolution();
 //    }
 }

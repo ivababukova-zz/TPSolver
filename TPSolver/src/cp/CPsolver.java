@@ -1,6 +1,9 @@
-package main;
+package cp;
 
 import java.util.ArrayList;
+
+import main.Airport;
+import main.Flight;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
 import org.chocosolver.solver.variables.*;
@@ -12,7 +15,7 @@ import helpers.Tuple;
  * Created by ivababukova on 12/16/16.
  * this is the CP solver for TP
  */
-public class ProblemSolver {
+public class CPsolver {
 
     private ArrayList<Flight> flights;
     private HelperMethods h;
@@ -31,7 +34,7 @@ public class ProblemSolver {
     private IntVar last_flight; // the day when traveller will have finished the trip
     private IntVar trip_duration;
 
-    public ProblemSolver(
+    public CPsolver(
             ArrayList<Airport> as,
             ArrayList<Flight> fs,
             int T,
@@ -58,7 +61,7 @@ public class ProblemSolver {
     }
 
     private void init(){
-        this.model = new Model("TP ProblemSolver");
+        this.model = new Model("TP CPsolver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 500);
@@ -198,6 +201,7 @@ public class ProblemSolver {
         }
     }
 
+    // todo this is very inefficient
     // set the values of C
     private void costConstraint(){
         for(int i = 1; i<=flights.size(); i++) {
