@@ -1,0 +1,187 @@
+{
+  "airports" : [
+    {
+      "name" : "G",
+      "connection_time" : 0,
+      "purpose" : "home_point"
+    },
+    {
+      "name" : "A",
+      "connection_time" : 0,
+      "purpose" : "destination"
+    },
+    {
+      "name" : "F",
+      "connection_time" : 0,
+      "purpose" : "connection"
+    },
+    {
+      "name" : "B",
+      "connection_time" : 0,
+      "purpose" : "destination"
+    },
+    {
+      "name" : "L",
+      "connection_time" : 0,
+      "purpose" : "connection"
+    },
+    {
+      "name" : "M",
+      "connection_time" : 0,
+      "purpose" : "destination"
+    },
+    {
+      "name" : "P",
+      "connection_time" : 0,
+      "purpose" : "destination"
+    }
+  ],
+
+  "flights": [
+    {
+      "id" : 1,
+      "dep_airport" : "G",
+      "arr_airport" : "A",
+      "date" : 1,
+      "duration" : 1,
+      "price" : 74
+    },
+    {
+      "id" : 2,
+      "dep_airport" : "G",
+      "arr_airport" : "F",
+      "date" : 1,
+      "duration" : 1,
+      "price" : 86
+    },
+    {
+      "id" : 3,
+      "dep_airport" : "F",
+      "arr_airport" : "B",
+      "date" : 2,
+      "duration" : 1,
+      "price" : 156
+    },
+    {
+      "id" : 4,
+      "dep_airport" : "G",
+      "arr_airport" : "L",
+      "date" : 3,
+      "duration" : 1,
+      "price" : 25
+    },
+    {
+      "id" : 5,
+      "dep_airport" : "M",
+      "arr_airport" : "F",
+      "date" : 3,
+      "duration" : 1,
+      "price" : 78
+    },
+    {
+      "id" : 6,
+      "dep_airport" : "B",
+      "arr_airport" : "P",
+      "date" : 4,
+      "duration" : 1,
+      "price" : 67
+    },
+    {
+      "id" : 7,
+      "dep_airport" : "A",
+      "arr_airport" : "P",
+      "date" : 4,
+      "duration" : 1,
+      "price" : 58
+    },
+    {
+      "id" : 8,
+      "dep_airport" : "P",
+      "arr_airport" : "M",
+      "date" : 6,
+      "duration" : 1,
+      "price" : 71
+    },
+    {
+      "id" : 9,
+      "dep_airport" : "F",
+      "arr_airport" : "M",
+      "date" : 9,
+      "duration" : 1,
+      "price" : 39
+    },
+    {
+      "id" : 10,
+      "dep_airport" : "M",
+      "arr_airport" : "F",
+      "date" : 9,
+      "duration" : 1,
+      "price" : 39
+    },
+    {
+      "id" : 11,
+      "dep_airport" : "F",
+      "arr_airport" : "A",
+      "date" : 10,
+      "duration" : 1,
+      "price" : 220
+    },
+    {
+      "id" : 12,
+      "dep_airport" : "F",
+      "arr_airport" : "B",
+      "date" : 11,
+      "duration" : 1,
+      "price" : 122
+    },
+    {
+      "id" : 13,
+      "dep_airport" : "F",
+      "arr_airport" : "M",
+      "date" : 12,
+      "duration" : 1,
+      "price" : 250
+    },
+    {
+      "id" : 14,
+      "dep_airport" : "P",
+      "arr_airport" : "L",
+      "date" : 12,
+      "duration" : 1,
+      "price" : 45
+    },
+    {
+      "id" : 15,
+      "dep_airport" : "B",
+      "arr_airport" : "G",
+      "date" : 13,
+      "duration" : 1,
+      "price" : 335
+    },
+    {
+      "id" : 16,
+      "dep_airport" : "B",
+      "arr_airport" : "L",
+      "date" : 13,
+      "duration" : 1,
+      "price" : 335
+    },
+    {
+      "id" : 17,
+      "dep_airport" : "A",
+      "arr_airport" : "G",
+      "date" : 13,
+      "duration" : 1,
+      "price" : 90
+    },
+    {
+      "id" : 18,
+      "dep_airport" : "L",
+      "arr_airport" : "G",
+      "date" : 14,
+      "duration" : 1,
+      "price" : 24
+    }
+  ],
+  "holiday_time" : 15
+}

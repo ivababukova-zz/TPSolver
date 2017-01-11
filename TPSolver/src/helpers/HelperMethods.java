@@ -27,7 +27,7 @@ public class HelperMethods {
 
     public Airport getHomePoint(){
         for (Airport a: this.airports) {
-            if(a.purpose == 0) return a;
+            if(a.purpose.equals("home_point")) return a;
         }
         System.err.println("There is no specified ");
         return null;
@@ -63,7 +63,7 @@ public class HelperMethods {
     public ArrayList<Integer> allToHome(Airport a, float T) {
         ArrayList<Integer> toa = new ArrayList<>();
         for (Flight f: flights) {
-            float time = f.date + f.duration;
+            double time = f.date + f.duration;
             if (f.arr == a && time <= T) {
                 toa.add(f.id);
             }
@@ -92,19 +92,14 @@ public class HelperMethods {
         return froma;
     }
 
-    public ArrayList<Integer> allFromTimed(Airport a, Flight fl, float connTime) {
+    public ArrayList<Integer> allFromTimed(Airport a, Flight fl, double connTime) {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
-//        System.out.print("Allowed flights after " + fl.dep.name + fl.arr.name + ": ");
         for (Flight f: flights) {
-            float time = fl.date + fl.duration + connTime;
+            double time = fl.date + fl.duration + connTime;
             if (f.dep == a && time <= f.date) {
                 allowedFlights.add(f.id);
             }
         }
-//        for (int i: allowedFlights) {
-//            System.out.print(i + ", ");
-//        }
-//        System.out.println("***");
         return allowedFlights;
     }
 
@@ -120,15 +115,15 @@ public class HelperMethods {
     public ArrayList<Airport> getDestinations(){
         ArrayList<Airport> destinations = new ArrayList<>();
         for (Airport a: this.airports) {
-            if(a.purpose == 1) {
+            if(a.purpose.equals("destination")) {
                 destinations.add(a);
             }
         }
         return destinations;
     }
 
-    public Flight getCheapestAfter(float cost){
-        float cheapest = 99999;
+    public Flight getCheapestAfter(double cost){
+        double cheapest = 99999;
         Flight cheapestF = null;
         for (Flight f: flights) {
             if(f.cost > cost && f.cost < cheapest) {

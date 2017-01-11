@@ -8,16 +8,16 @@ public class Flight {
     public int id;
     public Airport dep;
     public Airport arr;
-    public float date;
-    public float duration;
-    public float cost;
+    public double date;
+    public double duration;
+    public double cost;
 
     public Flight(int id,
                   Airport dep,
                   Airport arr,
-                  float date,
-                  float duration,
-                  float cost){
+                  double date,
+                  double duration,
+                  double cost){
         this.id = id;
         this.dep = dep;
         this.arr = arr;

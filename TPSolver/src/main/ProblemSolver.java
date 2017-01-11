@@ -1,13 +1,12 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import helpers.HelperMethods;
-import helpers.Tuple;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
 import org.chocosolver.solver.variables.*;
+
+import helpers.HelperMethods;
+import helpers.Tuple;
 
 /**
  * Created by ivababukova on 12/16/16.
@@ -15,13 +14,12 @@ import org.chocosolver.solver.variables.*;
  */
 public class ProblemSolver {
 
-    private ArrayList<Airport> airports;
     private ArrayList<Flight> flights;
     private HelperMethods h;
     private int T;
     private int B; // upper bound on the cost
     private String[] args;
-    ArrayList<Tuple> tuples;
+    ArrayList<Tuple> tuples; // an array of (airport a, date d) that means that traveller must be at a at time d
 
     private Model model;
     private Solver solver;
@@ -32,18 +30,19 @@ public class ProblemSolver {
     private IntVar cost_sum;
 
     public ProblemSolver(ArrayList<Airport> as, ArrayList<Flight> fs, int T, int B, String[] args){
-        this.airports = as;
         this.flights = fs;
         this.T = T;
         this.B = B;
         this.h = new HelperMethods(as, fs);
         this.args = args;
-
-        // todo: fix this hard coding of tuples. Tuples should come from arguments
-        Tuple tup = new Tuple(airports.get(3), 12);
         this.tuples = new ArrayList<>();
-        this.tuples.add(tup);
+
+//        // todo: fix this hard coding of tuples. Tuples should come from arguments
+//        Tuple tup = new Tuple(airports.get(3), 3);
+//        this.tuples = new ArrayList<>();
+//        this.tuples.add(tup);
     }
+
 
     // filters out flights that won't arrive within the specified travel time
     private void filtering() {
@@ -128,7 +127,7 @@ public class ProblemSolver {
     private void removeConnections(){
         ArrayList<Flight> newflights = new ArrayList<>();
         for(Flight f: this.flights) {
-            if (f.arr.purpose != 2 && f.dep.purpose != 2) newflights.add(f);
+            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
         }
         this.flights = newflights;
         for (Flight f: newflights) {
@@ -183,7 +182,7 @@ public class ProblemSolver {
 
     private void costConstraint(){
         for(int i = 1; i<=flights.size(); i++) {
-            int cost = Math.round(h.getFlightByID(i).cost);
+            int cost = (int) h.getFlightByID(i).cost;
             for (int j = 0; j <= flights.size(); j++) {
                 this.model.ifThen(
                         model.arithm(S[j], "=", i),
@@ -266,7 +265,7 @@ public class ProblemSolver {
         }
         System.out.println();
         for (int i = 0; i < x.getIntVal(z); i++) {
-            int date = Math.round(h.getFlightByID(x.getIntVal(S[i])).date);
+            int date = (int) h.getFlightByID(x.getIntVal(S[i])).date;
             if (date <= 9) System.out.print(date + "  ");
             if (date > 9) System.out.print(date + " ");
         }
