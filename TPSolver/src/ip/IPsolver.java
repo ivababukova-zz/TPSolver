@@ -1,167 +1,141 @@
 package ip;
 
 import gurobi.*;
+import helpers.HelperMethods;
+import main.Airport;
+import main.Flight;
+
+import java.util.ArrayList;
 
 /**
  * Created by ivababukova on 1/11/17.
  */
-public class IPsolver extends GRBCallback{
-    private GRBVar[][] vars;
+public class IPsolver {
 
-    public IPsolver(GRBVar[][] xvars) {
-        vars = xvars;
+    private ArrayList<Flight> flights;
+    private HelperMethods h;
+    private int T;
+    private int B; // upper bound on the cost
+    private String[] args;
+
+    GRBEnv env;
+    GRBModel model;
+    GRBVar[][] S;
+
+    public IPsolver(
+            ArrayList<Airport> as,
+            ArrayList<Flight> fs,
+            int T,
+            int B,
+            String[] args
+    ) {
+        this.flights = fs;
+        this.T = T;
+        this.B = B;
+        this.h = new HelperMethods(as, fs);
+        this.args = args;
     }
 
-    // Subtour elimination callback.  Whenever a feasible solution is found,
-    // find the subtour that contains node 0, and add a subtour elimination
-    // constraint if the tour doesn't visit every node.
-
-    protected void callback() {
+    public void getSolution() {
         try {
-            if (where == GRB.CB_MIPSOL) {
-                // Found an integer feasible solution - does it visit every node?
-                int n = vars.length;
-                int[] tour = findsubtour(getSolution(vars));
+            env = new GRBEnv("tp.log");
+            model = new GRBModel(env);
+            int n = 5;
+            int m = n + 1; // add the extra flight
+            // Create Xi,j
+            S = new GRBVar[m][m];
 
-                if (tour.length < n) {
-                    // Add subtour elimination constraint
-                    GRBLinExpr expr = new GRBLinExpr();
-                    for (int i = 0; i < tour.length; i++)
-                        for (int j = i + 1; j < tour.length; j++)
-                            expr.addTerm(1.0, vars[tour[i]][tour[j]]);
-                    addLazy(expr, GRB.LESS_EQUAL, tour.length - 1);
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < m; j++) {
+                    String st = "X_" + String.valueOf(i) + "_" + String.valueOf(j);
+                    S[i][j] = model.addVar(0.0, 1.0, 0.0, GRB.BINARY, st);
                 }
             }
-        } catch (GRBException e) {
-            System.out.println("Error code: " + e.getErrorCode() + ". " +
-                    e.getMessage());
-            e.printStackTrace();
-        }
-    }
-    // Given an integer-feasible solution 'sol', return the smallest
-    // sub-tour (as a list of node indices).
 
-    protected static int[] findsubtour(double[][] sol)
-    {
-        int n = sol.length;
-        boolean[] seen = new boolean[n];
-        int[] tour = new int[n];
-        int bestind, bestlen;
-        int i, node, len, start;
+            // Set objective
 
-        for (i = 0; i < n; i++)
-            seen[i] = false;
+            /*** Add constraints ***/
+            GRBLinExpr expr, expr1, expr2;
+            expr = new GRBLinExpr();
+            expr.addTerm(1.0, S[n][n]);
+            model.addConstr(expr, GRB.EQUAL, 1.0, "special flight");
 
-        start = 0;
-        bestlen = n+1;
-        bestind = -1;
-        node = 0;
-        while (start < n) {
-            for (node = 0; node < n; node++)
-                if (!seen[node])
-                    break;
-            if (node == n)
-                break;
-            for (len = 0; len < n; len++) {
-                tour[start+len] = node;
-                seen[node] = true;
-                for (i = 0; i < n; i++) {
-                    if (sol[node][i] > 0.5 && !seen[i]) {
-                        node = i;
-                        break;
-                    }
-                }
-                if (i == n) {
-                    len++;
-                    if (len < bestlen) {
-                        bestlen = len;
-                        bestind = start;
-                    }
-                    start += len;
-                    break;
-                }
-            }
-        }
-
-        int result[] = new int[bestlen];
-        for (i = 0; i < bestlen; i++)
-            result[i] = tour[bestind+i];
-        return result;
-    }
-
-    // Euclidean distance between points 'i' and 'j'
-
-    protected static double distance(double[] x,
-                                     double[] y,
-                                     int      i,
-                                     int      j) {
-        double dx = x[i]-x[j];
-        double dy = y[i]-y[j];
-        return Math.sqrt(dx*dx+dy*dy);
-    }
-
-    public static void main(String[] args) {
-
-        if (args.length < 1) {
-            System.out.println("Usage: java Tsp ncities");
-            System.exit(1);
-        }
-
-        int n = Integer.parseInt(args[0]);
-
-        try {
-            GRBEnv   env   = new GRBEnv();
-            GRBModel model = new GRBModel(env);
-
-            // Must set LazyConstraints parameter when using lazy constraints
-
-            model.set(GRB.IntParam.LazyConstraints, 1);
-
-            double[] x = new double[n];
-            double[] y = new double[n];
-
-            for (int i = 0; i < n; i++) {
-                x[i] = Math.random();
-                y[i] = Math.random();
+            for (int i = 0; i < m; i++) {
+                expr = new GRBLinExpr();
+                expr.addTerms(null, S[i]);
+                String st = "V_" + String.valueOf(i);
+                model.addConstr(expr, GRB.EQUAL, 1.0, st);
             }
 
-            // Create variables
-
-            GRBVar[][] vars = new GRBVar[n][n];
-
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j <= i; j++) {
-                    vars[i][j] = model.addVar(0.0, 1.0, distance(x, y, i, j),
-                            GRB.BINARY,
-                            "x"+String.valueOf(i)+"_"+String.valueOf(j));
-                    vars[j][i] = vars[i][j];
+            // there should be only one 1 in each roll and column
+            // i.e. at most one flight is taken at each step i
+            // and no flight is taken more than once
+            for (int i = 0; i < m; i++) {
+                expr = new GRBLinExpr();
+                for (int j = 0; j < m; j++) {
+                    expr.addTerm(1.0, S[i][j]);
                 }
-
-            // Degree-2 constraints
-
-            for (int i = 0; i < n; i++) {
-                GRBLinExpr expr = new GRBLinExpr();
-                for (int j = 0; j < n; j++)
-                    expr.addTerm(1.0, vars[i][j]);
-                model.addConstr(expr, GRB.EQUAL, 2.0, "deg2_"+String.valueOf(i));
+                String s1 = "R_" + String.valueOf(i);
+                model.addConstr(expr, GRB.EQUAL, 1.0, s1);
             }
 
-            // Forbid edge from node back to itself
+            for (int j = 0; j < n; j++) {
+                expr = new GRBLinExpr();
+                for (int i = 0; i < n; i++) {
+                    expr.addTerm(1.0, S[i][j]);
+                }
+                String s1 = "C_" + String.valueOf(j);
+                model.addConstr(expr, GRB.LESS_EQUAL, 1.0, s1);
+            }
 
-            for (int i = 0; i < n; i++)
-                vars[i][i].set(GRB.DoubleAttr.UB, 0.0);
+            // there can be more than one special flight scheduled
+            expr = new GRBLinExpr();
+            for (int i = 0; i < m; i++) {
+                expr.addTerm(1.0, S[i][n]);
+            }
+            model.addConstr(expr, GRB.GREATER_EQUAL, 1.0, "One or more special flights");
 
-            model.setCallback(new IPsolver(vars));
+            // once a special flight is scheduled, no other flights can be scheduled
+            for (int i = 1; i < m; i++) {
+                expr1 = new GRBLinExpr();
+                expr2 = new GRBLinExpr();
+                for (int j = 0; j < n; j++) {
+                    expr1.addTerm(1.0, S[i-1][j]);
+                    expr2.addTerm(1.0, S[i][j]);
+                }
+                String s1 = "ValidSchedule_" + String.valueOf(i);
+                model.addConstr(expr1, GRB.GREATER_EQUAL, expr2, s1);
+            }
+
+            // Optimize model
             model.optimize();
 
-            if (model.get(GRB.IntAttr.SolCount) > 0) {
-                int[] tour = findsubtour(model.get(GRB.DoubleAttr.X, vars));
-                assert tour.length == n;
+            // Print solution
+            double[][] x = model.get(GRB.DoubleAttr.X, S);
 
-                System.out.print("Tour: ");
-                for (int i = 0; i < tour.length; i++)
-                    System.out.print(String.valueOf(tour[i]) + " ");
+            System.out.println();
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (x[i][j] > 0.5) {
+                        System.out.print(1 + " ");
+                    }
+                    else {
+                        System.out.print(0 + " ");
+                    }
+                }
                 System.out.println();
+            }
+
+            System.out.println();
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (x[i][j] > 0.5 && j != m-1) {
+                        System.out.print((j+1) + " ");
+                    }
+                    if (x[i][j] > 0.5 && j == m-1) {
+                        System.out.print(0 + " ");
+                    }
+                }
             }
 
             // Dispose of model and environment
@@ -171,7 +145,6 @@ public class IPsolver extends GRBCallback{
         } catch (GRBException e) {
             System.out.println("Error code: " + e.getErrorCode() + ". " +
                     e.getMessage());
-            e.printStackTrace();
         }
     }
 }
