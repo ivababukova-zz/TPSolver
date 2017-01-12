@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Main{
 
-    private static final String FILENAME = "data/test1.json";
+    private static final String FILENAME = "data/test_max_flights.json";
     private static final int B = 1000;
     private static ArrayList<Airport> airports = new ArrayList<>();
 

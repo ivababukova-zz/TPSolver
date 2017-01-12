@@ -40,7 +40,7 @@ public class IPsolver {
         try {
             env = new GRBEnv("tp.log");
             model = new GRBModel(env);
-            int n = 5;
+            int n = flights.size();
             int m = n + 1; // add the extra flight
             // Create Xi,j
             S = new GRBVar[m][m];
@@ -67,9 +67,9 @@ public class IPsolver {
                 model.addConstr(expr, GRB.EQUAL, 1.0, st);
             }
 
-            // there should be only one 1 in each roll and column
-            // i.e. at most one flight is taken at each step i
-            // and no flight is taken more than once
+            /*** there should be only one 1 in each roll and column
+            /* i.e. at most one flight is taken at each step i
+            /* and no flight is taken more than once ***/
             for (int i = 0; i < m; i++) {
                 expr = new GRBLinExpr();
                 for (int j = 0; j < m; j++) {
@@ -106,6 +106,26 @@ public class IPsolver {
                 String s1 = "ValidSchedule_" + String.valueOf(i);
                 model.addConstr(expr1, GRB.GREATER_EQUAL, expr2, s1);
             }
+
+            /***
+             * Trip property 1
+             */
+            Airport a0 = h.getHomePoint();
+            ArrayList<Integer> from_home = h.allFrom(a0);
+            expr1 = new GRBLinExpr();
+            expr2 = new GRBLinExpr();
+            for (int j = 0; j < m; j++) {
+                if (from_home.contains(j+1)) {
+                    expr1.addTerm(1.0, S[0][j]);
+                }
+                else {
+                    expr2.addTerm(1.0, S[0][j]);
+                }
+            }
+            model.addConstr(expr1, GRB.EQUAL, 1.0, "from home");
+            model.addConstr(expr2, GRB.EQUAL, 0.0, "not from home");
+
+            
 
             // Optimize model
             model.optimize();
