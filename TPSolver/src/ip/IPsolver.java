@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class IPsolver {
 
     private ArrayList<Flight> flights;
+    private ArrayList<Airport> airports;
     private HelperMethods h;
     private int T;
     private int B; // upper bound on the cost
@@ -30,6 +31,7 @@ public class IPsolver {
             String[] args
     ) {
         this.flights = fs;
+        this.airports = as;
         this.T = T;
         this.B = B;
         this.h = new HelperMethods(as, fs);
@@ -40,7 +42,7 @@ public class IPsolver {
         try {
             env = new GRBEnv("tp.log");
             model = new GRBModel(env);
-            int n = flights.size();
+            int n = flights.size() - 1;
             int m = n + 1; // add the extra flight
             // Create Xi,j
             S = new GRBVar[m][m];
@@ -122,13 +124,58 @@ public class IPsolver {
                     expr2.addTerm(1.0, S[0][j]);
                 }
             }
-            model.addConstr(expr1, GRB.EQUAL, 1.0, "from home");
-            model.addConstr(expr2, GRB.EQUAL, 0.0, "not from home");
+            model.addConstr(expr1, GRB.EQUAL, 1.0, "Trip property 1");
+//            model.addConstr(expr2, GRB.EQUAL, 0.0, "not from home");
 
-            
+
+            /***
+             * Trip property 2
+             */
+            for (Airport a: this.airports) {
+                ArrayList<Integer> all_to = h.allTo(a);
+                ArrayList<Integer> all_from = h.allFrom(a);
+                for (int i = 1; i < m; i++) {
+                    expr1 = new GRBLinExpr();
+                    expr2 = new GRBLinExpr();
+                    for (int j1 : all_to) {
+                        expr1.addTerm(1.0, S[i-1][j1-1]);
+                    }
+                    for (int j2 : all_from) {
+                        expr2.addTerm(1.0, S[i][j2-1]);
+                    }
+                    model.addConstr(expr1, GRB.EQUAL, expr2, "Trip property 2 " + a.name);
+                }
+            }
 
             // Optimize model
             model.optimize();
+//            int status = model.get(GRB.IntAttr.Status);
+//            if (status == GRB.Status.UNBOUNDED) {
+//                System.out.println("The model cannot be solved "
+//                        + "because it is unbounded");
+//                return;
+//            }
+//            if (status == GRB.Status.OPTIMAL) {
+//                System.out.println("The optimal objective is " +
+//                        model.get(GRB.DoubleAttr.ObjVal));
+//                return;
+//            }
+//            if (status != GRB.Status.INF_OR_UNBD &&
+//                    status != GRB.Status.INFEASIBLE    ){
+//                System.out.println("Optimization was stopped with status " + status);
+//                return;
+//            }
+//
+//            // Compute IIS
+//            System.out.println("The model is infeasible; computing IIS");
+//            model.computeIIS();
+//            System.out.println("\nThe following constraint(s) "
+//                    + "cannot be satisfied:");
+//            for (GRBConstr c : model.getConstrs()) {
+//                if (c.get(GRB.IntAttr.IISConstr) == 1) {
+//                    System.out.println(c.get(GRB.StringAttr.ConstrName));
+//                }
+//            }
 
             // Print solution
             double[][] x = model.get(GRB.DoubleAttr.X, S);
@@ -154,6 +201,20 @@ public class IPsolver {
                     }
                     if (x[i][j] > 0.5 && j == m-1) {
                         System.out.print(0 + " ");
+                    }
+                }
+            }
+
+            System.out.println();
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < m; j++) {
+                    if (x[i][j] > 0.5 && j != m-1) {
+                        System.out.print(
+                                h.getFlightByID(j+1).dep.name +
+                                h.getFlightByID(j+1).arr.name +
+//                                h.getFlightByID(j+1).date +
+                                        " "
+                        );
                     }
                 }
             }
