@@ -103,6 +103,28 @@ public class HelperMethods {
         return allowedFlights;
     }
 
+    // this is for trip properties 3,4 for the IP model
+    public ArrayList<Integer> disallowedPrev(int next_id) {
+        ArrayList<Integer> toa = new ArrayList<>();
+        Flight next = getFlightByID(next_id);
+        double conn_time = connTimeIP(next);
+        for (Flight prev : flights) {
+            double arrival_prev = prev.date + prev.duration;
+            if (arrival_prev + conn_time > next.date) {
+                toa.add(prev.id);
+            }
+        }
+        return toa;
+    }
+
+    // this is for trip properties 3,4 for the IP model
+    public double connTimeIP(Flight f) {
+        Airport a0 = getHomePoint();
+        if (f.arr == a0 && f.dep == a0 && f.duration == 0 && f.cost == 0) {
+            return 0;
+        }
+        return f.arr.conn_time;
+    }
 
     public int[] arrayToint(ArrayList<Integer> arr){
         int[] array = new int[arr.size()];

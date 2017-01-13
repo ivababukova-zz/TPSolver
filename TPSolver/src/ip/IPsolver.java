@@ -61,6 +61,7 @@ public class IPsolver {
             GRBLinExpr expr;
             expr = new GRBLinExpr();
             expr.addTerm(1.0, S[n][n]);
+            expr.addTerm(1.0, S[0][n]);
             model.addConstr(expr, GRB.EQUAL, 1.0, "End with special flight");
 
             // I have no idea why I need this. It is taken from sudoku example
@@ -74,9 +75,11 @@ public class IPsolver {
             this.matrixContraints();
             this.tripProperty1();
             this.tripProperty2();
+            this.tripProperties3and4();
 
             // Optimize model
             model.optimize();
+//            this.debugModel();
 
             // Print solution
             this.printSolution();
@@ -88,48 +91,6 @@ public class IPsolver {
         } catch (GRBException e) {
             System.out.println("Error code: " + e.getErrorCode() + ". " +
                     e.getMessage());
-        }
-    }
-
-    private void printSolution() throws GRBException {
-        double[][] x = model.get(GRB.DoubleAttr.X, S);
-
-        System.out.println();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (x[i][j] > 0.5) {
-                    System.out.print(1 + " ");
-                }
-                else {
-                    System.out.print(0 + " ");
-                }
-            }
-            System.out.println();
-        }
-
-        System.out.println();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (x[i][j] > 0.5 && j != m-1) {
-                    System.out.print((j+1) + " ");
-                }
-                if (x[i][j] > 0.5 && j == m-1) {
-                    System.out.print(0 + " ");
-                }
-            }
-        }
-
-        System.out.println();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (x[i][j] > 0.5 && j != m-1) {
-                    System.out.print(
-                            h.getFlightByID(j+1).dep.name +
-                                    h.getFlightByID(j+1).arr.name +
-                                    " "
-                    );
-                }
-            }
         }
     }
 
@@ -214,6 +175,64 @@ public class IPsolver {
                     expr2.addTerm(1.0, S[i][j2-1]);
                 }
                 model.addConstr(expr1, GRB.EQUAL, expr2, "Trip property 2 " + a.name);
+            }
+        }
+    }
+
+    private void tripProperties3and4() throws GRBException {
+        GRBLinExpr expr1, expr2;
+        for (int i = 0; i < n - 1; i++) {
+            for (int next = 0; next < m; next++) {
+                expr1 = new GRBLinExpr();
+                expr2 = new GRBLinExpr();
+                ArrayList<Integer> disallowed_prev = h.disallowedPrev(next+1);
+                for (int prev : disallowed_prev) {
+                    expr1.addTerm(1.0, S[i][prev-1]);
+                }
+                expr1.addTerm(1.0, S[i+1][next]);
+                model.addConstr(expr1, GRB.LESS_EQUAL, 1, "Trip Property 2");
+            }
+        }
+    }
+
+    private void printSolution() throws GRBException {
+        double[][] x = model.get(GRB.DoubleAttr.X, S);
+
+        System.out.println();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                if (x[i][j] > 0.5) {
+                    System.out.print(1 + " ");
+                }
+                else {
+                    System.out.print(0 + " ");
+                }
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                if (x[i][j] > 0.5 && j != m-1) {
+                    System.out.print((j+1) + "  ");
+                }
+                if (x[i][j] > 0.5 && j == m-1) {
+                    System.out.print(0 + " ");
+                }
+            }
+        }
+
+        System.out.println();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                if (x[i][j] > 0.5 && j != m-1) {
+                    System.out.print(
+                            h.getFlightByID(j+1).dep.name +
+                                    h.getFlightByID(j+1).arr.name +
+                                    " "
+                    );
+                }
             }
         }
     }
