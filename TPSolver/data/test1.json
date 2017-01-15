@@ -237,13 +237,6 @@
       "date" : 14,
       "duration" : 1,
       "price" : 90
-    },
-    { "id" : 26,
-      "dep_airport" : "G",
-      "arr_airport" : "G",
-      "date" : 20,
-      "duration" : 0,
-      "price" : 0
     }
   ],
   "holiday_time" : 20,

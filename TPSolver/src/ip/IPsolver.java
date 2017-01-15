@@ -1,9 +1,9 @@
 package ip;
 
 import gurobi.*;
-import helpers.HelperMethods;
-import main.Airport;
-import main.Flight;
+import common.HelperMethods;
+import common.Airport;
+import common.Flight;
 
 import java.util.ArrayList;
 
@@ -37,6 +37,8 @@ public class IPsolver {
         this.B = B;
         this.h = new HelperMethods(as, fs);
         this.args = args;
+
+        this.addSpecialFlight();
     }
 
     public void getSolution() {
@@ -55,7 +57,7 @@ public class IPsolver {
                 }
             }
 
-            // Set objective
+            // Set objective todo
 
             /*** Add constraints ***/
             GRBLinExpr expr;
@@ -64,7 +66,8 @@ public class IPsolver {
             expr.addTerm(1.0, S[0][n]);
             model.addConstr(expr, GRB.EQUAL, 1.0, "End with special flight");
 
-            // I have no idea why I need this. It is taken from sudoku example
+            // I have no idea why I need this. It is taken from the sudoku example.
+            // The code does not work without it.
             for (int i = 0; i < m; i++) {
                 expr = new GRBLinExpr();
                 expr.addTerms(null, S[i]);
@@ -76,6 +79,7 @@ public class IPsolver {
             this.tripProperty1();
             this.tripProperty2();
             this.tripProperties3and4();
+            this.tripProperty5();
 
             // Optimize model
             model.optimize();
@@ -180,18 +184,32 @@ public class IPsolver {
     }
 
     private void tripProperties3and4() throws GRBException {
-        GRBLinExpr expr1, expr2;
+        GRBLinExpr expr;
         for (int i = 0; i < n - 1; i++) {
             for (int next = 0; next < m; next++) {
-                expr1 = new GRBLinExpr();
-                expr2 = new GRBLinExpr();
+                expr = new GRBLinExpr();
                 ArrayList<Integer> disallowed_prev = h.disallowedPrev(next+1);
                 for (int prev : disallowed_prev) {
-                    expr1.addTerm(1.0, S[i][prev-1]);
+                    expr.addTerm(1.0, S[i][prev-1]);
                 }
-                expr1.addTerm(1.0, S[i+1][next]);
-                model.addConstr(expr1, GRB.LESS_EQUAL, 1, "Trip Property 2");
+                expr.addTerm(1.0, S[i+1][next]);
+                model.addConstr(expr, GRB.LESS_EQUAL, 1, "Trip Properties 3 and 4");
             }
+        }
+    }
+
+    private void tripProperty5() throws GRBException {
+        GRBLinExpr expr;
+        ArrayList<Airport> D =  h.getDestinations();
+        for (Airport d : D) {
+            ArrayList<Integer> all_to = h.allTo(d);
+            expr = new GRBLinExpr();
+            for(int i = 0; i < n; i++) {
+                for (int j : all_to) {
+                    expr.addTerm(1.0, S[i][j-1]);
+                }
+            }
+            model.addConstr(expr, GRB.GREATER_EQUAL, 1, "Trip Property 5");
         }
     }
 
@@ -227,10 +245,9 @@ public class IPsolver {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
                 if (x[i][j] > 0.5 && j != m-1) {
-                    System.out.print(
-                            h.getFlightByID(j+1).dep.name +
-                                    h.getFlightByID(j+1).arr.name +
-                                    " "
+                    System.out.println(
+                            "from " + h.getFlightByID(j+1).dep.name + " to " +
+                                    h.getFlightByID(j+1).arr.name
                     );
                 }
             }
@@ -265,5 +282,11 @@ public class IPsolver {
                 System.out.println(c.get(GRB.StringAttr.ConstrName));
             }
         }
+    }
+
+    private void addSpecialFlight(){
+        Airport a0 = h.getHomePoint();
+        Flight special = new Flight(flights.size()+1, a0, a0, T, 0, 0);
+        flights.add(special);
     }
 }

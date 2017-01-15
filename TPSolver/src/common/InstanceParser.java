@@ -1,8 +1,7 @@
-package main;
+package common;
 
-import cp.CPsolver;
-import helpers.Tuple;
 import ip.IPsolver;
+import cp.CPsolver;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -10,10 +9,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Main{
+public class InstanceParser {
 
-    private static final String FILENAME = "data/small_test.json";
-    private static final int B = 1000;
+    private static final String FILENAME = "data/random_data/500_8_4_140_0.json";
+    private static final int B = 10000;
     private static ArrayList<Airport> airports = new ArrayList<>();
 
     public static void main(String[] args) throws ContradictionException, IOException, ParseException {

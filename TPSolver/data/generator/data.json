@@ -1,0 +1,956 @@
+{
+    "airports": [
+        {
+            "connection_time": 1.9,
+            "name": "Malawi",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.2,
+            "name": "Iran",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "Korea, South",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "Liberia",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.4,
+            "name": "Bahrain",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.5,
+            "name": "Seychelles",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.9,
+            "name": "Viet Nam",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.5,
+            "name": "Ecuador",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.4,
+            "name": "Cuba",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.3,
+            "name": "United Arab Emirates",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "Sweden",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "United States",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.8,
+            "name": "Papua New Guinea",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "Austria",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.2,
+            "name": "Serbia",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.9,
+            "name": "Sri Lanka",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.4,
+            "name": "Trinidad and Tobago",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "Niger",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.2,
+            "name": "Myanmar",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "Zimbabwe",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.7,
+            "name": "Eritrea",
+            "purpose": "home_point"
+        },
+        {
+            "connection_time": 1.1,
+            "name": "Indonesia",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.9,
+            "name": "Antigua and Barbuda",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.2,
+            "name": "Barbados",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.4,
+            "name": "Luxembourg",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.7,
+            "name": "Zimbabwe",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.6,
+            "name": "Ecuador",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.8,
+            "name": "Tajikistan",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.2,
+            "name": "Taiwan",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.8,
+            "name": "Lithuania",
+            "purpose": "connection"
+        }
+    ],
+    "flights": [
+        {
+            "arr_airport": "Ecuador",
+            "date": 1.7,
+            "dep_airport": "Viet Nam",
+            "duration": 1.3,
+            "id": 0,
+            "price": 109.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 14.4,
+            "dep_airport": "Korea, South",
+            "duration": 1.6,
+            "id": 1,
+            "price": 441.8
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 19.9,
+            "dep_airport": "Sri Lanka",
+            "duration": 1.7,
+            "id": 2,
+            "price": 278.2
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 8.2,
+            "dep_airport": "Serbia",
+            "duration": 1.3,
+            "id": 3,
+            "price": 209.2
+        },
+        {
+            "arr_airport": "Indonesia",
+            "date": 16.7,
+            "dep_airport": "Malawi",
+            "duration": 1.4,
+            "id": 4,
+            "price": 448.5
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 18.6,
+            "dep_airport": "Cuba",
+            "duration": 1.2,
+            "id": 5,
+            "price": 430.1
+        },
+        {
+            "arr_airport": "Seychelles",
+            "date": 13.2,
+            "dep_airport": "Myanmar",
+            "duration": 1.7,
+            "id": 6,
+            "price": 387.2
+        },
+        {
+            "arr_airport": "Taiwan",
+            "date": 7.0,
+            "dep_airport": "Serbia",
+            "duration": 1.6,
+            "id": 7,
+            "price": 394.9
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 8.0,
+            "dep_airport": "Ecuador",
+            "duration": 1.4,
+            "id": 8,
+            "price": 86.1
+        },
+        {
+            "arr_airport": "Austria",
+            "date": 3.6,
+            "dep_airport": "Indonesia",
+            "duration": 2.0,
+            "id": 9,
+            "price": 77.9
+        },
+        {
+            "arr_airport": "Eritrea",
+            "date": 15.9,
+            "dep_airport": "Sri Lanka",
+            "duration": 1.1,
+            "id": 10,
+            "price": 282.5
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 11.2,
+            "dep_airport": "Ecuador",
+            "duration": 1.4,
+            "id": 11,
+            "price": 267.3
+        },
+        {
+            "arr_airport": "Antigua and Barbuda",
+            "date": 7.3,
+            "dep_airport": "Indonesia",
+            "duration": 1.9,
+            "id": 12,
+            "price": 481.3
+        },
+        {
+            "arr_airport": "United States",
+            "date": 17.6,
+            "dep_airport": "Bahrain",
+            "duration": 1.3,
+            "id": 13,
+            "price": 204.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 3.2,
+            "dep_airport": "Seychelles",
+            "duration": 1.7,
+            "id": 14,
+            "price": 339.0
+        },
+        {
+            "arr_airport": "Tajikistan",
+            "date": 1.1,
+            "dep_airport": "Luxembourg",
+            "duration": 1.9,
+            "id": 15,
+            "price": 308.2
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 19.9,
+            "dep_airport": "Ecuador",
+            "duration": 1.8,
+            "id": 16,
+            "price": 319.3
+        },
+        {
+            "arr_airport": "Eritrea",
+            "date": 17.5,
+            "dep_airport": "Ecuador",
+            "duration": 1.9,
+            "id": 17,
+            "price": 207.6
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 6.1,
+            "dep_airport": "Liberia",
+            "duration": 1.8,
+            "id": 18,
+            "price": 135.8
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 0.5,
+            "dep_airport": "Luxembourg",
+            "duration": 1.1,
+            "id": 19,
+            "price": 386.0
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 4.7,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.7,
+            "id": 20,
+            "price": 162.1
+        },
+        {
+            "arr_airport": "Korea, South",
+            "date": 9.7,
+            "dep_airport": "Eritrea",
+            "duration": 1.2,
+            "id": 21,
+            "price": 251.8
+        },
+        {
+            "arr_airport": "Korea, South",
+            "date": 19.5,
+            "dep_airport": "Sweden",
+            "duration": 1.1,
+            "id": 22,
+            "price": 285.0
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 2.5,
+            "dep_airport": "Serbia",
+            "duration": 1.2,
+            "id": 23,
+            "price": 187.9
+        },
+        {
+            "arr_airport": "Serbia",
+            "date": 4.7,
+            "dep_airport": "United States",
+            "duration": 1.5,
+            "id": 24,
+            "price": 480.6
+        },
+        {
+            "arr_airport": "Malawi",
+            "date": 0.7,
+            "dep_airport": "Seychelles",
+            "duration": 2.0,
+            "id": 25,
+            "price": 384.4
+        },
+        {
+            "arr_airport": "Antigua and Barbuda",
+            "date": 0.1,
+            "dep_airport": "Indonesia",
+            "duration": 1.6,
+            "id": 26,
+            "price": 294.0
+        },
+        {
+            "arr_airport": "Sri Lanka",
+            "date": 2.2,
+            "dep_airport": "Iran",
+            "duration": 1.3,
+            "id": 27,
+            "price": 343.4
+        },
+        {
+            "arr_airport": "Liberia",
+            "date": 14.7,
+            "dep_airport": "Seychelles",
+            "duration": 1.1,
+            "id": 28,
+            "price": 195.6
+        },
+        {
+            "arr_airport": "Austria",
+            "date": 12.1,
+            "dep_airport": "Sweden",
+            "duration": 1.5,
+            "id": 29,
+            "price": 278.0
+        },
+        {
+            "arr_airport": "Tajikistan",
+            "date": 15.5,
+            "dep_airport": "United Arab Emirates",
+            "duration": 1.2,
+            "id": 30,
+            "price": 232.8
+        },
+        {
+            "arr_airport": "Indonesia",
+            "date": 19.6,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.5,
+            "id": 31,
+            "price": 488.3
+        },
+        {
+            "arr_airport": "Korea, South",
+            "date": 3.7,
+            "dep_airport": "Cuba",
+            "duration": 2.0,
+            "id": 32,
+            "price": 225.6
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 14.2,
+            "dep_airport": "Korea, South",
+            "duration": 2.0,
+            "id": 33,
+            "price": 494.5
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 16.2,
+            "dep_airport": "Barbados",
+            "duration": 1.2,
+            "id": 34,
+            "price": 466.9
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 17.6,
+            "dep_airport": "Cuba",
+            "duration": 1.8,
+            "id": 35,
+            "price": 488.9
+        },
+        {
+            "arr_airport": "Luxembourg",
+            "date": 7.2,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.5,
+            "id": 36,
+            "price": 489.7
+        },
+        {
+            "arr_airport": "Indonesia",
+            "date": 10.2,
+            "dep_airport": "Papua New Guinea",
+            "duration": 1.5,
+            "id": 37,
+            "price": 148.9
+        },
+        {
+            "arr_airport": "Serbia",
+            "date": 8.0,
+            "dep_airport": "Iran",
+            "duration": 1.2,
+            "id": 38,
+            "price": 106.2
+        },
+        {
+            "arr_airport": "Iran",
+            "date": 18.2,
+            "dep_airport": "Korea, South",
+            "duration": 1.2,
+            "id": 39,
+            "price": 228.6
+        },
+        {
+            "arr_airport": "Eritrea",
+            "date": 15.5,
+            "dep_airport": "Liberia",
+            "duration": 1.8,
+            "id": 40,
+            "price": 207.9
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 1.6,
+            "dep_airport": "United States",
+            "duration": 1.6,
+            "id": 41,
+            "price": 178.5
+        },
+        {
+            "arr_airport": "Iran",
+            "date": 3.2,
+            "dep_airport": "Ecuador",
+            "duration": 1.6,
+            "id": 42,
+            "price": 64.9
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 19.4,
+            "dep_airport": "Papua New Guinea",
+            "duration": 2.0,
+            "id": 43,
+            "price": 285.9
+        },
+        {
+            "arr_airport": "Taiwan",
+            "date": 5.2,
+            "dep_airport": "Bahrain",
+            "duration": 1.3,
+            "id": 44,
+            "price": 185.2
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 8.1,
+            "dep_airport": "Iran",
+            "duration": 1.0,
+            "id": 45,
+            "price": 343.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 0.1,
+            "dep_airport": "Papua New Guinea",
+            "duration": 1.8,
+            "id": 46,
+            "price": 455.2
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 0.1,
+            "dep_airport": "Zimbabwe",
+            "duration": 1.9,
+            "id": 47,
+            "price": 163.0
+        },
+        {
+            "arr_airport": "Sri Lanka",
+            "date": 8.4,
+            "dep_airport": "Korea, South",
+            "duration": 1.0,
+            "id": 48,
+            "price": 111.2
+        },
+        {
+            "arr_airport": "United States",
+            "date": 12.8,
+            "dep_airport": "Austria",
+            "duration": 1.9,
+            "id": 49,
+            "price": 423.0
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 13.4,
+            "dep_airport": "Taiwan",
+            "duration": 1.0,
+            "id": 50,
+            "price": 75.0
+        },
+        {
+            "arr_airport": "Antigua and Barbuda",
+            "date": 13.5,
+            "dep_airport": "Korea, South",
+            "duration": 1.4,
+            "id": 51,
+            "price": 164.5
+        },
+        {
+            "arr_airport": "Luxembourg",
+            "date": 18.6,
+            "dep_airport": "Indonesia",
+            "duration": 1.3,
+            "id": 52,
+            "price": 399.2
+        },
+        {
+            "arr_airport": "Eritrea",
+            "date": 17.9,
+            "dep_airport": "Myanmar",
+            "duration": 1.6,
+            "id": 53,
+            "price": 113.4
+        },
+        {
+            "arr_airport": "Luxembourg",
+            "date": 8.8,
+            "dep_airport": "Taiwan",
+            "duration": 1.1,
+            "id": 54,
+            "price": 132.2
+        },
+        {
+            "arr_airport": "Liberia",
+            "date": 11.6,
+            "dep_airport": "Luxembourg",
+            "duration": 1.6,
+            "id": 55,
+            "price": 183.6
+        },
+        {
+            "arr_airport": "Austria",
+            "date": 18.4,
+            "dep_airport": "Liberia",
+            "duration": 1.8,
+            "id": 56,
+            "price": 104.2
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 10.7,
+            "dep_airport": "Ecuador",
+            "duration": 1.2,
+            "id": 57,
+            "price": 411.3
+        },
+        {
+            "arr_airport": "Serbia",
+            "date": 11.7,
+            "dep_airport": "Iran",
+            "duration": 1.8,
+            "id": 58,
+            "price": 54.9
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 4.1,
+            "dep_airport": "Niger",
+            "duration": 1.7,
+            "id": 59,
+            "price": 260.7
+        },
+        {
+            "arr_airport": "Iran",
+            "date": 13.7,
+            "dep_airport": "United States",
+            "duration": 1.2,
+            "id": 60,
+            "price": 213.6
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 2.3,
+            "dep_airport": "Lithuania",
+            "duration": 2.0,
+            "id": 61,
+            "price": 483.3
+        },
+        {
+            "arr_airport": "United States",
+            "date": 14.3,
+            "dep_airport": "Eritrea",
+            "duration": 1.4,
+            "id": 62,
+            "price": 83.9
+        },
+        {
+            "arr_airport": "Tajikistan",
+            "date": 18.5,
+            "dep_airport": "Korea, South",
+            "duration": 1.2,
+            "id": 63,
+            "price": 103.4
+        },
+        {
+            "arr_airport": "Korea, South",
+            "date": 17.5,
+            "dep_airport": "Antigua and Barbuda",
+            "duration": 1.6,
+            "id": 64,
+            "price": 182.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.9,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.4,
+            "id": 65,
+            "price": 165.0
+        },
+        {
+            "arr_airport": "United States",
+            "date": 13.8,
+            "dep_airport": "Austria",
+            "duration": 1.4,
+            "id": 66,
+            "price": 344.6
+        },
+        {
+            "arr_airport": "Tajikistan",
+            "date": 9.8,
+            "dep_airport": "Liberia",
+            "duration": 1.9,
+            "id": 67,
+            "price": 216.6
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 3.5,
+            "dep_airport": "Indonesia",
+            "duration": 1.4,
+            "id": 68,
+            "price": 478.1
+        },
+        {
+            "arr_airport": "United States",
+            "date": 11.0,
+            "dep_airport": "Bahrain",
+            "duration": 1.4,
+            "id": 69,
+            "price": 280.6
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 12.2,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.6,
+            "id": 70,
+            "price": 310.2
+        },
+        {
+            "arr_airport": "Indonesia",
+            "date": 0.6,
+            "dep_airport": "Zimbabwe",
+            "duration": 1.8,
+            "id": 71,
+            "price": 88.4
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 0.2,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.4,
+            "id": 72,
+            "price": 316.9
+        },
+        {
+            "arr_airport": "Bahrain",
+            "date": 18.8,
+            "dep_airport": "Ecuador",
+            "duration": 1.2,
+            "id": 73,
+            "price": 176.9
+        },
+        {
+            "arr_airport": "Austria",
+            "date": 14.5,
+            "dep_airport": "Sweden",
+            "duration": 1.3,
+            "id": 74,
+            "price": 145.2
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 9.9,
+            "dep_airport": "Indonesia",
+            "duration": 1.9,
+            "id": 75,
+            "price": 456.6
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 15.1,
+            "dep_airport": "Bahrain",
+            "duration": 1.2,
+            "id": 76,
+            "price": 64.7
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 3.7,
+            "dep_airport": "Korea, South",
+            "duration": 1.6,
+            "id": 77,
+            "price": 268.1
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 1.5,
+            "dep_airport": "Antigua and Barbuda",
+            "duration": 1.6,
+            "id": 78,
+            "price": 333.7
+        },
+        {
+            "arr_airport": "United States",
+            "date": 1.0,
+            "dep_airport": "Antigua and Barbuda",
+            "duration": 1.3,
+            "id": 79,
+            "price": 126.3
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 16.1,
+            "dep_airport": "Cuba",
+            "duration": 1.1,
+            "id": 80,
+            "price": 302.6
+        },
+        {
+            "arr_airport": "Korea, South",
+            "date": 11.8,
+            "dep_airport": "Ecuador",
+            "duration": 1.0,
+            "id": 81,
+            "price": 75.8
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 12.0,
+            "dep_airport": "Sweden",
+            "duration": 1.1,
+            "id": 82,
+            "price": 492.1
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 12.4,
+            "dep_airport": "Antigua and Barbuda",
+            "duration": 2.0,
+            "id": 83,
+            "price": 425.1
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 3.4,
+            "dep_airport": "Bahrain",
+            "duration": 1.2,
+            "id": 84,
+            "price": 300.0
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 14.5,
+            "dep_airport": "Malawi",
+            "duration": 1.1,
+            "id": 85,
+            "price": 303.0
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 13.5,
+            "dep_airport": "Austria",
+            "duration": 1.9,
+            "id": 86,
+            "price": 166.0
+        },
+        {
+            "arr_airport": "Bahrain",
+            "date": 13.4,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.2,
+            "id": 87,
+            "price": 156.2
+        },
+        {
+            "arr_airport": "Serbia",
+            "date": 9.4,
+            "dep_airport": "Cuba",
+            "duration": 1.8,
+            "id": 88,
+            "price": 402.6
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 1.0,
+            "dep_airport": "Malawi",
+            "duration": 1.1,
+            "id": 89,
+            "price": 330.9
+        },
+        {
+            "arr_airport": "Tajikistan",
+            "date": 11.9,
+            "dep_airport": "Zimbabwe",
+            "duration": 1.3,
+            "id": 90,
+            "price": 328.0
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 0.1,
+            "dep_airport": "Austria",
+            "duration": 1.6,
+            "id": 91,
+            "price": 170.0
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 5.5,
+            "dep_airport": "Antigua and Barbuda",
+            "duration": 1.1,
+            "id": 92,
+            "price": 242.3
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 6.8,
+            "dep_airport": "Liberia",
+            "duration": 1.2,
+            "id": 93,
+            "price": 195.0
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 7.1,
+            "dep_airport": "Austria",
+            "duration": 1.0,
+            "id": 94,
+            "price": 116.4
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 4.3,
+            "dep_airport": "Luxembourg",
+            "duration": 1.6,
+            "id": 95,
+            "price": 223.2
+        },
+        {
+            "arr_airport": "Eritrea",
+            "date": 8.0,
+            "dep_airport": "United States",
+            "duration": 1.5,
+            "id": 96,
+            "price": 100.9
+        },
+        {
+            "arr_airport": "Serbia",
+            "date": 19.0,
+            "dep_airport": "Myanmar",
+            "duration": 2.0,
+            "id": 97,
+            "price": 170.6
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 14.8,
+            "dep_airport": "Ecuador",
+            "duration": 1.3,
+            "id": 98,
+            "price": 184.2
+        },
+        {
+            "arr_airport": "Malawi",
+            "date": 3.8,
+            "dep_airport": "Viet Nam",
+            "duration": 1.2,
+            "id": 99,
+            "price": 431.6
+        }
+    ]
+}

@@ -1,7 +1,7 @@
-package helpers;
+package common;
 
-import main.Airport;
-import main.Flight;
+import common.Airport;
+import common.Flight;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class HelperMethods {
         for (Airport a: this.airports) {
             if(a.purpose.equals("home_point")) return a;
         }
-        System.err.println("There is no specified ");
+        System.err.println("There is no specified home point");
         return null;
     }
 

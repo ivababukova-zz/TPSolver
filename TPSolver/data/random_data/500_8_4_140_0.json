@@ -1,0 +1,4039 @@
+{
+    "airports": [
+        {
+            "connection_time": 0.3,
+            "name": "Denmark",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "South Africa",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.4,
+            "name": "Malaysia",
+            "purpose": "home_point"
+        },
+        {
+            "connection_time": 0.5,
+            "name": "Moldova",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Barbados",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Suriname",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.5,
+            "name": "Cuba",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Seychelles",
+            "purpose": "connection"
+        }
+    ],
+    "flights": [
+        {
+            "arr_airport": "South Africa",
+            "date": 12.1,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 1,
+            "price": 381.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.5,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 2,
+            "price": 115.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 9.3,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 3,
+            "price": 26.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 4.7,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 4,
+            "price": 41.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.8,
+            "dep_airport": "Suriname",
+            "duration": 0.3,
+            "id": 5,
+            "price": 294.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 0.3,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 6,
+            "price": 125.8
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 9.7,
+            "dep_airport": "Malaysia",
+            "duration": 1.0,
+            "id": 7,
+            "price": 273.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 9.0,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 8,
+            "price": 340.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 10.1,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 9,
+            "price": 67.5
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.3,
+            "dep_airport": "Moldova",
+            "duration": 0.8,
+            "id": 10,
+            "price": 108.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 13.9,
+            "dep_airport": "Suriname",
+            "duration": 0.4,
+            "id": 11,
+            "price": 278.5
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 0.9,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 12,
+            "price": 362.3
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 6.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.4,
+            "id": 13,
+            "price": 64.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.7,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 14,
+            "price": 163.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 7.3,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 15,
+            "price": 148.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 10.9,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 16,
+            "price": 165.6
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 11.3,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 17,
+            "price": 61.7
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.5,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 18,
+            "price": 250.2
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.9,
+            "dep_airport": "Seychelles",
+            "duration": 0.2,
+            "id": 19,
+            "price": 228.3
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.2,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 20,
+            "price": 63.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 8.7,
+            "dep_airport": "Suriname",
+            "duration": 0.8,
+            "id": 21,
+            "price": 237.1
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 10.8,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 22,
+            "price": 286.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.5,
+            "dep_airport": "Seychelles",
+            "duration": 0.8,
+            "id": 23,
+            "price": 89.3
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 3.9,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 24,
+            "price": 233.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.9,
+            "dep_airport": "Denmark",
+            "duration": 0.5,
+            "id": 25,
+            "price": 46.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 13.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.4,
+            "id": 26,
+            "price": 265.8
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 3.0,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 27,
+            "price": 331.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 2.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.6,
+            "id": 28,
+            "price": 228.5
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.8,
+            "dep_airport": "Cuba",
+            "duration": 1.0,
+            "id": 29,
+            "price": 152.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 4.6,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 30,
+            "price": 172.6
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 4.7,
+            "dep_airport": "South Africa",
+            "duration": 0.9,
+            "id": 31,
+            "price": 144.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.0,
+            "dep_airport": "Barbados",
+            "duration": 0.1,
+            "id": 32,
+            "price": 397.7
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.6,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 33,
+            "price": 13.0
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 3.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.2,
+            "id": 34,
+            "price": 260.9
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 6.5,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 35,
+            "price": 161.0
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 7.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 36,
+            "price": 86.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 0.4,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 37,
+            "price": 410.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 10.5,
+            "dep_airport": "Suriname",
+            "duration": 0.1,
+            "id": 38,
+            "price": 49.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.4,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 39,
+            "price": 70.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 9.1,
+            "dep_airport": "South Africa",
+            "duration": 0.7,
+            "id": 40,
+            "price": 148.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 14.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.4,
+            "id": 41,
+            "price": 33.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 7.2,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 42,
+            "price": 474.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 13.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 43,
+            "price": 124.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 13.9,
+            "dep_airport": "Seychelles",
+            "duration": 1.0,
+            "id": 44,
+            "price": 38.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 5.6,
+            "dep_airport": "Cuba",
+            "duration": 0.4,
+            "id": 45,
+            "price": 425.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.6,
+            "dep_airport": "Cuba",
+            "duration": 0.7,
+            "id": 46,
+            "price": 244.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 12.2,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 47,
+            "price": 73.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 3.3,
+            "dep_airport": "South Africa",
+            "duration": 0.1,
+            "id": 48,
+            "price": 66.1
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 8.1,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 49,
+            "price": 331.9
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.8,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 50,
+            "price": 229.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.0,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 51,
+            "price": 247.0
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 8.1,
+            "dep_airport": "Cuba",
+            "duration": 0.4,
+            "id": 52,
+            "price": 364.5
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.3,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 53,
+            "price": 319.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 4.9,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 54,
+            "price": 125.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 0.3,
+            "dep_airport": "Denmark",
+            "duration": 0.7,
+            "id": 55,
+            "price": 101.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 5.3,
+            "dep_airport": "Moldova",
+            "duration": 0.8,
+            "id": 56,
+            "price": 135.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 0.8,
+            "dep_airport": "Seychelles",
+            "duration": 0.8,
+            "id": 57,
+            "price": 153.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.8,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 58,
+            "price": 180.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 1.1,
+            "dep_airport": "Suriname",
+            "duration": 0.1,
+            "id": 59,
+            "price": 164.4
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 3.7,
+            "dep_airport": "Denmark",
+            "duration": 0.1,
+            "id": 60,
+            "price": 288.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 13.8,
+            "dep_airport": "Cuba",
+            "duration": 0.8,
+            "id": 61,
+            "price": 404.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 3.0,
+            "dep_airport": "Barbados",
+            "duration": 0.8,
+            "id": 62,
+            "price": 237.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 9.3,
+            "dep_airport": "Moldova",
+            "duration": 0.1,
+            "id": 63,
+            "price": 265.7
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 3.6,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 64,
+            "price": 160.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 14.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.4,
+            "id": 65,
+            "price": 133.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 3.3,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 66,
+            "price": 240.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 0.2,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 67,
+            "price": 182.4
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 9.8,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 68,
+            "price": 12.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.7,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 69,
+            "price": 261.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 13.6,
+            "dep_airport": "Seychelles",
+            "duration": 0.8,
+            "id": 70,
+            "price": 215.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.2,
+            "dep_airport": "Malaysia",
+            "duration": 0.8,
+            "id": 71,
+            "price": 111.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 9.8,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 72,
+            "price": 205.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.1,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 73,
+            "price": 220.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 6.4,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 74,
+            "price": 382.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.3,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 75,
+            "price": 35.6
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 76,
+            "price": 202.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 7.8,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 77,
+            "price": 339.0
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.3,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 78,
+            "price": 311.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 8.4,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 79,
+            "price": 311.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 8.3,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 80,
+            "price": 151.9
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.6,
+            "dep_airport": "Cuba",
+            "duration": 0.6,
+            "id": 81,
+            "price": 22.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 4.1,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 82,
+            "price": 394.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.3,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 83,
+            "price": 114.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.3,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 84,
+            "price": 437.3
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.9,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 85,
+            "price": 156.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.4,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 86,
+            "price": 469.2
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.4,
+            "dep_airport": "Malaysia",
+            "duration": 0.3,
+            "id": 87,
+            "price": 467.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 0.7,
+            "dep_airport": "Suriname",
+            "duration": 0.6,
+            "id": 88,
+            "price": 113.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.4,
+            "dep_airport": "Cuba",
+            "duration": 0.7,
+            "id": 89,
+            "price": 458.2
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 7.1,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 90,
+            "price": 397.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 8.1,
+            "dep_airport": "Seychelles",
+            "duration": 1.0,
+            "id": 91,
+            "price": 329.6
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.1,
+            "dep_airport": "South Africa",
+            "duration": 0.7,
+            "id": 92,
+            "price": 173.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 9.4,
+            "dep_airport": "Malaysia",
+            "duration": 0.1,
+            "id": 93,
+            "price": 94.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 6.8,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 94,
+            "price": 408.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.6,
+            "dep_airport": "Seychelles",
+            "duration": 0.1,
+            "id": 95,
+            "price": 247.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 5.3,
+            "dep_airport": "Suriname",
+            "duration": 0.9,
+            "id": 96,
+            "price": 213.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.5,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 97,
+            "price": 228.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 13.9,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 98,
+            "price": 138.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.6,
+            "dep_airport": "South Africa",
+            "duration": 0.8,
+            "id": 99,
+            "price": 126.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 3.2,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 100,
+            "price": 412.5
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 12.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 101,
+            "price": 199.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.8,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 102,
+            "price": 498.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 5.2,
+            "dep_airport": "Moldova",
+            "duration": 0.7,
+            "id": 103,
+            "price": 285.7
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.0,
+            "dep_airport": "Suriname",
+            "duration": 0.3,
+            "id": 104,
+            "price": 233.9
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 1.1,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 105,
+            "price": 16.7
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.4,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 106,
+            "price": 179.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.7,
+            "dep_airport": "Suriname",
+            "duration": 0.9,
+            "id": 107,
+            "price": 113.1
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 12.1,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 108,
+            "price": 141.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 9.5,
+            "dep_airport": "South Africa",
+            "duration": 0.9,
+            "id": 109,
+            "price": 10.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.7,
+            "dep_airport": "Suriname",
+            "duration": 0.4,
+            "id": 110,
+            "price": 345.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.3,
+            "dep_airport": "South Africa",
+            "duration": 0.4,
+            "id": 111,
+            "price": 324.2
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 9.0,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 112,
+            "price": 465.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 7.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 113,
+            "price": 172.6
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.2,
+            "dep_airport": "Malaysia",
+            "duration": 0.4,
+            "id": 114,
+            "price": 75.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 8.2,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 115,
+            "price": 53.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 0.3,
+            "dep_airport": "South Africa",
+            "duration": 0.1,
+            "id": 116,
+            "price": 218.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.6,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 117,
+            "price": 472.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 8.3,
+            "dep_airport": "Moldova",
+            "duration": 1.0,
+            "id": 118,
+            "price": 90.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 119,
+            "price": 185.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 13.8,
+            "dep_airport": "Moldova",
+            "duration": 0.7,
+            "id": 120,
+            "price": 123.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 13.8,
+            "dep_airport": "Malaysia",
+            "duration": 0.8,
+            "id": 121,
+            "price": 279.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 5.4,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 122,
+            "price": 494.1
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 13.7,
+            "dep_airport": "Suriname",
+            "duration": 0.1,
+            "id": 123,
+            "price": 315.0
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 4.9,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 124,
+            "price": 322.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 0.9,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 125,
+            "price": 351.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.2,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 126,
+            "price": 282.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.6,
+            "dep_airport": "Seychelles",
+            "duration": 0.5,
+            "id": 127,
+            "price": 374.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 14.0,
+            "dep_airport": "Denmark",
+            "duration": 0.4,
+            "id": 128,
+            "price": 193.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 3.9,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 129,
+            "price": 57.3
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.4,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 130,
+            "price": 322.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 4.4,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 131,
+            "price": 340.1
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 2.3,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 132,
+            "price": 465.7
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 2.5,
+            "dep_airport": "Suriname",
+            "duration": 0.3,
+            "id": 133,
+            "price": 159.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 134,
+            "price": 477.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 3.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.4,
+            "id": 135,
+            "price": 152.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 1.5,
+            "dep_airport": "Cuba",
+            "duration": 0.9,
+            "id": 136,
+            "price": 238.6
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 3.4,
+            "dep_airport": "Barbados",
+            "duration": 0.2,
+            "id": 137,
+            "price": 463.7
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 11.0,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 138,
+            "price": 110.2
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 4.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 139,
+            "price": 204.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 7.3,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 140,
+            "price": 239.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.3,
+            "id": 141,
+            "price": 451.2
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 13.9,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 142,
+            "price": 411.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 8.5,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 143,
+            "price": 480.7
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 7.8,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 144,
+            "price": 486.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 2.2,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 145,
+            "price": 148.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 7.0,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 146,
+            "price": 318.2
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 9.8,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 147,
+            "price": 179.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 8.9,
+            "dep_airport": "South Africa",
+            "duration": 0.1,
+            "id": 148,
+            "price": 405.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 1.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 149,
+            "price": 158.8
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 7.3,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 150,
+            "price": 391.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.9,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 151,
+            "price": 61.3
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 2.2,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 152,
+            "price": 339.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.7,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 153,
+            "price": 59.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 14.0,
+            "dep_airport": "Denmark",
+            "duration": 0.5,
+            "id": 154,
+            "price": 232.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 11.3,
+            "dep_airport": "Suriname",
+            "duration": 0.8,
+            "id": 155,
+            "price": 467.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.6,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 156,
+            "price": 105.4
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 4.4,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 157,
+            "price": 73.4
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 3.5,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 158,
+            "price": 43.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 0.3,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 159,
+            "price": 50.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 3.6,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 160,
+            "price": 359.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.4,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 161,
+            "price": 165.9
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.6,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 162,
+            "price": 445.6
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.9,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 163,
+            "price": 84.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 7.3,
+            "dep_airport": "Cuba",
+            "duration": 0.6,
+            "id": 164,
+            "price": 12.5
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 8.0,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 165,
+            "price": 451.2
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.4,
+            "dep_airport": "Moldova",
+            "duration": 0.7,
+            "id": 166,
+            "price": 10.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 8.3,
+            "dep_airport": "Seychelles",
+            "duration": 0.5,
+            "id": 167,
+            "price": 223.5
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 3.2,
+            "dep_airport": "Suriname",
+            "duration": 0.8,
+            "id": 168,
+            "price": 362.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 11.8,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 169,
+            "price": 223.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 11.1,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 170,
+            "price": 180.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 11.3,
+            "dep_airport": "South Africa",
+            "duration": 0.6,
+            "id": 171,
+            "price": 37.6
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.3,
+            "dep_airport": "Seychelles",
+            "duration": 0.2,
+            "id": 172,
+            "price": 131.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 6.2,
+            "dep_airport": "Denmark",
+            "duration": 0.5,
+            "id": 173,
+            "price": 270.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.6,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 174,
+            "price": 182.1
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 8.7,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 175,
+            "price": 73.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 9.7,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 176,
+            "price": 184.2
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.4,
+            "dep_airport": "Denmark",
+            "duration": 0.7,
+            "id": 177,
+            "price": 265.5
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 9.9,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 178,
+            "price": 325.8
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 7.0,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 179,
+            "price": 154.1
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.1,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 180,
+            "price": 397.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 9.7,
+            "dep_airport": "South Africa",
+            "duration": 0.8,
+            "id": 181,
+            "price": 115.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 10.8,
+            "dep_airport": "Seychelles",
+            "duration": 0.4,
+            "id": 182,
+            "price": 328.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 2.6,
+            "dep_airport": "South Africa",
+            "duration": 0.9,
+            "id": 183,
+            "price": 344.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 9.0,
+            "dep_airport": "Moldova",
+            "duration": 0.8,
+            "id": 184,
+            "price": 479.4
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 13.8,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 185,
+            "price": 159.3
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 0.6,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 186,
+            "price": 469.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 1.2,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 187,
+            "price": 236.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 2.0,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 188,
+            "price": 268.3
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 7.3,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 189,
+            "price": 231.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 6.1,
+            "dep_airport": "Cuba",
+            "duration": 0.7,
+            "id": 190,
+            "price": 68.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.0,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 191,
+            "price": 201.4
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 7.9,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 192,
+            "price": 133.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 3.4,
+            "dep_airport": "Malaysia",
+            "duration": 1.0,
+            "id": 193,
+            "price": 212.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 194,
+            "price": 184.8
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 0.7,
+            "dep_airport": "Moldova",
+            "duration": 0.7,
+            "id": 195,
+            "price": 36.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 9.9,
+            "dep_airport": "Denmark",
+            "duration": 0.5,
+            "id": 196,
+            "price": 89.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 8.1,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 197,
+            "price": 470.1
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 8.4,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 198,
+            "price": 186.2
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 10.7,
+            "dep_airport": "South Africa",
+            "duration": 0.1,
+            "id": 199,
+            "price": 391.7
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.9,
+            "dep_airport": "Cuba",
+            "duration": 0.8,
+            "id": 200,
+            "price": 321.5
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.1,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 201,
+            "price": 10.3
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 2.9,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 202,
+            "price": 477.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 12.1,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 203,
+            "price": 160.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 12.1,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 204,
+            "price": 281.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 1.8,
+            "dep_airport": "South Africa",
+            "duration": 0.7,
+            "id": 205,
+            "price": 486.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 0.3,
+            "dep_airport": "Cuba",
+            "duration": 0.3,
+            "id": 206,
+            "price": 379.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 10.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.2,
+            "id": 207,
+            "price": 374.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 11.5,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 208,
+            "price": 424.1
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 9.5,
+            "dep_airport": "Seychelles",
+            "duration": 0.4,
+            "id": 209,
+            "price": 424.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 7.6,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 210,
+            "price": 67.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.4,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 211,
+            "price": 75.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 1.1,
+            "dep_airport": "Suriname",
+            "duration": 0.4,
+            "id": 212,
+            "price": 390.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.9,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 213,
+            "price": 253.6
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 3.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 214,
+            "price": 494.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 6.2,
+            "dep_airport": "Cuba",
+            "duration": 0.3,
+            "id": 215,
+            "price": 147.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 13.9,
+            "dep_airport": "South Africa",
+            "duration": 0.4,
+            "id": 216,
+            "price": 141.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 0.7,
+            "dep_airport": "Cuba",
+            "duration": 0.8,
+            "id": 217,
+            "price": 213.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 1.0,
+            "dep_airport": "Suriname",
+            "duration": 0.4,
+            "id": 218,
+            "price": 381.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 14.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.4,
+            "id": 219,
+            "price": 170.5
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 5.5,
+            "dep_airport": "Seychelles",
+            "duration": 0.6,
+            "id": 220,
+            "price": 241.1
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 11.5,
+            "dep_airport": "Cuba",
+            "duration": 0.9,
+            "id": 221,
+            "price": 135.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 10.7,
+            "dep_airport": "Moldova",
+            "duration": 0.9,
+            "id": 222,
+            "price": 400.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 10.9,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 223,
+            "price": 113.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 7.9,
+            "dep_airport": "Barbados",
+            "duration": 0.8,
+            "id": 224,
+            "price": 476.4
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 2.7,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 225,
+            "price": 240.2
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 0.2,
+            "dep_airport": "Denmark",
+            "duration": 0.6,
+            "id": 226,
+            "price": 293.7
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.1,
+            "dep_airport": "Suriname",
+            "duration": 1.0,
+            "id": 227,
+            "price": 345.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 9.4,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 228,
+            "price": 22.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.1,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 229,
+            "price": 36.7
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 14.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.8,
+            "id": 230,
+            "price": 299.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.5,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 231,
+            "price": 382.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 1.6,
+            "dep_airport": "Moldova",
+            "duration": 0.8,
+            "id": 232,
+            "price": 251.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.1,
+            "dep_airport": "Moldova",
+            "duration": 0.2,
+            "id": 233,
+            "price": 396.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.2,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 234,
+            "price": 240.3
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 0.6,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 235,
+            "price": 246.6
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 5.7,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 236,
+            "price": 260.3
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 10.4,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 237,
+            "price": 320.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 9.1,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 238,
+            "price": 357.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.3,
+            "id": 239,
+            "price": 318.1
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 7.5,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 240,
+            "price": 277.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.3,
+            "dep_airport": "South Africa",
+            "duration": 0.8,
+            "id": 241,
+            "price": 343.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 8.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 242,
+            "price": 35.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.1,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 243,
+            "price": 373.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 7.2,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 244,
+            "price": 261.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 9.2,
+            "dep_airport": "Moldova",
+            "duration": 0.1,
+            "id": 245,
+            "price": 26.1
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 14.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.5,
+            "id": 246,
+            "price": 285.8
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 6.8,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 247,
+            "price": 137.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 4.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 248,
+            "price": 75.6
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 5.7,
+            "dep_airport": "Barbados",
+            "duration": 0.1,
+            "id": 249,
+            "price": 123.8
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 2.7,
+            "dep_airport": "Seychelles",
+            "duration": 0.8,
+            "id": 250,
+            "price": 166.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.5,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 251,
+            "price": 126.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 8.1,
+            "dep_airport": "Seychelles",
+            "duration": 0.4,
+            "id": 252,
+            "price": 357.6
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 12.6,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 253,
+            "price": 129.9
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.4,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 254,
+            "price": 399.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 7.4,
+            "dep_airport": "Suriname",
+            "duration": 1.0,
+            "id": 255,
+            "price": 125.5
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.3,
+            "dep_airport": "South Africa",
+            "duration": 0.8,
+            "id": 256,
+            "price": 379.5
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 6.3,
+            "dep_airport": "Barbados",
+            "duration": 0.1,
+            "id": 257,
+            "price": 439.3
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 4.9,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 258,
+            "price": 50.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 5.0,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 259,
+            "price": 222.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 4.7,
+            "dep_airport": "Malaysia",
+            "duration": 1.0,
+            "id": 260,
+            "price": 260.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 261,
+            "price": 371.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 4.0,
+            "dep_airport": "Moldova",
+            "duration": 0.9,
+            "id": 262,
+            "price": 256.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 12.7,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 263,
+            "price": 182.6
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 9.3,
+            "dep_airport": "Malaysia",
+            "duration": 0.6,
+            "id": 264,
+            "price": 474.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 11.3,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 265,
+            "price": 264.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 9.1,
+            "dep_airport": "Barbados",
+            "duration": 0.2,
+            "id": 266,
+            "price": 189.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 3.4,
+            "dep_airport": "Seychelles",
+            "duration": 0.6,
+            "id": 267,
+            "price": 171.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 6.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 268,
+            "price": 72.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 11.3,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 269,
+            "price": 314.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 11.7,
+            "dep_airport": "Barbados",
+            "duration": 0.2,
+            "id": 270,
+            "price": 121.6
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 7.4,
+            "dep_airport": "Cuba",
+            "duration": 1.0,
+            "id": 271,
+            "price": 273.8
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 10.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 272,
+            "price": 284.2
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 9.5,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 273,
+            "price": 213.9
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.2,
+            "dep_airport": "Moldova",
+            "duration": 0.1,
+            "id": 274,
+            "price": 316.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 11.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.8,
+            "id": 275,
+            "price": 203.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 12.1,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 276,
+            "price": 393.5
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.7,
+            "dep_airport": "Suriname",
+            "duration": 0.9,
+            "id": 277,
+            "price": 272.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 5.3,
+            "dep_airport": "Seychelles",
+            "duration": 0.1,
+            "id": 278,
+            "price": 346.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.4,
+            "dep_airport": "Moldova",
+            "duration": 0.2,
+            "id": 279,
+            "price": 367.6
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 10.1,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 280,
+            "price": 339.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 4.0,
+            "dep_airport": "Denmark",
+            "duration": 0.7,
+            "id": 281,
+            "price": 149.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 7.2,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 282,
+            "price": 387.0
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 2.1,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 283,
+            "price": 170.0
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 3.0,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 284,
+            "price": 161.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 2.6,
+            "dep_airport": "Suriname",
+            "duration": 1.0,
+            "id": 285,
+            "price": 178.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.2,
+            "dep_airport": "Denmark",
+            "duration": 0.6,
+            "id": 286,
+            "price": 489.9
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.3,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 287,
+            "price": 43.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.1,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 288,
+            "price": 35.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.8,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 289,
+            "price": 496.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 0.2,
+            "dep_airport": "Moldova",
+            "duration": 0.2,
+            "id": 290,
+            "price": 355.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 5.4,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 291,
+            "price": 231.6
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.9,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 292,
+            "price": 54.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.4,
+            "dep_airport": "Barbados",
+            "duration": 0.8,
+            "id": 293,
+            "price": 179.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 3.8,
+            "dep_airport": "Moldova",
+            "duration": 0.9,
+            "id": 294,
+            "price": 405.2
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.1,
+            "dep_airport": "Seychelles",
+            "duration": 0.4,
+            "id": 295,
+            "price": 327.0
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 10.8,
+            "dep_airport": "Moldova",
+            "duration": 0.7,
+            "id": 296,
+            "price": 157.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 1.3,
+            "dep_airport": "Suriname",
+            "duration": 0.1,
+            "id": 297,
+            "price": 462.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 12.2,
+            "dep_airport": "Barbados",
+            "duration": 0.1,
+            "id": 298,
+            "price": 83.0
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 4.2,
+            "dep_airport": "Cuba",
+            "duration": 0.7,
+            "id": 299,
+            "price": 398.3
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 13.6,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 300,
+            "price": 37.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 4.3,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 301,
+            "price": 453.2
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 2.3,
+            "dep_airport": "Denmark",
+            "duration": 0.1,
+            "id": 302,
+            "price": 416.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 11.7,
+            "dep_airport": "Moldova",
+            "duration": 0.7,
+            "id": 303,
+            "price": 399.4
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 6.4,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 304,
+            "price": 222.6
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.6,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 305,
+            "price": 421.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 4.0,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 306,
+            "price": 204.5
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 12.5,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 307,
+            "price": 164.7
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 12.5,
+            "dep_airport": "Seychelles",
+            "duration": 0.2,
+            "id": 308,
+            "price": 394.6
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 2.1,
+            "dep_airport": "Moldova",
+            "duration": 0.8,
+            "id": 309,
+            "price": 494.1
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 3.3,
+            "dep_airport": "Cuba",
+            "duration": 0.3,
+            "id": 310,
+            "price": 229.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 14.0,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 311,
+            "price": 302.7
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.3,
+            "dep_airport": "Denmark",
+            "duration": 0.6,
+            "id": 312,
+            "price": 274.0
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 8.9,
+            "dep_airport": "Denmark",
+            "duration": 0.7,
+            "id": 313,
+            "price": 413.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 8.0,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 314,
+            "price": 253.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 6.5,
+            "dep_airport": "Cuba",
+            "duration": 0.9,
+            "id": 315,
+            "price": 476.8
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.1,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 316,
+            "price": 185.5
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.4,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 317,
+            "price": 31.6
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 11.0,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 318,
+            "price": 319.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.2,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 319,
+            "price": 180.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.8,
+            "dep_airport": "Malaysia",
+            "duration": 1.0,
+            "id": 320,
+            "price": 197.3
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 321,
+            "price": 459.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.2,
+            "dep_airport": "Cuba",
+            "duration": 0.9,
+            "id": 322,
+            "price": 327.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 4.1,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 323,
+            "price": 96.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 7.2,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 324,
+            "price": 480.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 9.9,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 325,
+            "price": 478.2
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 5.2,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 326,
+            "price": 80.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 327,
+            "price": 450.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.5,
+            "dep_airport": "Suriname",
+            "duration": 0.6,
+            "id": 328,
+            "price": 228.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 10.5,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 329,
+            "price": 323.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.5,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 330,
+            "price": 61.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 1.0,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 331,
+            "price": 374.4
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.2,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 332,
+            "price": 184.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.8,
+            "dep_airport": "Cuba",
+            "duration": 0.7,
+            "id": 333,
+            "price": 155.0
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 13.4,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 334,
+            "price": 380.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 12.9,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 335,
+            "price": 17.3
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 0.0,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 336,
+            "price": 252.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 4.7,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 337,
+            "price": 235.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 2.0,
+            "dep_airport": "Moldova",
+            "duration": 0.2,
+            "id": 338,
+            "price": 113.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 3.7,
+            "dep_airport": "Suriname",
+            "duration": 0.5,
+            "id": 339,
+            "price": 300.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 4.7,
+            "dep_airport": "Moldova",
+            "duration": 0.9,
+            "id": 340,
+            "price": 356.9
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 9.4,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 341,
+            "price": 382.4
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 7.2,
+            "dep_airport": "Malaysia",
+            "duration": 0.1,
+            "id": 342,
+            "price": 48.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.4,
+            "dep_airport": "Malaysia",
+            "duration": 0.6,
+            "id": 343,
+            "price": 215.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.8,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 344,
+            "price": 186.3
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 5.3,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 345,
+            "price": 289.2
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 1.4,
+            "dep_airport": "Moldova",
+            "duration": 0.6,
+            "id": 346,
+            "price": 15.1
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.8,
+            "dep_airport": "South Africa",
+            "duration": 0.4,
+            "id": 347,
+            "price": 349.8
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 12.1,
+            "dep_airport": "South Africa",
+            "duration": 0.4,
+            "id": 348,
+            "price": 353.3
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 4.9,
+            "dep_airport": "Cuba",
+            "duration": 0.9,
+            "id": 349,
+            "price": 423.2
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.5,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 350,
+            "price": 120.3
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 10.1,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 351,
+            "price": 412.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 11.1,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 352,
+            "price": 319.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.9,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 353,
+            "price": 432.9
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.8,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 354,
+            "price": 334.4
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.0,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 355,
+            "price": 243.7
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 5.6,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 356,
+            "price": 306.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 5.8,
+            "dep_airport": "Seychelles",
+            "duration": 0.6,
+            "id": 357,
+            "price": 305.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 3.5,
+            "dep_airport": "Denmark",
+            "duration": 1.0,
+            "id": 358,
+            "price": 130.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 0.2,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 359,
+            "price": 406.3
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.9,
+            "dep_airport": "Denmark",
+            "duration": 0.7,
+            "id": 360,
+            "price": 203.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.7,
+            "dep_airport": "Denmark",
+            "duration": 0.7,
+            "id": 361,
+            "price": 259.7
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 13.7,
+            "dep_airport": "South Africa",
+            "duration": 0.9,
+            "id": 362,
+            "price": 13.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 3.5,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 363,
+            "price": 43.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.9,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 364,
+            "price": 163.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.4,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 365,
+            "price": 195.8
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 11.1,
+            "dep_airport": "Suriname",
+            "duration": 0.6,
+            "id": 366,
+            "price": 179.0
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.8,
+            "dep_airport": "Moldova",
+            "duration": 0.2,
+            "id": 367,
+            "price": 263.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 9.4,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 368,
+            "price": 250.3
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 7.1,
+            "dep_airport": "Denmark",
+            "duration": 0.4,
+            "id": 369,
+            "price": 320.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 4.2,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 370,
+            "price": 358.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 13.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 371,
+            "price": 310.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 7.7,
+            "dep_airport": "Seychelles",
+            "duration": 0.7,
+            "id": 372,
+            "price": 444.9
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 11.8,
+            "dep_airport": "Denmark",
+            "duration": 0.4,
+            "id": 373,
+            "price": 134.8
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 9.8,
+            "dep_airport": "Malaysia",
+            "duration": 0.6,
+            "id": 374,
+            "price": 206.7
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 8.2,
+            "dep_airport": "Suriname",
+            "duration": 0.4,
+            "id": 375,
+            "price": 283.9
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 8.9,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 376,
+            "price": 40.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 5.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.6,
+            "id": 377,
+            "price": 490.2
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 13.1,
+            "dep_airport": "South Africa",
+            "duration": 1.0,
+            "id": 378,
+            "price": 368.4
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 13.6,
+            "dep_airport": "Seychelles",
+            "duration": 0.9,
+            "id": 379,
+            "price": 200.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 13.6,
+            "dep_airport": "South Africa",
+            "duration": 1.0,
+            "id": 380,
+            "price": 57.9
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 5.2,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 381,
+            "price": 94.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 12.5,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 382,
+            "price": 443.7
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 4.4,
+            "dep_airport": "Cuba",
+            "duration": 0.2,
+            "id": 383,
+            "price": 183.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 5.6,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 384,
+            "price": 247.5
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.6,
+            "dep_airport": "Malaysia",
+            "duration": 0.4,
+            "id": 385,
+            "price": 50.4
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.2,
+            "dep_airport": "Cuba",
+            "duration": 0.1,
+            "id": 386,
+            "price": 493.4
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.9,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 387,
+            "price": 19.5
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 2.4,
+            "dep_airport": "Barbados",
+            "duration": 0.8,
+            "id": 388,
+            "price": 118.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.1,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 389,
+            "price": 485.2
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 4.2,
+            "dep_airport": "Seychelles",
+            "duration": 0.5,
+            "id": 390,
+            "price": 229.7
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 1.2,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 391,
+            "price": 495.0
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.8,
+            "dep_airport": "Denmark",
+            "duration": 0.5,
+            "id": 392,
+            "price": 58.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 12.5,
+            "dep_airport": "Malaysia",
+            "duration": 0.6,
+            "id": 393,
+            "price": 429.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 1.2,
+            "dep_airport": "South Africa",
+            "duration": 1.0,
+            "id": 394,
+            "price": 436.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 9.7,
+            "dep_airport": "Barbados",
+            "duration": 0.2,
+            "id": 395,
+            "price": 327.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 6.4,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 396,
+            "price": 247.5
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 5.9,
+            "dep_airport": "Suriname",
+            "duration": 0.8,
+            "id": 397,
+            "price": 49.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 10.7,
+            "dep_airport": "Denmark",
+            "duration": 0.3,
+            "id": 398,
+            "price": 123.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 5.7,
+            "dep_airport": "Suriname",
+            "duration": 0.1,
+            "id": 399,
+            "price": 223.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 3.3,
+            "dep_airport": "South Africa",
+            "duration": 0.5,
+            "id": 400,
+            "price": 141.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 1.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.3,
+            "id": 401,
+            "price": 237.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 11.1,
+            "dep_airport": "Malaysia",
+            "duration": 1.0,
+            "id": 402,
+            "price": 133.4
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 3.1,
+            "dep_airport": "Denmark",
+            "duration": 0.3,
+            "id": 403,
+            "price": 76.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 8.4,
+            "dep_airport": "South Africa",
+            "duration": 0.6,
+            "id": 404,
+            "price": 124.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 13.5,
+            "dep_airport": "Cuba",
+            "duration": 0.4,
+            "id": 405,
+            "price": 302.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 2.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 406,
+            "price": 42.4
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 0.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 407,
+            "price": 102.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.3,
+            "dep_airport": "South Africa",
+            "duration": 0.4,
+            "id": 408,
+            "price": 27.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 11.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 409,
+            "price": 114.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 12.1,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 410,
+            "price": 116.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.3,
+            "dep_airport": "Denmark",
+            "duration": 0.6,
+            "id": 411,
+            "price": 169.0
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 11.2,
+            "dep_airport": "South Africa",
+            "duration": 0.3,
+            "id": 412,
+            "price": 435.4
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 4.0,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 413,
+            "price": 254.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.4,
+            "dep_airport": "Denmark",
+            "duration": 0.6,
+            "id": 414,
+            "price": 407.4
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 2.1,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 415,
+            "price": 316.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 6.1,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 416,
+            "price": 290.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.5,
+            "dep_airport": "Barbados",
+            "duration": 0.5,
+            "id": 417,
+            "price": 58.1
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 2.3,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 418,
+            "price": 112.6
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.0,
+            "dep_airport": "Suriname",
+            "duration": 0.6,
+            "id": 419,
+            "price": 303.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 1.7,
+            "dep_airport": "South Africa",
+            "duration": 0.7,
+            "id": 420,
+            "price": 131.3
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 12.9,
+            "dep_airport": "Suriname",
+            "duration": 0.3,
+            "id": 421,
+            "price": 69.8
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 5.9,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 422,
+            "price": 188.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 12.8,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 423,
+            "price": 411.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.4,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 424,
+            "price": 298.0
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 9.6,
+            "dep_airport": "Barbados",
+            "duration": 1.0,
+            "id": 425,
+            "price": 240.7
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 10.1,
+            "dep_airport": "Suriname",
+            "duration": 0.4,
+            "id": 426,
+            "price": 273.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 13.5,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 427,
+            "price": 154.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 12.0,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 428,
+            "price": 32.7
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 6.4,
+            "dep_airport": "South Africa",
+            "duration": 0.8,
+            "id": 429,
+            "price": 461.2
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 13.9,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 430,
+            "price": 404.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 11.4,
+            "dep_airport": "Moldova",
+            "duration": 0.3,
+            "id": 431,
+            "price": 319.6
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 11.5,
+            "dep_airport": "South Africa",
+            "duration": 0.2,
+            "id": 432,
+            "price": 486.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 4.0,
+            "dep_airport": "Barbados",
+            "duration": 0.1,
+            "id": 433,
+            "price": 374.4
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 3.5,
+            "dep_airport": "Seychelles",
+            "duration": 0.5,
+            "id": 434,
+            "price": 149.9
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 1.2,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 435,
+            "price": 253.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 3.8,
+            "dep_airport": "Malaysia",
+            "duration": 0.5,
+            "id": 436,
+            "price": 56.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 1.0,
+            "dep_airport": "Cuba",
+            "duration": 0.3,
+            "id": 437,
+            "price": 410.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 2.3,
+            "dep_airport": "Denmark",
+            "duration": 0.3,
+            "id": 438,
+            "price": 289.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 10.7,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 439,
+            "price": 407.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.0,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 440,
+            "price": 490.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.9,
+            "dep_airport": "Seychelles",
+            "duration": 0.3,
+            "id": 441,
+            "price": 135.7
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 5.8,
+            "dep_airport": "South Africa",
+            "duration": 1.0,
+            "id": 442,
+            "price": 247.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 9.3,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 443,
+            "price": 156.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.3,
+            "id": 444,
+            "price": 39.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 0.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 445,
+            "price": 192.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 13.5,
+            "dep_airport": "Suriname",
+            "duration": 0.3,
+            "id": 446,
+            "price": 270.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.8,
+            "dep_airport": "Denmark",
+            "duration": 0.5,
+            "id": 447,
+            "price": 288.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 11.4,
+            "dep_airport": "Malaysia",
+            "duration": 0.6,
+            "id": 448,
+            "price": 159.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.1,
+            "dep_airport": "Malaysia",
+            "duration": 0.7,
+            "id": 449,
+            "price": 37.2
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 2.0,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 450,
+            "price": 488.7
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 7.6,
+            "dep_airport": "Barbados",
+            "duration": 0.2,
+            "id": 451,
+            "price": 97.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 3.8,
+            "dep_airport": "Suriname",
+            "duration": 1.0,
+            "id": 452,
+            "price": 372.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 10.1,
+            "dep_airport": "Moldova",
+            "duration": 0.4,
+            "id": 453,
+            "price": 361.3
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 11.6,
+            "dep_airport": "Cuba",
+            "duration": 0.6,
+            "id": 454,
+            "price": 283.0
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 8.2,
+            "dep_airport": "Cuba",
+            "duration": 0.8,
+            "id": 455,
+            "price": 472.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 10.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.2,
+            "id": 456,
+            "price": 65.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 5.2,
+            "dep_airport": "Denmark",
+            "duration": 0.2,
+            "id": 457,
+            "price": 30.5
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 8.3,
+            "dep_airport": "South Africa",
+            "duration": 0.9,
+            "id": 458,
+            "price": 20.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 7.5,
+            "dep_airport": "South Africa",
+            "duration": 0.8,
+            "id": 459,
+            "price": 491.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 2.2,
+            "dep_airport": "Cuba",
+            "duration": 0.8,
+            "id": 460,
+            "price": 422.7
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.3,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 461,
+            "price": 400.9
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 7.6,
+            "dep_airport": "Suriname",
+            "duration": 0.3,
+            "id": 462,
+            "price": 314.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 10.7,
+            "dep_airport": "Moldova",
+            "duration": 0.2,
+            "id": 463,
+            "price": 243.5
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.6,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 464,
+            "price": 118.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 12.3,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 465,
+            "price": 51.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 1.7,
+            "dep_airport": "Malaysia",
+            "duration": 0.6,
+            "id": 466,
+            "price": 442.9
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.2,
+            "id": 467,
+            "price": 461.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 6.2,
+            "dep_airport": "Malaysia",
+            "duration": 0.1,
+            "id": 468,
+            "price": 201.6
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 2.5,
+            "dep_airport": "Barbados",
+            "duration": 0.3,
+            "id": 469,
+            "price": 131.5
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 2.8,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 470,
+            "price": 475.1
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 10.0,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 471,
+            "price": 130.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 9.2,
+            "dep_airport": "Denmark",
+            "duration": 0.8,
+            "id": 472,
+            "price": 133.0
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 3.2,
+            "dep_airport": "Cuba",
+            "duration": 0.3,
+            "id": 473,
+            "price": 16.8
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 8.0,
+            "dep_airport": "Seychelles",
+            "duration": 0.6,
+            "id": 474,
+            "price": 117.5
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 13.5,
+            "dep_airport": "Denmark",
+            "duration": 0.5,
+            "id": 475,
+            "price": 250.8
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 1.3,
+            "dep_airport": "Moldova",
+            "duration": 0.8,
+            "id": 476,
+            "price": 306.3
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 0.8,
+            "dep_airport": "Moldova",
+            "duration": 0.8,
+            "id": 477,
+            "price": 146.2
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 10.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.9,
+            "id": 478,
+            "price": 250.2
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.2,
+            "dep_airport": "Denmark",
+            "duration": 0.3,
+            "id": 479,
+            "price": 234.8
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.8,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 480,
+            "price": 296.3
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 6.1,
+            "dep_airport": "Suriname",
+            "duration": 0.2,
+            "id": 481,
+            "price": 313.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 9.4,
+            "dep_airport": "Malaysia",
+            "duration": 0.8,
+            "id": 482,
+            "price": 480.0
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.3,
+            "dep_airport": "Suriname",
+            "duration": 0.7,
+            "id": 483,
+            "price": 213.0
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 6.0,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 484,
+            "price": 265.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 3.7,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 485,
+            "price": 429.5
+        },
+        {
+            "arr_airport": "Denmark",
+            "date": 6.1,
+            "dep_airport": "Moldova",
+            "duration": 0.2,
+            "id": 486,
+            "price": 29.2
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 5.6,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 487,
+            "price": 409.1
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 11.9,
+            "dep_airport": "Malaysia",
+            "duration": 0.4,
+            "id": 488,
+            "price": 346.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 3.2,
+            "dep_airport": "Barbados",
+            "duration": 1.0,
+            "id": 489,
+            "price": 239.1
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 9.0,
+            "dep_airport": "Barbados",
+            "duration": 0.8,
+            "id": 490,
+            "price": 192.0
+        },
+        {
+            "arr_airport": "Suriname",
+            "date": 4.4,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 491,
+            "price": 297.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.4,
+            "dep_airport": "Suriname",
+            "duration": 0.9,
+            "id": 492,
+            "price": 134.6
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 9.0,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 493,
+            "price": 93.1
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 8.9,
+            "dep_airport": "Moldova",
+            "duration": 0.7,
+            "id": 494,
+            "price": 259.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 11.5,
+            "dep_airport": "Malaysia",
+            "duration": 0.2,
+            "id": 495,
+            "price": 136.6
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.5,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 496,
+            "price": 282.9
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 4.7,
+            "dep_airport": "Denmark",
+            "duration": 0.9,
+            "id": 497,
+            "price": 247.4
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 0.6,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 498,
+            "price": 84.5
+        },
+        {
+            "arr_airport": "Malaysia",
+            "date": 5.1,
+            "dep_airport": "Moldova",
+            "duration": 0.5,
+            "id": 499,
+            "price": 45.0
+        }
+    ],
+    "holiday_time": 140
+}

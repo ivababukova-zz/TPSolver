@@ -1,0 +1,439 @@
+{
+    "airports": [
+        {
+            "connection_time": 0.4,
+            "name": "Cuba",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Romania",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Madagascar",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.5,
+            "name": "Myanmar",
+            "purpose": "home_point"
+        },
+        {
+            "connection_time": 0.4,
+            "name": "Cook Islands",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Guernsey",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.1,
+            "name": "Vanuatu",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Viet Nam",
+            "purpose": "connection"
+        }
+    ],
+    "flights": [
+        {
+            "arr_airport": "Cook Islands",
+            "date": 4.0,
+            "dep_airport": "Guernsey",
+            "duration": 0.3,
+            "id": 1,
+            "price": 420.2
+        },
+        {
+            "arr_airport": "Romania",
+            "date": 1.0,
+            "dep_airport": "Guernsey",
+            "duration": 0.8,
+            "id": 2,
+            "price": 398.8
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 10.2,
+            "dep_airport": "Myanmar",
+            "duration": 0.9,
+            "id": 3,
+            "price": 417.4
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 9.9,
+            "dep_airport": "Viet Nam",
+            "duration": 0.2,
+            "id": 4,
+            "price": 310.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 8.1,
+            "dep_airport": "Viet Nam",
+            "duration": 0.7,
+            "id": 5,
+            "price": 111.5
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 6.5,
+            "dep_airport": "Cuba",
+            "duration": 0.4,
+            "id": 6,
+            "price": 470.3
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 6.5,
+            "dep_airport": "Cook Islands",
+            "duration": 0.9,
+            "id": 7,
+            "price": 425.3
+        },
+        {
+            "arr_airport": "Cuba",
+            "date": 10.9,
+            "dep_airport": "Guernsey",
+            "duration": 0.7,
+            "id": 8,
+            "price": 214.6
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 0.5,
+            "dep_airport": "Myanmar",
+            "duration": 0.6,
+            "id": 9,
+            "price": 343.1
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 5.6,
+            "dep_airport": "Vanuatu",
+            "duration": 0.4,
+            "id": 10,
+            "price": 226.4
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 2.3,
+            "dep_airport": "Cuba",
+            "duration": 0.4,
+            "id": 11,
+            "price": 284.0
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 2.2,
+            "dep_airport": "Cuba",
+            "duration": 0.5,
+            "id": 12,
+            "price": 165.4
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 13.2,
+            "dep_airport": "Romania",
+            "duration": 0.5,
+            "id": 13,
+            "price": 193.2
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 5.9,
+            "dep_airport": "Vanuatu",
+            "duration": 0.6,
+            "id": 14,
+            "price": 376.5
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 11.0,
+            "dep_airport": "Madagascar",
+            "duration": 0.5,
+            "id": 15,
+            "price": 384.5
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 7.6,
+            "dep_airport": "Myanmar",
+            "duration": 0.7,
+            "id": 16,
+            "price": 321.2
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 1.1,
+            "dep_airport": "Romania",
+            "duration": 0.5,
+            "id": 17,
+            "price": 427.5
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 8.0,
+            "dep_airport": "Vanuatu",
+            "duration": 0.9,
+            "id": 18,
+            "price": 252.9
+        },
+        {
+            "arr_airport": "Romania",
+            "date": 11.6,
+            "dep_airport": "Myanmar",
+            "duration": 0.1,
+            "id": 19,
+            "price": 72.4
+        },
+        {
+            "arr_airport": "Romania",
+            "date": 4.7,
+            "dep_airport": "Madagascar",
+            "duration": 0.8,
+            "id": 20,
+            "price": 484.4
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 1.4,
+            "dep_airport": "Cook Islands",
+            "duration": 0.3,
+            "id": 21,
+            "price": 185.8
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 7.2,
+            "dep_airport": "Romania",
+            "duration": 0.1,
+            "id": 22,
+            "price": 248.5
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 11.8,
+            "dep_airport": "Cook Islands",
+            "duration": 0.5,
+            "id": 23,
+            "price": 323.0
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 3.1,
+            "dep_airport": "Cuba",
+            "duration": 0.6,
+            "id": 24,
+            "price": 24.9
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 3.2,
+            "dep_airport": "Guernsey",
+            "duration": 0.8,
+            "id": 25,
+            "price": 23.2
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 4.9,
+            "dep_airport": "Viet Nam",
+            "duration": 0.3,
+            "id": 26,
+            "price": 374.1
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 2.8,
+            "dep_airport": "Madagascar",
+            "duration": 0.3,
+            "id": 27,
+            "price": 393.1
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 8.8,
+            "dep_airport": "Guernsey",
+            "duration": 0.7,
+            "id": 28,
+            "price": 226.8
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 0.1,
+            "dep_airport": "Guernsey",
+            "duration": 0.8,
+            "id": 29,
+            "price": 368.7
+        },
+        {
+            "arr_airport": "Romania",
+            "date": 9.6,
+            "dep_airport": "Guernsey",
+            "duration": 0.5,
+            "id": 30,
+            "price": 169.3
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 6.1,
+            "dep_airport": "Vanuatu",
+            "duration": 0.5,
+            "id": 31,
+            "price": 149.3
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 5.0,
+            "dep_airport": "Cook Islands",
+            "duration": 0.7,
+            "id": 32,
+            "price": 184.2
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 11.4,
+            "dep_airport": "Viet Nam",
+            "duration": 0.8,
+            "id": 33,
+            "price": 177.1
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 5.2,
+            "dep_airport": "Viet Nam",
+            "duration": 0.8,
+            "id": 34,
+            "price": 445.1
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 10.5,
+            "dep_airport": "Madagascar",
+            "duration": 0.4,
+            "id": 35,
+            "price": 62.2
+        },
+        {
+            "arr_airport": "Romania",
+            "date": 11.6,
+            "dep_airport": "Madagascar",
+            "duration": 0.8,
+            "id": 36,
+            "price": 106.2
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 12.9,
+            "dep_airport": "Myanmar",
+            "duration": 1.0,
+            "id": 37,
+            "price": 444.1
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 3.1,
+            "dep_airport": "Guernsey",
+            "duration": 0.4,
+            "id": 38,
+            "price": 98.9
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 11.1,
+            "dep_airport": "Vanuatu",
+            "duration": 0.7,
+            "id": 39,
+            "price": 364.1
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 10.8,
+            "dep_airport": "Romania",
+            "duration": 0.5,
+            "id": 40,
+            "price": 262.1
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 9.3,
+            "dep_airport": "Myanmar",
+            "duration": 0.3,
+            "id": 41,
+            "price": 155.8
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 13.0,
+            "dep_airport": "Cook Islands",
+            "duration": 0.4,
+            "id": 42,
+            "price": 248.7
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 12.3,
+            "dep_airport": "Myanmar",
+            "duration": 0.7,
+            "id": 43,
+            "price": 158.4
+        },
+        {
+            "arr_airport": "Cook Islands",
+            "date": 0.3,
+            "dep_airport": "Madagascar",
+            "duration": 0.3,
+            "id": 44,
+            "price": 235.2
+        },
+        {
+            "arr_airport": "Myanmar",
+            "date": 13.4,
+            "dep_airport": "Viet Nam",
+            "duration": 0.8,
+            "id": 45,
+            "price": 328.4
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 0.1,
+            "dep_airport": "Vanuatu",
+            "duration": 0.4,
+            "id": 46,
+            "price": 164.2
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 10.2,
+            "dep_airport": "Myanmar",
+            "duration": 0.8,
+            "id": 47,
+            "price": 263.1
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 8.1,
+            "dep_airport": "Viet Nam",
+            "duration": 0.4,
+            "id": 48,
+            "price": 471.2
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 9.5,
+            "dep_airport": "Cook Islands",
+            "duration": 0.5,
+            "id": 49,
+            "price": 10.4
+        }
+    ],
+    "holiday_time": 140
+}

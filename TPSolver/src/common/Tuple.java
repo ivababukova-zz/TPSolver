@@ -1,6 +1,6 @@
-package helpers;
+package common;
 
-import main.Airport;
+import common.Airport;
 
 /**
  * Created by ivababukova on 1/5/17.

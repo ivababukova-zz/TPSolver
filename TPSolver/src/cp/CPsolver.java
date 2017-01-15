@@ -2,14 +2,14 @@ package cp;
 
 import java.util.ArrayList;
 
-import main.Airport;
-import main.Flight;
+import common.Airport;
+import common.Flight;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
 import org.chocosolver.solver.variables.*;
 
-import helpers.HelperMethods;
-import helpers.Tuple;
+import common.HelperMethods;
+import common.Tuple;
 
 /**
  * Created by ivababukova on 12/16/16.
@@ -60,7 +60,7 @@ public class CPsolver {
         this.flights = newflights;
     }
 
-    private void init(){
+    private int init(){
         this.model = new Model("TP CPsolver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
@@ -72,12 +72,13 @@ public class CPsolver {
         this.solver = model.getSolver();
 
         this.model.sum(C, "=", cost_sum).post();
-
-        this.findSchedule();
-
+        if (this.findSchedule() == 0) {
+            return 0;
+        }
+        return 1;
     }
 
-    private void findSchedule() {
+    private int findSchedule() {
         Airport a0 = h.getHomePoint();
         int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
         int[] from_home = h.arrayToint(h.allFrom(a0));
@@ -86,7 +87,10 @@ public class CPsolver {
         this.model.arithm(S[1], "!=", 0).post();
         this.model.arithm(C[0], "!=", 0).post();
 
-        destinationConstraint();
+        int trip_property_5 = destinationConstraint();
+        if (trip_property_5 == 0) {
+            return 0;
+        }
 //        if (this.tuples != null) hardConstraint2();
 
         for(int i = 1; i <= flights.size(); i++) {
@@ -138,6 +142,7 @@ public class CPsolver {
         }
         costConstraint();
         this.model.allDifferentExcept0(S).post();
+        return 1;
     }
 
     // call this function when no flights to connection airports are allowed
@@ -193,12 +198,17 @@ public class CPsolver {
     /*** ***/
 
     // all destinations must be visited
-    private void destinationConstraint(){
+    private int destinationConstraint(){
         for (Airport d: h.getDestinations()) {
             int[] all_to = h.arrayToint(h.allTo(d)); // all flights that fly to d
+            if (all_to.length == 0) {
+                System.out.println("It is impossible to visit destination " + d.name + ".\nThe instance has no solution.");
+                return 0;
+            }
             IntVar X = this.model.intVar(1, all_to.length);
             this.model.among(X, S, all_to).post(); // S must contain at least one flight that goes to d
         }
+        return 1;
     }
 
     // todo this is very inefficient
@@ -228,7 +238,9 @@ public class CPsolver {
     }
 
     public void getSolution(){
-        init();
+        if (init() == 0) {
+            return;
+        }
         Solution x;
         Boolean m = null;
         IntVar to_optimise = null;
