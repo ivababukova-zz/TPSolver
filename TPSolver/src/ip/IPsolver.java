@@ -80,6 +80,7 @@ public class IPsolver {
             this.tripProperty2();
             this.tripProperties3and4();
             this.tripProperty5();
+            this.minCostObjective(); // return a solution with minimised cost
 
             // Optimize model
             model.optimize();
@@ -213,7 +214,19 @@ public class IPsolver {
         }
     }
 
+    // set an objective for minimizing the flight cost
+    private void minCostObjective() throws GRBException {
+        GRBLinExpr expr = new GRBLinExpr();
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < m; j++) {
+                expr.addTerm(h.getFlightByID(j+1).cost, S[i][j]);
+            }
+        }
+        model.setObjective(expr, GRB.MINIMIZE);
+    }
+
     private void printSolution() throws GRBException {
+        double cost = 0;
         double[][] x = model.get(GRB.DoubleAttr.X, S);
 
         System.out.println();
@@ -245,13 +258,17 @@ public class IPsolver {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
                 if (x[i][j] > 0.5 && j != m-1) {
+                    cost = cost + h.getFlightByID(j+1).cost;
                     System.out.println(
-                            "from " + h.getFlightByID(j+1).dep.name + " to " +
-                                    h.getFlightByID(j+1).arr.name
+                            "from " + h.getFlightByID(j+1).dep.name +
+                            " to " + h.getFlightByID(j+1).arr.name +
+                            " on date: " + h.getFlightByID(j+1).date +
+                            " costs: " +  h.getFlightByID(j+1).cost
                     );
                 }
             }
         }
+        System.out.println("Total cost: " + cost);
     }
 
     private void debugModel() throws GRBException {

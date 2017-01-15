@@ -11,9 +11,11 @@ import java.util.ArrayList;
 
 public class InstanceParser {
 
-    private static final String FILENAME = "data/random_data/500_8_4_140_0.json";
-    private static final int B = 10000;
+    private static final String FILENAME = "data/random_data/100_8_4_140_0.json";
+    private static int B = 1000000;
+    private static int T = 0;
     private static ArrayList<Airport> airports = new ArrayList<>();
+    private static ArrayList<Flight> flights = new ArrayList<>();
 
     public static void main(String[] args) throws ContradictionException, IOException, ParseException {
         readJsonFile(args);
@@ -27,14 +29,17 @@ public class InstanceParser {
         JSONArray jflights = (JSONArray) jobj.get("flights");
         JSONArray jtuples = (JSONArray) jobj.get("hard_constraint_2");
 
-        int T = ((Number)jobj.get("holiday_time")).intValue();
+        T = ((Number)jobj.get("holiday_time")).intValue();
         createAirports(jairports);
-        ArrayList<Flight> flights = createFlights(jflights);
+        flights = createFlights(jflights);
         ArrayList<Tuple> tuples = new ArrayList<>();
         if (jtuples != null) tuples = createHC2(jtuples);
 
-//        CPsolver s = new CPsolver(airports, flights, T, B, args, tuples);
-        IPsolver s = new IPsolver(airports, flights, T, B, args);
+        CPsolver s = new CPsolver(airports, flights, T, B, args, tuples);
+//        IPsolver s = new IPsolver(airports, flights, T, B, args);
+        if (s.getClass() == CPsolver.class) {
+            modifyData();
+        }
         s.getSolution();
     }
 
@@ -82,5 +87,18 @@ public class InstanceParser {
             if (a.name.equals(name)) return a;
         }
         return null;
+    }
+
+    private static void modifyData(){
+        for(Flight f: flights){
+            f.cost = f.cost*100;
+            f.duration = f.duration*10;
+            f.date = f.date*10;
+        }
+        for(Airport a: airports) {
+            a.conn_time = a.conn_time*10;
+        }
+        T = T*10;
+        B = B*100;
     }
 }

@@ -20,7 +20,7 @@ public class CPsolver {
     private ArrayList<Flight> flights;
     private HelperMethods h;
     private int T;
-    private int B; // upper bound on the cost
+    private int B; // upper bound on the total flights cost
     private String[] args;
     ArrayList<Tuple> tuples; // an array of (airport a, date d) that means that traveller must be at a at time d
 
@@ -64,7 +64,7 @@ public class CPsolver {
         this.model = new Model("TP CPsolver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
-        this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 500);
+        this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5000000);
         this.cost_sum = this.model.intVar(0, B);
         this.last_flight = this.model.intVar(1, flights.size());
         this.trip_duration = this.model.intVar(1, T);
@@ -284,7 +284,7 @@ public class CPsolver {
 
             x = solver.findOptimalSolution(to_optimise, m);
             if (x == null) {
-                System.out.println("No solution was found");
+                System.out.println("No optimal solution was found");
                 return;
             }
             printSolution(x);
@@ -298,21 +298,14 @@ public class CPsolver {
     private void printSolution(Solution x) {
         System.out.println("z is: " + x.getIntVal(z));
         for (int i = 0; i < x.getIntVal(z); i++) {
-            System.out.print(h.getFlightByID(x.getIntVal(S[i])).dep.name);
-            System.out.print(h.getFlightByID(x.getIntVal(S[i])).arr.name + " ");
+            System.out.print("\nfrom " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
+            System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
+            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date/10);
+            System.out.print(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost/100);
+
         }
         System.out.println();
-        for (int i = 0; i < x.getIntVal(z); i++) {
-            int date = (int) h.getFlightByID(x.getIntVal(S[i])).date;
-            if (date <= 9) System.out.print(date + "  ");
-            if (date > 9) System.out.print(date + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < x.getIntVal(z); i++) {
-            System.out.print(x.getIntVal(C[i]) + " ");
-        }
-        System.out.println("\nLast flight: " + x.getIntVal(last_flight));
-        System.out.println("Total cost: " + x.getIntVal(cost_sum));
+        System.out.println("Total cost: " + x.getIntVal(cost_sum)/100);
         System.out.println("Trip duration: " + x.getIntVal(trip_duration));
     }
 
