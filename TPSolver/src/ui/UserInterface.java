@@ -5,8 +5,8 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import main.Airport;
-import main.Flight;
+import common.Airport;
+import common.Flight;
 
 /**
  * Created by ivababukova on 12/19/16.

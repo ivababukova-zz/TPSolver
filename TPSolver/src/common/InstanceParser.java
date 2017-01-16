@@ -35,10 +35,10 @@ public class InstanceParser {
         ArrayList<Tuple> tuples = new ArrayList<>();
         if (jtuples != null) tuples = createHC2(jtuples);
 
-        CPsolver s = new CPsolver(airports, flights, T, B, args, tuples);
+        CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
 //        IPsolver s = new IPsolver(airports, flights, T, B, args);
         if (s.getClass().equals(CPsolver.class)) {
-//            modifyData();
+            modifyData();
         }
         s.getSolution();
     }
@@ -94,14 +94,9 @@ public class InstanceParser {
             f.cost = f.cost*100;
             f.duration = f.duration*10;
             f.date = f.date*10;
-            System.out.println("cost: " + f.cost + " duration: " + f.duration + " date: " + f.date);
         }
         for(Airport a: airports) {
             a.conn_time = a.conn_time*10;
-            System.out.println(a.conn_time);
         }
-        T = T*10;
-        B = B*100;
-        System.out.println(T + " " + B);
     }
 }

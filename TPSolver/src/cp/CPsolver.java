@@ -93,12 +93,12 @@ public class CPsolver {
             return 0;
         }
 //        if (this.tuples != null) hardConstraint2();
-
+//
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
             tripProperties2and3and4(f);
             sequenceConstraints(i, to_home, f);
-
+//
         }
         costConstraint();
         this.model.allDifferentExcept0(S).post();
@@ -111,6 +111,8 @@ public class CPsolver {
         ArrayList<Integer> af = h.allFromTimed(f);
 
         int[] all_from_conn = h.arrayToint(af_conn); // for trip property 3
+        // todo there is no need to enforce trip property 4, it is already enforced
+        // when last flight is constrained to arrive at the home point
         int[] all_from = h.arrayToint(af); // for trip property 4
 
         for (int j = 1; j < flights.size(); j++) {
@@ -315,13 +317,13 @@ public class CPsolver {
         for (int i = 0; i < x.getIntVal(z); i++) {
             System.out.print("\nfrom " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
             System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
-            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date);
-            System.out.print(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost);
+            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date/10);
+            System.out.print(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost/100);
 
         }
         System.out.println();
-        System.out.println("Total cost: " + x.getIntVal(cost_sum));
-        System.out.println("Trip duration: " + x.getIntVal(trip_duration));
+        System.out.println("Total cost: " + x.getIntVal(cost_sum)/100);
+        System.out.println("Trip duration: " + x.getIntVal(trip_duration)/10);
         System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
                 "   cpu: " + solver.getMeasures().getTimeCount());
     }

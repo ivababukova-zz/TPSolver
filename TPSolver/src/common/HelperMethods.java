@@ -57,6 +57,7 @@ public class HelperMethods {
         return toa;
     }
 
+    // this containts trip property 4
     public ArrayList<Integer> allToHome(Airport a, float T) {
         ArrayList<Integer> toa = new ArrayList<>();
         for (Flight f: flights) {
