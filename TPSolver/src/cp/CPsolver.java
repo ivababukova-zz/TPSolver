@@ -255,100 +255,103 @@ public class CPsolver {
         System.out.println();
     }
 
-    public void getSolution(){
+    public void getSolution() {
         if (init() == 0) {
             return;
         }
-        Solution x;
-        Boolean m = null;
-        IntVar to_optimise = null;
 
         if (args.length == 0) {
-            x = solver.findSolution();
+            Solution x = solver.findSolution();
             if (x == null) {
                 System.out.println("No solution was found");
                 return;
             }
-            printSolution(x);
+            printSolution(x, false);
             return;
         }
+        Boolean m = null;
+        IntVar to_optimise = null;
+        Boolean isVerbose = false;
+        int isOptimalSearch = 0;
 
-        if (args.length >= 2){
-
-            if (args[0].equals("-min")) {
+        for (String arg : args) {
+            if (arg.equals("-verbose")) {
+                isVerbose = true;
+            }
+            if (arg.equals("-min")) {
                 System.out.print("Solution with minimum ");
                 m = Model.MINIMIZE;
-            } else if (args[0].equals("-max")) {
-                System.out.print("Solution with maximum ");
-                m = Model.MAXIMIZE;
-            } else {
-                System.out.println("Wrong first argument provided");
-                return;
+                isOptimalSearch += 1;
             }
-
-            if (args[1].equals("-cost")) {
+            if (arg.equals("-max")) {
+                System.out.print("Solution with maximum ");
+                m = Model.MINIMIZE;
+                isOptimalSearch += 1;
+            }
+            if (arg.equals("-cost")) {
                 System.out.println("cost:");
                 to_optimise = this.cost_sum;
-            } else if (args[1].equals("-flights")) {
+                isOptimalSearch += 1;
+            }
+            if (arg.equals("-flights")) {
                 System.out.println("number of flights:");
                 to_optimise = this.z;
-            } else if (args[1].equals("-trip_duration")){
+                isOptimalSearch += 1;
+            }
+            if (arg.equals("-trip_duration")) {
                 System.out.println("trip duration:");
                 to_optimise = this.trip_duration;
-            } else {
-                System.out.println("Wrong second argument provided");
-                return;
+                isOptimalSearch += 1;
             }
-
-            if(args[2].equals("-all")) {
-                printAllSols(solver.findAllOptimalSolutions(to_optimise, m));
+            if (arg.equals("-allOpt")) {
+                System.out.println("All optimal solutions are:");
+                printAllSols(solver.findAllOptimalSolutions(to_optimise, m), isVerbose);
                 System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
                         "   cpu: " + solver.getMeasures().getTimeCount());
                 return;
             }
-
-            x = solver.findOptimalSolution(to_optimise, m);
-            if (x == null) {
-                System.out.println("No optimal solution was found");
+            if (arg.equals("-all")) {
+                System.out.println("All solutions are:");
+                printAllSols(solver.findAllSolutions(), isVerbose);
+                System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                        "   cpu: " + solver.getMeasures().getTimeCount());
                 return;
             }
-            printSolution(x);
-            System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                    "   cpu: " + solver.getMeasures().getTimeCount());
         }
-
-        else if (args.length == 1) {
-            if (args[0].equals("-all")) {
-                // todo : return all solutions for this instance
-                printAllSols(solver.findAllSolutions());
-            }
-            System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                    "   cpu: " + solver.getMeasures().getTimeCount());
-        }
-
-        else {
-            System.out.println("Not enough arguments provided");
+        if (isOptimalSearch == 2) {
+            findTheOptimal(m, to_optimise, isVerbose);
         }
     }
 
-    private void printAllSols(List<Solution> solutions) {
+    private void findTheOptimal(Boolean m, IntVar to_optimise, Boolean isVerbose) {
+        Solution x = solver.findOptimalSolution(to_optimise, m);
+        if (x == null) {
+            System.out.println("No optimal solution was found");
+            return;
+        }
+        printSolution(x, isVerbose);
+        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                "   cpu: " + solver.getMeasures().getTimeCount());
+    }
+
+    private void printAllSols(List<Solution> solutions, Boolean isVerbose) {
         for (Solution sol : solutions) {
-            if (sol != null) printSolution(sol);
+            if (sol != null) printSolution(sol, isVerbose);
         }
     }
 
-    private void printSolution(Solution x) {
-        System.out.println("z is: " + x.getIntVal(z));
+    private void printSolution(Solution x, Boolean isVerbose) {
         for (int i = 0; i < x.getIntVal(z); i++) {
-            System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
-            System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
-            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date/10);
-            System.out.println(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost/100);
-
+            System.out.print(x.getIntVal(S[i]) + " ");
+            if (isVerbose) {
+                System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
+                System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
+                System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 10);
+                System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
+            }
         }
-        System.out.println("Total cost: " + x.getIntVal(cost_sum)/100);
-        System.out.println("Trip duration: " + x.getIntVal(trip_duration)/10);
-        System.out.println();
+        System.out.print("Trip duration: " + x.getIntVal(trip_duration)/10);
+        System.out.println(" Total cost: " + x.getIntVal(cost_sum)/100);
     }
 
 }

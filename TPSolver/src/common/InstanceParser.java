@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class InstanceParser {
 
-    private static final String FILENAME = "data/random_data/100_8_4_140_0.json";
+    private static final String FILENAME = "data/small_test.json";
     private static int B = 1000000;
     private static int T = 0;
     private static ArrayList<Airport> airports = new ArrayList<>();
@@ -21,7 +21,7 @@ public class InstanceParser {
         readJsonFile(args);
     }
 
-    public static void readJsonFile(String[] args) throws IOException, ParseException {
+    private static void readJsonFile(String[] args) throws IOException, ParseException {
         JSONParser p = new JSONParser();
         Object obj = p.parse(new FileReader(FILENAME));
         JSONObject jobj = (JSONObject) obj;
@@ -35,8 +35,8 @@ public class InstanceParser {
         ArrayList<Tuple> tuples = new ArrayList<>();
         if (jtuples != null) tuples = createHC2(jtuples);
 
-//        CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
-        IPsolver s = new IPsolver(airports, flights, T, B, args);
+        CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
+//        IPsolver s = new IPsolver(airports, flights, T, B, args);
         if (s.getClass().equals(CPsolver.class)) {
             modifyData();
         }
