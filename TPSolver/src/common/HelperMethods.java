@@ -1,8 +1,5 @@
 package common;
 
-import common.Airport;
-import common.Flight;
-
 import java.util.ArrayList;
 
 /**
@@ -92,11 +89,25 @@ public class HelperMethods {
         return froma;
     }
 
-    public ArrayList<Integer> allFromTimed(Airport a, Flight fl, double connTime) {
+    public ArrayList<Integer> allFromTimedConn(Flight fl) {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
+        Airport a = fl.arr;
+        double connTime = a.conn_time;
         for (Flight f: flights) {
             double time = fl.date + fl.duration + connTime;
             if (f.dep == a && time <= f.date) {
+                allowedFlights.add(f.id);
+            }
+        }
+        return allowedFlights;
+    }
+
+    public ArrayList<Integer> allFromTimed(Flight fl) {
+        ArrayList<Integer> allowedFlights = new ArrayList<>();
+        Airport a = fl.arr;
+        for (Flight f: flights) {
+            double time = fl.date + fl.duration;
+            if (f.dep == a && time <= f.date){
                 allowedFlights.add(f.id);
             }
         }
@@ -107,7 +118,7 @@ public class HelperMethods {
     public ArrayList<Integer> disallowedPrev(int next_id) {
         ArrayList<Integer> toa = new ArrayList<>();
         Flight next = getFlightByID(next_id);
-        double conn_time = connTimeIP(next);
+        double conn_time = getConnTimeIP(next);
         for (Flight prev : flights) {
             double arrival_prev = prev.date + prev.duration;
             if (arrival_prev + conn_time > next.date) {
@@ -118,7 +129,7 @@ public class HelperMethods {
     }
 
     // this is for trip properties 3,4 for the IP model
-    public double connTimeIP(Flight f) {
+    public double getConnTimeIP(Flight f) {
         Airport a0 = getHomePoint();
         if (f.arr == a0 && f.dep == a0 && f.duration == 0 && f.cost == 0) {
             return 0;

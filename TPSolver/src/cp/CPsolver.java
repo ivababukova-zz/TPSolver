@@ -83,11 +83,12 @@ public class CPsolver {
         int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
         int[] from_home = h.arrayToint(h.allFrom(a0));
 
+        // trip property 1
         model.member(S[0], from_home).post();
         this.model.arithm(S[1], "!=", 0).post();
         this.model.arithm(C[0], "!=", 0).post();
 
-        int trip_property_5 = destinationConstraint();
+        int trip_property_5 = tripProperty5();
         if (trip_property_5 == 0) {
             return 0;
         }
@@ -95,67 +96,109 @@ public class CPsolver {
 
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
+            tripProperties2and3and4(f);
+            sequenceConstraints(i, to_home, f);
 
-            timeConstraint(f);
-
-            // if the sequence ends at i, then s[i] must be 0
-            model.ifThen(
-                    model.arithm(z, "=", i),
-                    model.and(
-                            model.arithm(S[i], "=", 0),
-                            model.member(S[i-1], to_home),
-                            model.arithm(last_flight, "=", S[i-1])
-                    )
-            );
-
-            model.ifThen(
-                    model.arithm(z, ">", i),
-                    model.arithm(S[i], "!=", 0)
-            );
-
-            // if s[i-1] is 0, then s[i] must be 0
-            model.ifThen(
-                    model.arithm(S[i-1], "=", 0),
-                    model.arithm(S[i], "=", 0)
-            );
-
-            this.model.ifThen(
-                    model.arithm(S[i], "=", 0),
-                    model.arithm(C[i], "=", 0)
-            );
-
-            this.model.ifThen(
-                    model.arithm(S[i], "!=", 0),
-                    model.arithm(C[i], "!=", 0)
-            );
-
-            // if s[i] is not 0, then s[i-1] must not be 0
-            model.ifThen(
-                    model.arithm(S[i], "!=", 0),
-                    model.arithm(S[i-1], "!=", 0)
-            );
-
-            model.ifThen(
-                    model.arithm(last_flight, "=", i),
-                    model.arithm(trip_duration, "=", (int) (f.date + f.duration))
-            );
         }
         costConstraint();
         this.model.allDifferentExcept0(S).post();
         return 1;
     }
 
-    // call this function when no flights to connection airports are allowed
-    private void removeConnections(){
-        ArrayList<Flight> newflights = new ArrayList<>();
-        for(Flight f: this.flights) {
-            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
+    // enforces trip properties 2, 3 and 4
+    private void tripProperties2and3and4(Flight f){
+        ArrayList<Integer> af_conn = h.allFromTimedConn(f);
+        ArrayList<Integer> af = h.allFromTimed(f);
+
+        int[] all_from_conn = h.arrayToint(af_conn); // for trip property 3
+        int[] all_from = h.arrayToint(af); // for trip property 4
+
+        for (int j = 1; j < flights.size(); j++) {
+            model.ifThen(
+                    model.and(
+                            model.arithm(S[j-1],"=", f.id),
+                            model.arithm(z, ">", j+1)),
+                    model.member(S[j], all_from_conn)
+            );
+            model.ifThen(
+                    model.and(
+                            model.arithm(S[j-1],"=", f.id),
+                            model.arithm(z, "=", j+1)),
+                    model.member(S[j], all_from)
+            );
         }
-        this.flights = newflights;
-        for (Flight f: newflights) {
-            System.out.print(f.dep.name + f.arr.name + " ");
+    }
+
+    // all destinations must be visited
+    private int tripProperty5(){
+        for (Airport d: h.getDestinations()) {
+            int[] all_to = h.arrayToint(h.allTo(d)); // all flights that fly to d
+            if (all_to.length == 0) {
+                System.out.println("It is impossible to visit destination " + d.name + ".\nThe instance has no solution.");
+                return 0;
+            }
+            IntVar X = this.model.intVar(1, all_to.length);
+            this.model.among(X, S, all_to).post(); // S must contain at least one flight that goes to d
         }
-        System.out.println();
+        return 1;
+    }
+
+    // todo this is very inefficient
+    // set the values of C
+    private void costConstraint(){
+        for(int i = 1; i<=flights.size(); i++) {
+            int cost = (int) h.getFlightByID(i).cost;
+            for (int j = 0; j <= flights.size(); j++) {
+                this.model.ifThen(
+                        model.arithm(S[j], "=", i),
+                        model.arithm(C[j], "=", cost)
+                );
+            }
+        }
+    }
+
+    private void sequenceConstraints(int i, int[] to_home, Flight f){
+        // if the sequence ends at i, then s[i] must be 0
+        model.ifThen(
+                model.arithm(z, "=", i),
+                model.and(
+                        model.arithm(S[i], "=", 0),
+                        model.member(S[i-1], to_home),
+                        model.arithm(last_flight, "=", S[i-1])
+                )
+        );
+
+        model.ifThen(
+                model.arithm(z, ">", i),
+                model.arithm(S[i], "!=", 0)
+        );
+
+        // if s[i-1] is 0, then s[i] must be 0
+        model.ifThen(
+                model.arithm(S[i-1], "=", 0),
+                model.arithm(S[i], "=", 0)
+        );
+
+        // if s[i] is not 0, then s[i-1] must not be 0
+        model.ifThen(
+                model.arithm(S[i], "!=", 0),
+                model.arithm(S[i-1], "!=", 0)
+        );
+
+        this.model.ifThen(
+                model.arithm(S[i], "=", 0),
+                model.arithm(C[i], "=", 0)
+        );
+
+        this.model.ifThen(
+                model.arithm(S[i], "!=", 0),
+                model.arithm(C[i], "!=", 0)
+        );
+
+        model.ifThen(
+                model.arithm(last_flight, "=", i),
+                model.arithm(trip_duration, "=", (int) (f.date + f.duration))
+        );
     }
 
     /*** HARD CONSTRAINT 2 CODE ***/
@@ -194,47 +237,19 @@ public class CPsolver {
             );
         }
     }
-
     /*** ***/
 
-    // all destinations must be visited
-    private int destinationConstraint(){
-        for (Airport d: h.getDestinations()) {
-            int[] all_to = h.arrayToint(h.allTo(d)); // all flights that fly to d
-            if (all_to.length == 0) {
-                System.out.println("It is impossible to visit destination " + d.name + ".\nThe instance has no solution.");
-                return 0;
-            }
-            IntVar X = this.model.intVar(1, all_to.length);
-            this.model.among(X, S, all_to).post(); // S must contain at least one flight that goes to d
+    // call this function when no flights to connection airports are allowed
+    private void removeConnections(){
+        ArrayList<Flight> newflights = new ArrayList<>();
+        for(Flight f: this.flights) {
+            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
         }
-        return 1;
-    }
-
-    // todo this is very inefficient
-    // set the values of C
-    private void costConstraint(){
-        for(int i = 1; i<=flights.size(); i++) {
-            int cost = (int) h.getFlightByID(i).cost;
-            for (int j = 0; j <= flights.size(); j++) {
-                this.model.ifThen(
-                        model.arithm(S[j], "=", i),
-                        model.arithm(C[j], "=", cost)
-                );
-            }
+        this.flights = newflights;
+        for (Flight f: newflights) {
+            System.out.print(f.dep.name + f.arr.name + " ");
         }
-    }
-
-    // enforces both time and departure constraints at the same time for all flights but the last flight
-    private void timeConstraint(Flight f){
-        ArrayList<Integer> af = h.allFromTimed(f.arr, f, f.arr.conn_time);
-        int[] all_from = h.arrayToint(af);
-        for (int j = 1; j <= flights.size(); j++) {
-            model.ifThen(
-                    model.and(model.arithm(S[j-1],"=", f.id), model.arithm(z, "!=", j)),
-                    model.member(S[j], all_from)
-            );
-        }
+        System.out.println();
     }
 
     public void getSolution(){
@@ -300,13 +315,15 @@ public class CPsolver {
         for (int i = 0; i < x.getIntVal(z); i++) {
             System.out.print("\nfrom " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
             System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
-            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date/10);
-            System.out.print(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost/100);
+            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date);
+            System.out.print(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost);
 
         }
         System.out.println();
-        System.out.println("Total cost: " + x.getIntVal(cost_sum)/100);
+        System.out.println("Total cost: " + x.getIntVal(cost_sum));
         System.out.println("Trip duration: " + x.getIntVal(trip_duration));
+        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                "   cpu: " + solver.getMeasures().getTimeCount());
     }
 
 }

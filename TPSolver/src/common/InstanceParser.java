@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class InstanceParser {
 
-    private static final String FILENAME = "data/random_data/100_8_4_140_0.json";
+    private static final String FILENAME = "data/small_test.json";
     private static int B = 1000000;
     private static int T = 0;
     private static ArrayList<Airport> airports = new ArrayList<>();
@@ -37,8 +37,8 @@ public class InstanceParser {
 
         CPsolver s = new CPsolver(airports, flights, T, B, args, tuples);
 //        IPsolver s = new IPsolver(airports, flights, T, B, args);
-        if (s.getClass() == CPsolver.class) {
-            modifyData();
+        if (s.getClass().equals(CPsolver.class)) {
+//            modifyData();
         }
         s.getSolution();
     }
@@ -94,11 +94,14 @@ public class InstanceParser {
             f.cost = f.cost*100;
             f.duration = f.duration*10;
             f.date = f.date*10;
+            System.out.println("cost: " + f.cost + " duration: " + f.duration + " date: " + f.date);
         }
         for(Airport a: airports) {
             a.conn_time = a.conn_time*10;
+            System.out.println(a.conn_time);
         }
         T = T*10;
         B = B*100;
+        System.out.println(T + " " + B);
     }
 }
