@@ -5,6 +5,7 @@ import common.HelperMethods;
 import common.Airport;
 import common.Flight;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 /**
@@ -80,14 +81,15 @@ public class IPsolver {
             this.tripProperty2();
             this.tripProperties3and4();
             this.tripProperty5();
-            this.minCostObjective(); // return a solution with minimised cost
+//            this.minCostObjective(); // return a solution with minimised cost
 
+            getAllSols();
             // Optimize model
             model.optimize();
 //            this.debugModel();
 
             // Print solution
-            this.printSolution();
+            printAllSolutions();
 
             // Dispose of model and environment
             model.dispose();
@@ -225,8 +227,63 @@ public class IPsolver {
         model.setObjective(expr, GRB.MINIMIZE);
     }
 
+    private void getAllSols() throws GRBException {
+        // Limit the search space by setting a gap for the worst possible solution that will be accepted
+        model.set(GRB.DoubleParam.PoolGap, 1000);
+        // do a systematic search for the k-best solutions
+        model.set(GRB.IntParam.PoolSearchMode, 2);
+
+        int nSolutions = model.get(GRB.IntAttr.SolCount);
+        System.out.println("Number of solutions found: " + nSolutions);
+    }
+
+    private void printAllSolutions() throws GRBException {
+        GRBVar[] vars = model.getVars();
+        System.out.println();
+        for (int k = 0; k < model.get(GRB.IntAttr.SolCount); ++k) {
+            model.set(GRB.IntParam.SolutionNumber, k);
+            double objn = 0.0;
+//            double[][] x = model.get(GRB.DoubleAttr.X, S);
+            for (int j = 0; j < vars.length; j++) {
+                double first = vars[j].get(GRB.DoubleAttr.Obj);
+                double second = vars[j].get(GRB.DoubleAttr.Xn);
+                objn += first * second;
+            }
+            double[][] x = model.get(GRB.DoubleAttr.Xn, S);
+            printSolution(x);
+            System.out.println(" for solution " + (k+1));
+        }
+        System.out.println();
+    }
+
+    private void printSolution(double[][] x) throws GRBException {
+        double cost = 0;
+
+        System.out.println();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                if (x[i][j] > 0.5 && j != m-1) System.out.print((j+1) + " ");
+                if (x[i][j] > 0.5 && j == m-1) System.out.print(0 + " ");
+            }
+        }
+
+        System.out.println();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                if (x[i][j] > 0.5 && j != m-1) {
+                    cost = cost + h.getFlightByID(j+1).cost;
+                    System.out.println(
+                            MessageFormat.format("from {0} to {1} on date: {2} costs: {3}", h.getFlightByID(j + 1).dep.name, h.getFlightByID(j + 1).arr.name, h.getFlightByID(j + 1).date, h.getFlightByID(j + 1).cost)
+                    );
+                }
+            }
+        }
+        System.out.print("Total cost: " + cost);
+    }
+
     private void printSolution() throws GRBException {
         double cost = 0;
+
         double[][] x = model.get(GRB.DoubleAttr.X, S);
 
         System.out.println();
@@ -234,8 +291,7 @@ public class IPsolver {
             for (int j = 0; j < m; j++) {
                 if (x[i][j] > 0.5) {
                     System.out.print(1 + " ");
-                }
-                else {
+                } else {
                     System.out.print(0 + " ");
                 }
             }
