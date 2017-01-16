@@ -1,6 +1,7 @@
 package cp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import common.Airport;
 import common.Flight;
@@ -272,7 +273,7 @@ public class CPsolver {
             return;
         }
 
-        if (args.length == 2){
+        if (args.length >= 2){
 
             if (args[0].equals("-min")) {
                 System.out.print("Solution with minimum ");
@@ -299,12 +300,30 @@ public class CPsolver {
                 return;
             }
 
+            if(args[2].equals("-all")) {
+                printAllSols(solver.findAllOptimalSolutions(to_optimise, m));
+                System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                        "   cpu: " + solver.getMeasures().getTimeCount());
+                return;
+            }
+
             x = solver.findOptimalSolution(to_optimise, m);
             if (x == null) {
                 System.out.println("No optimal solution was found");
                 return;
             }
             printSolution(x);
+            System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                    "   cpu: " + solver.getMeasures().getTimeCount());
+        }
+
+        else if (args.length == 1) {
+            if (args[0].equals("-all")) {
+                // todo : return all solutions for this instance
+                printAllSols(solver.findAllSolutions());
+            }
+            System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                    "   cpu: " + solver.getMeasures().getTimeCount());
         }
 
         else {
@@ -312,20 +331,24 @@ public class CPsolver {
         }
     }
 
+    private void printAllSols(List<Solution> solutions) {
+        for (Solution sol : solutions) {
+            if (sol != null) printSolution(sol);
+        }
+    }
+
     private void printSolution(Solution x) {
         System.out.println("z is: " + x.getIntVal(z));
         for (int i = 0; i < x.getIntVal(z); i++) {
-            System.out.print("\nfrom " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
+            System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
             System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
             System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date/10);
-            System.out.print(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost/100);
+            System.out.println(" costs: " +  h.getFlightByID(x.getIntVal(S[i])).cost/100);
 
         }
-        System.out.println();
         System.out.println("Total cost: " + x.getIntVal(cost_sum)/100);
         System.out.println("Trip duration: " + x.getIntVal(trip_duration)/10);
-        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                "   cpu: " + solver.getMeasures().getTimeCount());
+        System.out.println();
     }
 
 }

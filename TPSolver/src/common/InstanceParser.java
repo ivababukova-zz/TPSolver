@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class InstanceParser {
 
-    private static final String FILENAME = "data/small_test.json";
+    private static final String FILENAME = "data/test_max_flights.json";
     private static int B = 1000000;
     private static int T = 0;
     private static ArrayList<Airport> airports = new ArrayList<>();
