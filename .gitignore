@@ -1,1 +1,4 @@
 TPSolver/out
+.DS_Store
+TPSolver/.idea/*
+TPSolver/tp.log
