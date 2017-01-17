@@ -313,6 +313,9 @@ public class CPsolver {
         }
         if (isOptimalSearch == 2) {
             returnOneOptimal(m, to_optimise, isVerbose);
+        } else if (isOptimalSearch == 1) {
+            System.out.println("Not enough arguments provided");
+            return "";
         }
         return getStats();
     }

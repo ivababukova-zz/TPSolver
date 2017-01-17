@@ -17,11 +17,22 @@ public class InstanceParser {
     private static ArrayList<Flight> flights = new ArrayList<>();
 
     public static void main(String[] args) throws ContradictionException, IOException, ParseException {
+        if (args.length < 2) {
+            printUsage();
+            return;
+        }
+        for (String arg : args) {
+            if (arg.equals("-help") || arg.equals("help") || arg.equals("h")) {
+                printUsage();
+                return;
+            }
+        }
         readJsonFile(args);
     }
 
     private static void readJsonFile(String[] args) throws IOException, ParseException {
         filename = args[0];
+
         JSONParser p = new JSONParser();
         Object obj = p.parse(new FileReader(filename));
         JSONObject jobj = (JSONObject) obj;
@@ -36,19 +47,19 @@ public class InstanceParser {
         if (jtuples != null) tuples = createHC2(jtuples);
         String solFileName = "";
         String solution = "";
-        if (args[1].equals("-cp")) {
+        if (args[1].equals("cp")) {
             modifyData();
             CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
             solFileName = getSolFileName("cp");
             solution = s.getSolution();
         }
-        else if (args[1].equals("-ip")) {
+        else if (args[1].equals("ip")) {
             IPsolver s = new IPsolver(airports, flights, T, B);
             solFileName = getSolFileName("ip");
             solution = s.getSolution();
         }
         else {
-            System.out.println("Please specify desired model as first argument");
+            printUsage();
             return;
         }
         writeSolutionToFile(solFileName, solution);
@@ -131,5 +142,25 @@ public class InstanceParser {
         for(Airport a: airports) {
             a.conn_time = a.conn_time*10;
         }
+    }
+
+    private static void printUsage() {
+        System.out.println("Usage:\n    java -jar TPSolver1.jar <filename> <model> [-options]");
+        System.out.println("Where:\n    <filename> is the relative path to and the name of the TP instance you want to solve,");
+        System.out.println("               which must be a .json file containing a list of airports, a list of flights and");
+        System.out.println("               a holiday time. See example instance files for more info.");
+        System.out.println("\n    <model> is either:");
+        System.out.println("        cp: the instance will be solved using the TP Constraints Programming Model");
+        System.out.println("        ip: the instance will be solved using the TP Integer Programming Model");
+        System.out.println("\n    [options] are applicable only to the CP model. They can be 0 or more of the following parameters: ");
+        System.out.println("        -verbose: prints more information about the solution");
+        System.out.println("        <objective> <objective variable> [-allOpt]: in case you want to find optimal solutions, where:");
+        System.out.println("            <objective> is either -min or -max");
+        System.out.println("            <objective variable> is either -cost, -flights, or -trip_duration, where:");
+        System.out.println("                -cost: finds the optional solutions with respect to flights cost");
+        System.out.println("                -flights: finds the optional solutions with respect to number of flights");
+        System.out.println("                -trip_duration: finds the optional solutions with respect to trip duration");
+        System.out.println("        -allOpt: returns all optimal solutions");
+        System.out.println("        -all: returns all solutions");
     }
 }
