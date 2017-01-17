@@ -1,6 +1,21 @@
+from pprint import pprint
 import json
 import random
 import sys
+
+def chooseHubs():
+    hub_numb = 0.05 * len(allairports) # the airport hubs are going to be 5% of all airports
+    hub_airports = []
+    while len(hub_airports) < hub_numb:
+        new_hub = random.randint(0, len(allairports) - 1)
+        found = False
+        for i in range(0, len(hub_airports) - 1):
+            if hub_airports[i] == new_hub:
+                found = True
+                break
+        if not found:
+            hub_airports.append(new_hub)
+    return hub_airports
 
 def airport_names():
     with open("airports.json") as data_file:
@@ -19,17 +34,31 @@ def get_n_airport_names():
         airs.append(pool.pop(rand_num))
     return airs
 
-
+def get_weighted_airport_names():
+    choice_list = []
+    for a in allairports:
+        if a["purpose"] == "destination" or a["purpose"] == "home_point":
+            for time in range(1,10):
+                choice_list.append(a["name"])
+        if a["purpose"] == "connection":
+            choice_list.append(a["name"])
+    return choice_list
+    
+    
 def get_n_flights():
+    
+    airps = weighted_airports
+    
     flights = []
     for i in range(0, m-1):
-        rand_dep_num = random.randint(0, len(airport_names)-1)
-        allowed_arr = list(range(0, rand_dep_num)) + list(range(rand_dep_num+1, len(airport_names)-1))
+        rand_dep_num = random.randint(0, len(airps)-1)
+        allowed_arr = list(range(0, rand_dep_num)) + list(range(rand_dep_num+1, len(airps)-1))
         rand_arr_num = random.choice(allowed_arr)
+        max_date = T - max_dur*10 # if max date is left to be T, many flights depart too late to be useful
 
-        rand_dep = airport_names[rand_dep_num]
-        rand_arr = airport_names[rand_arr_num]
-        rand_date = random.randint(0, T) / 10
+        rand_dep = airps[rand_dep_num]
+        rand_arr = airps[rand_arr_num]
+        rand_date = random.randint(0, max_date) / 10
         rand_duration = round(random.uniform(min_dur, max_dur), 1)
         rand_cost = random.randint(min_cost, max_cost) / 10
 
@@ -71,13 +100,11 @@ def get_n_airports():
             "connection_time": rand_conn,
             "purpose": purpose
         }
-
         airports.append(a)
     return airports
 
-
 def construct_json():
-    data_name = "../random_data/" + str(m) + "_" + str(n) + "_" + str(d) + "_" + str(T/10) + "_" + id + ".json"
+    data_name = "../random_data/" + str(m) + "_" + str(n) + "_" + str(d) + "_" + id + ".json"
     with open(data_name, "w") as outfile:
         json.dump(data, outfile, sort_keys=True, indent=4)
     print("Successfully written data to file")
@@ -132,14 +159,14 @@ if n > len(pool):
     exit(1)
 
 airport_names = get_n_airport_names()
-
-allflights = get_n_flights()
 allairports = get_n_airports()
+weighted_airports = get_weighted_airport_names()
+allflights = get_n_flights()
 
 data = {
     "airports": allairports,
     "flights": allflights,
-    "holiday_time": T
+    "holiday_time": T/10
     }
 
 construct_json()

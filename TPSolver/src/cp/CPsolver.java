@@ -24,6 +24,8 @@ public class CPsolver {
     private int B; // upper bound on the total flights cost
     private String[] args;
     ArrayList<Tuple> tuples; // an array of (airport a, date d) that means that traveller must be at a at time d
+    private String solution;
+
 
     private Model model;
     private Solver solver;
@@ -49,6 +51,7 @@ public class CPsolver {
         this.h = new HelperMethods(as, fs);
         this.args = args;
         this.tuples = tuples;
+        this.solution = "";
     }
 
 
@@ -255,19 +258,20 @@ public class CPsolver {
         System.out.println();
     }
 
-    public void getSolution() {
+    public String getSolution() {
         if (init() == 0) {
-            return;
+            return "";
         }
 
-        if (args.length == 0) {
+        if (args.length == 1) {
             Solution x = solver.findSolution();
             if (x == null) {
                 System.out.println("No solution was found");
-                return;
             }
-            printSolution(x, false);
-            return;
+            else {
+                printSolution(x, false);
+            }
+            return getStats();
         }
         Boolean m = null;
         IntVar to_optimise = null;
@@ -306,43 +310,49 @@ public class CPsolver {
             if (arg.equals("-allOpt")) {
                 System.out.println("All optimal solutions are:");
                 printAllSols(solver.findAllOptimalSolutions(to_optimise, m), isVerbose);
-                System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                        "   cpu: " + solver.getMeasures().getTimeCount());
-                return;
+                return getStats();
             }
             if (arg.equals("-all")) {
                 System.out.println("All solutions are:");
                 printAllSols(solver.findAllSolutions(), isVerbose);
-                System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                        "   cpu: " + solver.getMeasures().getTimeCount());
-                return;
+                return getStats();
             }
         }
         if (isOptimalSearch == 2) {
-            findTheOptimal(m, to_optimise, isVerbose);
+            returnOneOptimal(m, to_optimise, isVerbose);
         }
+        return getStats();
     }
 
-    private void findTheOptimal(Boolean m, IntVar to_optimise, Boolean isVerbose) {
+    private String getStats() {
+        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                "   cpu: " + solver.getMeasures().getTimeCount());
+        return this.solution + "nodes: " + solver.getMeasures().getNodeCount() +
+                "   cpu: " + solver.getMeasures().getTimeCount();
+    }
+
+    private void returnOneOptimal(Boolean m, IntVar to_optimise, Boolean isVerbose) {
         Solution x = solver.findOptimalSolution(to_optimise, m);
         if (x == null) {
             System.out.println("No optimal solution was found");
             return;
         }
         printSolution(x, isVerbose);
-        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                "   cpu: " + solver.getMeasures().getTimeCount());
     }
 
     private void printAllSols(List<Solution> solutions, Boolean isVerbose) {
         for (Solution sol : solutions) {
             if (sol != null) printSolution(sol, isVerbose);
         }
+        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                "   cpu: " + solver.getMeasures().getTimeCount());
     }
 
     private void printSolution(Solution x, Boolean isVerbose) {
         for (int i = 0; i < x.getIntVal(z); i++) {
-            System.out.print(x.getIntVal(S[i]) + " ");
+            String nextVar = x.getIntVal(S[i]) + " ";
+            System.out.print(nextVar);
+            this.solution += nextVar;
             if (isVerbose) {
                 System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
                 System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
@@ -350,8 +360,11 @@ public class CPsolver {
                 System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
             }
         }
-        System.out.print("Trip duration: " + x.getIntVal(trip_duration)/10);
-        System.out.println(" Total cost: " + x.getIntVal(cost_sum)/100);
+        String tripDuration = "Trip duration: " + x.getIntVal(trip_duration)/10;
+        String totalCost = " Total cost: " + x.getIntVal(cost_sum)/100;
+        System.out.print(tripDuration);
+        System.out.println(totalCost);
+        this.solution += tripDuration + totalCost + "\n";
     }
 
 }

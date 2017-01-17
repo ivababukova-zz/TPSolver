@@ -5,7 +5,10 @@ import cp.CPsolver;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
 import org.json.simple.parser.*;
+
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -34,13 +37,39 @@ public class InstanceParser {
         flights = createFlights(jflights);
         ArrayList<Tuple> tuples = new ArrayList<>();
         if (jtuples != null) tuples = createHC2(jtuples);
-
-        CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
-//        IPsolver s = new IPsolver(airports, flights, T, B, args);
-        if (s.getClass().equals(CPsolver.class)) {
+        String solFileName = getSolFileName();
+        String solution = "";
+        if (args[0].equals("-cp")) {
             modifyData();
+            CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
+            solFileName = "solutions/cp/" + solFileName;
+            solution = s.getSolution();
         }
-        s.getSolution();
+        else if (args[0].equals("-ip")) {
+            IPsolver s = new IPsolver(airports, flights, T, B);
+            solFileName = "solutions/ip/" + solFileName;
+            solution = s.getSolution();
+        }
+        else {
+            System.out.println("Please specify desired model as first argument");
+            return;
+        }
+        writeSolutionToFile(solFileName, solution);
+    }
+
+    private static String getSolFileName() {
+        String[] filenameParts = FILENAME.split("/");
+        String name = filenameParts[filenameParts.length - 1];
+        filenameParts = name.split("\\.");
+        return filenameParts[0] + ".sol";
+    }
+
+    private static void writeSolutionToFile(String solFileName, String solutions) throws IOException {
+        FileWriter fw = new FileWriter(solFileName);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(solutions);
+        bw.close();
+        fw.close();
     }
 
     private static ArrayList<Flight> createFlights(JSONArray jflights){

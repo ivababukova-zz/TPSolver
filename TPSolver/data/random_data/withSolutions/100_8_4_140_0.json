@@ -1,0 +1,839 @@
+{
+    "airports": [
+        {
+            "connection_time": 0.4,
+            "name": "Kazakhstan",
+            "purpose": "home_point"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Croatia",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "United Arab Emirates",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Sweden",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.1,
+            "name": "Barbados",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Viet Nam",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.5,
+            "name": "Cocos (Keeling) Islands",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Namibia",
+            "purpose": "connection"
+        }
+    ],
+    "flights": [
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 3.5,
+            "dep_airport": "Namibia",
+            "duration": 0.5,
+            "id": 1,
+            "price": 31.4
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 12.9,
+            "dep_airport": "Kazakhstan",
+            "duration": 1.0,
+            "id": 2,
+            "price": 426.0
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 10.4,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.4,
+            "id": 3,
+            "price": 299.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.5,
+            "dep_airport": "Sweden",
+            "duration": 1.0,
+            "id": 4,
+            "price": 89.5
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 12.7,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.2,
+            "id": 5,
+            "price": 317.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 7.3,
+            "dep_airport": "United Arab Emirates",
+            "duration": 0.4,
+            "id": 6,
+            "price": 328.9
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 10.8,
+            "dep_airport": "Sweden",
+            "duration": 0.2,
+            "id": 7,
+            "price": 207.8
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 0.1,
+            "dep_airport": "Viet Nam",
+            "duration": 0.2,
+            "id": 8,
+            "price": 255.4
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 7.0,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.9,
+            "id": 9,
+            "price": 22.6
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 5.2,
+            "dep_airport": "Viet Nam",
+            "duration": 0.2,
+            "id": 10,
+            "price": 94.6
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 4.8,
+            "dep_airport": "Croatia",
+            "duration": 0.6,
+            "id": 11,
+            "price": 72.8
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 5.6,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.5,
+            "id": 12,
+            "price": 10.1
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 4.8,
+            "dep_airport": "Croatia",
+            "duration": 0.7,
+            "id": 13,
+            "price": 337.4
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 1.6,
+            "dep_airport": "Sweden",
+            "duration": 0.3,
+            "id": 14,
+            "price": 270.4
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 7.5,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.6,
+            "id": 15,
+            "price": 245.0
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 0.2,
+            "dep_airport": "Croatia",
+            "duration": 0.6,
+            "id": 16,
+            "price": 347.1
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 13.4,
+            "dep_airport": "Barbados",
+            "duration": 0.6,
+            "id": 17,
+            "price": 203.6
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.7,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.8,
+            "id": 18,
+            "price": 21.1
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 12.9,
+            "dep_airport": "Croatia",
+            "duration": 0.3,
+            "id": 19,
+            "price": 361.9
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 2.2,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.6,
+            "id": 20,
+            "price": 446.7
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 7.4,
+            "dep_airport": "Namibia",
+            "duration": 0.7,
+            "id": 21,
+            "price": 68.9
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 0.2,
+            "dep_airport": "United Arab Emirates",
+            "duration": 1.0,
+            "id": 22,
+            "price": 94.9
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 4.7,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.3,
+            "id": 23,
+            "price": 395.4
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 13.7,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.3,
+            "id": 24,
+            "price": 107.4
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 4.3,
+            "dep_airport": "Sweden",
+            "duration": 0.5,
+            "id": 25,
+            "price": 425.4
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 4.8,
+            "dep_airport": "Viet Nam",
+            "duration": 0.1,
+            "id": 26,
+            "price": 321.5
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.6,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.2,
+            "id": 27,
+            "price": 223.9
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 8.0,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 28,
+            "price": 133.3
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 0.9,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 29,
+            "price": 222.5
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 4.4,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 1.0,
+            "id": 30,
+            "price": 341.2
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 5.1,
+            "dep_airport": "United Arab Emirates",
+            "duration": 0.7,
+            "id": 31,
+            "price": 246.6
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 3.6,
+            "dep_airport": "Namibia",
+            "duration": 0.8,
+            "id": 32,
+            "price": 100.2
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 5.9,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.5,
+            "id": 33,
+            "price": 443.0
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 9.5,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.5,
+            "id": 34,
+            "price": 492.8
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 0.2,
+            "dep_airport": "Viet Nam",
+            "duration": 0.9,
+            "id": 35,
+            "price": 482.1
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.4,
+            "dep_airport": "Croatia",
+            "duration": 0.6,
+            "id": 36,
+            "price": 311.6
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 0.4,
+            "dep_airport": "Namibia",
+            "duration": 0.5,
+            "id": 37,
+            "price": 362.9
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 2.8,
+            "dep_airport": "Namibia",
+            "duration": 0.3,
+            "id": 38,
+            "price": 159.2
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 0.8,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 39,
+            "price": 477.4
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 1.4,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 40,
+            "price": 298.6
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 6.8,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.6,
+            "id": 41,
+            "price": 64.7
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 6.5,
+            "dep_airport": "Barbados",
+            "duration": 0.2,
+            "id": 42,
+            "price": 126.9
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 6.0,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 43,
+            "price": 159.0
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 12.4,
+            "dep_airport": "Barbados",
+            "duration": 0.7,
+            "id": 44,
+            "price": 191.3
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 6.3,
+            "dep_airport": "United Arab Emirates",
+            "duration": 1.0,
+            "id": 45,
+            "price": 332.6
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 7.6,
+            "dep_airport": "Viet Nam",
+            "duration": 0.5,
+            "id": 46,
+            "price": 313.9
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 7.5,
+            "dep_airport": "Barbados",
+            "duration": 0.4,
+            "id": 47,
+            "price": 176.3
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 1.4,
+            "dep_airport": "Sweden",
+            "duration": 0.7,
+            "id": 48,
+            "price": 107.1
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 10.2,
+            "dep_airport": "Viet Nam",
+            "duration": 0.4,
+            "id": 49,
+            "price": 393.2
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 4.2,
+            "dep_airport": "Sweden",
+            "duration": 0.7,
+            "id": 50,
+            "price": 483.4
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 9.4,
+            "dep_airport": "Croatia",
+            "duration": 0.6,
+            "id": 51,
+            "price": 166.9
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 6.9,
+            "dep_airport": "Viet Nam",
+            "duration": 0.4,
+            "id": 52,
+            "price": 299.5
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 11.0,
+            "dep_airport": "United Arab Emirates",
+            "duration": 0.7,
+            "id": 53,
+            "price": 200.3
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 6.1,
+            "dep_airport": "Croatia",
+            "duration": 0.3,
+            "id": 54,
+            "price": 123.4
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 5.2,
+            "dep_airport": "Viet Nam",
+            "duration": 0.4,
+            "id": 55,
+            "price": 11.5
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 7.9,
+            "dep_airport": "Namibia",
+            "duration": 0.7,
+            "id": 56,
+            "price": 54.0
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 14.0,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.6,
+            "id": 57,
+            "price": 301.7
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 13.3,
+            "dep_airport": "Sweden",
+            "duration": 0.7,
+            "id": 58,
+            "price": 276.0
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 12.5,
+            "dep_airport": "Croatia",
+            "duration": 0.7,
+            "id": 59,
+            "price": 161.5
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 10.5,
+            "dep_airport": "Sweden",
+            "duration": 0.2,
+            "id": 60,
+            "price": 248.7
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 4.7,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.9,
+            "id": 61,
+            "price": 66.7
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 13.9,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.4,
+            "id": 62,
+            "price": 422.0
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 10.8,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.2,
+            "id": 63,
+            "price": 310.5
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 12.1,
+            "dep_airport": "Namibia",
+            "duration": 0.5,
+            "id": 64,
+            "price": 258.8
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 5.1,
+            "dep_airport": "Viet Nam",
+            "duration": 0.2,
+            "id": 65,
+            "price": 115.3
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 8.4,
+            "dep_airport": "United Arab Emirates",
+            "duration": 0.4,
+            "id": 66,
+            "price": 465.2
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 9.0,
+            "dep_airport": "Viet Nam",
+            "duration": 0.8,
+            "id": 67,
+            "price": 120.0
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 4.4,
+            "dep_airport": "Namibia",
+            "duration": 0.6,
+            "id": 68,
+            "price": 376.1
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 8.6,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 69,
+            "price": 481.5
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 4.8,
+            "dep_airport": "Croatia",
+            "duration": 0.2,
+            "id": 70,
+            "price": 477.4
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 5.5,
+            "dep_airport": "Viet Nam",
+            "duration": 0.4,
+            "id": 71,
+            "price": 483.8
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 5.8,
+            "dep_airport": "Viet Nam",
+            "duration": 0.8,
+            "id": 72,
+            "price": 494.4
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 11.0,
+            "dep_airport": "Sweden",
+            "duration": 0.8,
+            "id": 73,
+            "price": 154.5
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 6.6,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.3,
+            "id": 74,
+            "price": 294.2
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 12.1,
+            "dep_airport": "Viet Nam",
+            "duration": 0.5,
+            "id": 75,
+            "price": 52.9
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 3.8,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.3,
+            "id": 76,
+            "price": 117.4
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 6.7,
+            "dep_airport": "Namibia",
+            "duration": 0.4,
+            "id": 77,
+            "price": 205.1
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 6.6,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.3,
+            "id": 78,
+            "price": 62.3
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 1.8,
+            "dep_airport": "Croatia",
+            "duration": 0.3,
+            "id": 79,
+            "price": 277.4
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 2.0,
+            "dep_airport": "Sweden",
+            "duration": 0.4,
+            "id": 80,
+            "price": 110.8
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 3.8,
+            "dep_airport": "Barbados",
+            "duration": 0.9,
+            "id": 81,
+            "price": 187.6
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 0.5,
+            "dep_airport": "Viet Nam",
+            "duration": 0.6,
+            "id": 82,
+            "price": 10.8
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 7.6,
+            "dep_airport": "Viet Nam",
+            "duration": 0.5,
+            "id": 83,
+            "price": 339.1
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 11.8,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.7,
+            "id": 84,
+            "price": 227.6
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 1.8,
+            "dep_airport": "Namibia",
+            "duration": 0.3,
+            "id": 85,
+            "price": 162.9
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 13.8,
+            "dep_airport": "Croatia",
+            "duration": 0.9,
+            "id": 86,
+            "price": 170.5
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 6.1,
+            "dep_airport": "Namibia",
+            "duration": 0.1,
+            "id": 87,
+            "price": 345.1
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 3.9,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.5,
+            "id": 88,
+            "price": 275.4
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 3.1,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.4,
+            "id": 89,
+            "price": 300.0
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 2.6,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.3,
+            "id": 90,
+            "price": 54.4
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 12.3,
+            "dep_airport": "Sweden",
+            "duration": 1.0,
+            "id": 91,
+            "price": 452.3
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 13.9,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.8,
+            "id": 92,
+            "price": 489.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 10.7,
+            "dep_airport": "Croatia",
+            "duration": 1.0,
+            "id": 93,
+            "price": 191.8
+        },
+        {
+            "arr_airport": "Barbados",
+            "date": 0.0,
+            "dep_airport": "Namibia",
+            "duration": 0.6,
+            "id": 94,
+            "price": 257.4
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 13.1,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.3,
+            "id": 95,
+            "price": 225.6
+        },
+        {
+            "arr_airport": "United Arab Emirates",
+            "date": 1.0,
+            "dep_airport": "Kazakhstan",
+            "duration": 1.0,
+            "id": 96,
+            "price": 228.3
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 5.3,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.6,
+            "id": 97,
+            "price": 42.3
+        },
+        {
+            "arr_airport": "Croatia",
+            "date": 3.6,
+            "dep_airport": "Viet Nam",
+            "duration": 0.9,
+            "id": 98,
+            "price": 142.2
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 5.0,
+            "dep_airport": "Namibia",
+            "duration": 0.8,
+            "id": 99,
+            "price": 492.2
+        }
+    ],
+    "holiday_time": 14
+}

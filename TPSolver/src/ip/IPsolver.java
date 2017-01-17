@@ -5,6 +5,8 @@ import common.HelperMethods;
 import common.Airport;
 import common.Flight;
 
+
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
@@ -18,8 +20,8 @@ public class IPsolver {
     private HelperMethods h;
     private int T;
     private int B; // upper bound on the cost
-    private String[] args;
     private int m, n;
+    private String solution;
 
     GRBEnv env;
     GRBModel model;
@@ -29,20 +31,18 @@ public class IPsolver {
             ArrayList<Airport> as,
             ArrayList<Flight> fs,
             int T,
-            int B,
-            String[] args
+            int B
     ) {
         this.flights = fs;
         this.airports = as;
         this.T = T;
         this.B = B;
         this.h = new HelperMethods(as, fs);
-        this.args = args;
-
+        this.solution = "";
         this.addSpecialFlight();
     }
 
-    public void getSolution() {
+    public String getSolution() throws IOException {
         try {
             env = new GRBEnv("tp.log");
             model = new GRBModel(env);
@@ -88,7 +88,7 @@ public class IPsolver {
             model.optimize();
 //            this.debugModel();
 
-            // Print solution
+            // Print and return solution
             printAllSolutions();
 
             // Dispose of model and environment
@@ -99,6 +99,7 @@ public class IPsolver {
             System.out.println("Error code: " + e.getErrorCode() + ". " +
                     e.getMessage());
         }
+        return this.solution;
     }
 
     private void matrixContraints() throws GRBException {
@@ -229,7 +230,7 @@ public class IPsolver {
 
     private void getAllSols() throws GRBException {
         // Limit the search space by setting a gap for the worst possible solution that will be accepted
-        model.set(GRB.DoubleParam.PoolGap, 0.1);
+        model.set(GRB.DoubleParam.PoolGap, 1);
         // do a systematic search for the k-best solutions
         model.set(GRB.IntParam.PoolSearchMode, 2);
 
@@ -237,7 +238,7 @@ public class IPsolver {
         System.out.println("Number of solutions found: " + nSolutions);
     }
 
-    private void printAllSolutions() throws GRBException {
+    private void printAllSolutions() throws GRBException, IOException {
         GRBVar[] vars = model.getVars();
         System.out.println();
         for (int k = 0; k < model.get(GRB.IntAttr.SolCount); ++k) {
@@ -253,46 +254,10 @@ public class IPsolver {
         System.out.println();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
-                if (x[i][j] > 0.5 && j != m-1) System.out.print((j+1) + " ");
-            }
-        }
-
-        System.out.println();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
                 if (x[i][j] > 0.5 && j != m-1) {
-                    cost = cost + h.getFlightByID(j+1).cost;
-//                    System.out.println(
-//                            MessageFormat.format("from {0} to {1} on date: {2} costs: {3}", h.getFlightByID(j + 1).dep.name, h.getFlightByID(j + 1).arr.name, h.getFlightByID(j + 1).date, h.getFlightByID(j + 1).cost)
-//                    );
-                }
-            }
-        }
-        System.out.println("Total cost: " + cost);
-    }
-
-    private void printSolution() throws GRBException {
-        double cost = 0;
-
-        double[][] x = model.get(GRB.DoubleAttr.X, S);
-
-        System.out.println();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (x[i][j] > 0.5) {
-                    System.out.print(1 + " ");
-                } else {
-                    System.out.print(0 + " ");
-                }
-            }
-            System.out.println();
-        }
-
-        System.out.println();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (x[i][j] > 0.5 && j != m-1) {
-                    System.out.print((j+1) + "  ");
+                    String flightMssg = (j+1) + " ";
+                    System.out.print(flightMssg);
+                    this.solution += flightMssg;
                 }
             }
         }
@@ -303,15 +268,14 @@ public class IPsolver {
                 if (x[i][j] > 0.5 && j != m-1) {
                     cost = cost + h.getFlightByID(j+1).cost;
                     System.out.println(
-                            "from " + h.getFlightByID(j+1).dep.name +
-                            " to " + h.getFlightByID(j+1).arr.name +
-                            " on date: " + h.getFlightByID(j+1).date +
-                            " costs: " +  h.getFlightByID(j+1).cost
+                            MessageFormat.format("from {0} to {1} on date: {2} costs: {3}", h.getFlightByID(j + 1).dep.name, h.getFlightByID(j + 1).arr.name, h.getFlightByID(j + 1).date, h.getFlightByID(j + 1).cost)
                     );
                 }
             }
         }
-        System.out.println("Total cost: " + cost);
+        String costMssg = "Total cost: " + cost;
+        System.out.println(costMssg);
+        this.solution += costMssg + "\n";
     }
 
     private void debugModel() throws GRBException {
