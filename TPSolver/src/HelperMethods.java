@@ -81,7 +81,9 @@ public class HelperMethods {
         ArrayList<Integer> froma = new ArrayList<>();
         Flight test = this.getFlightByID(7);
         for (Flight f: flights) {
-            if (f.dep == a && f.date >= date + 1) { // allow for at least 1 day stay at a
+            // allow for at least 1 day stay at a. Date is multiplied by 0 due to
+            // choco not supporting double values properly
+            if (f.dep == a && f.date >= date + 10) {
                 froma.add(f.id);
             }
         }

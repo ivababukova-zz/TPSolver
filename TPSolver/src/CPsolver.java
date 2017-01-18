@@ -89,7 +89,10 @@ public class CPsolver {
         if (trip_property_5 == 0) {
             return 0;
         }
-//        if (this.tuples != null) hardConstraint2();
+        if (this.tuples != null) {
+            System.out.println("Searching for solutions with hard constraint 2:");
+            hardConstraint2();
+        }
 //
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
@@ -200,8 +203,8 @@ public class CPsolver {
         );
     }
 
-    /*** HARD CONSTRAINT 2 CODE ***/
 
+    /*** HARD CONSTRAINT 2 CODE ***/
     private void hardConstraint2(){
         this.D = model.intVarArray(
                 "Destinations with hard constr 2",
@@ -222,7 +225,7 @@ public class CPsolver {
 
     // hard constraint 2
     private void dateLocationConstraint(Airport a, double date, int index) {
-        System.out.println(a.name + " " + date + " " + index);
+        System.out.println(a.name + " " + date/10 + " " + index);
         int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
         int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
 
@@ -236,7 +239,7 @@ public class CPsolver {
             );
         }
     }
-    /*** ***/
+    /*** end of hard constraint 2 code ***/
 
     // call this function when no flights to connection airports are allowed
     private void removeConnections(){
@@ -256,12 +259,13 @@ public class CPsolver {
             return "";
         }
 
-        if (args.length == 2) {
+        if (args.length == 2 || (args.length == 3 && args[2].equals("-hc2"))) {
             Solution x = solver.findSolution();
             if (x == null) {
                 System.out.println("No solution was found");
             }
             else {
+                System.out.println("A solution:");
                 printSolution(x, false);
             }
             return getStats();
@@ -272,9 +276,9 @@ public class CPsolver {
         int isOptimalSearch = 0;
 
         for (String arg : args) {
-            if (arg.equals("-verbose")) {
-                isVerbose = true;
-            }
+//            if (arg.equals("-verbose")) {
+//                isVerbose = true;
+//            }
             if (arg.equals("-min")) {
                 System.out.print("Solution with minimum ");
                 m = Model.MINIMIZE;
@@ -314,7 +318,7 @@ public class CPsolver {
         if (isOptimalSearch == 2) {
             returnOneOptimal(m, to_optimise, isVerbose);
         } else if (isOptimalSearch == 1) {
-            System.out.println("Not enough arguments provided");
+            System.out.println("\nNot enough arguments provided");
             return "";
         }
         return getStats();
@@ -345,20 +349,18 @@ public class CPsolver {
     private void printSolution(Solution x, Boolean isVerbose) {
         for (int i = 0; i < x.getIntVal(z); i++) {
             String nextVar = x.getIntVal(S[i]) + " ";
-            System.out.print(nextVar);
+            System.out.print("  Flight with id " + nextVar);
             this.solution += nextVar;
-            if (isVerbose) {
-                System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
-                System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
-                System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 10);
-                System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
-            }
+            System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
+            System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
+            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 10);
+            System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
         }
-        String tripDuration = "Trip duration: " + x.getIntVal(trip_duration)/10;
-        String totalCost = " Total cost: " + x.getIntVal(cost_sum)/100;
+        String tripDuration = "  Trip duration: " + x.getIntVal(trip_duration)/10;
+        String totalCost = " Total cost: " + x.getIntVal(cost_sum)/100 + "\n";
         System.out.print(tripDuration);
         System.out.println(totalCost);
-        this.solution += tripDuration + totalCost + "\n";
+        this.solution += tripDuration + totalCost;
     }
 
 }

@@ -43,17 +43,22 @@ public class InstanceParser {
         T = ((Number)jobj.get("holiday_time")).intValue();
         createAirports(jairports);
         flights = createFlights(jflights);
-        ArrayList<Tuple> tuples = new ArrayList<>();
-        if (jtuples != null) tuples = createHC2(jtuples);
+        ArrayList<Tuple> tuples = null;
+        if (    args.length > 2 &&
+                jtuples != null &&
+                args[1].equals("-cp") &&
+                args[2].equals("-hc2")) {
+            tuples = createHC2(jtuples);
+        }
         String solFileName = "";
         String solution = "";
-        if (args[1].equals("cp")) {
+        if (args[1].equals("-cp")) {
             modifyData();
             CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
             solFileName = getSolFileName("cp");
             solution = s.getSolution();
         }
-        else if (args[1].equals("ip")) {
+        else if (args[1].equals("-ip")) {
             IPsolver s = new IPsolver(airports, flights, T, B);
             solFileName = getSolFileName("ip");
             solution = s.getSolution();
@@ -62,7 +67,7 @@ public class InstanceParser {
             printUsage();
             return;
         }
-        writeSolutionToFile(solFileName, solution);
+//        writeSolutionToFile(solFileName, solution);
     }
 
     private static String getSolFileName(String model) {
@@ -75,7 +80,7 @@ public class InstanceParser {
         filenameParts = name.split("\\.");
 
         String finalName = parentFolders + "solutions/" + model + "/" + filenameParts[0] + ".sol";
-        System.out.println(finalName);
+//        System.out.println("Solution will be saved in file " + finalName + "\n");
         return finalName;
     }
 
@@ -119,7 +124,7 @@ public class InstanceParser {
         for (int i = 0; i < jtuples.size(); i++) {
             JSONObject tuple = (JSONObject) jtuples.get(i);
             Airport a = getByName((String) tuple.get("airport"));
-            double date = ((Number)tuple.get("date")).doubleValue();
+            double date = ((Number)tuple.get("date")).doubleValue() * 10;
             Tuple t = new Tuple(a, date);
             tuples.add(t);
         }
@@ -146,15 +151,19 @@ public class InstanceParser {
 
     private static void printUsage() {
         System.out.println("Usage:\n    java -jar TPSolver1.jar <filename> <model> [-options]");
-        System.out.println("Where:\n    <filename> is the relative path to and the name of the TP instance you want to solve,");
-        System.out.println("               which must be a .json file containing a list of airports, a list of flights and");
-        System.out.println("               a holiday time. See example instance files for more info.");
+        System.out.println("Where:\n    <filename> is the relative path to and the name of the TP instance");
+        System.out.println("                       you want to solve,");
+        System.out.println("               which must be a .json file containing a list of airports, a list ");
+        System.out.println("               of flights and a holiday time. See example instance files for more info.");
         System.out.println("\n    <model> is either:");
-        System.out.println("        cp: the instance will be solved using the TP Constraints Programming Model");
-        System.out.println("        ip: the instance will be solved using the TP Integer Programming Model");
-        System.out.println("\n    [options] are applicable only to the CP model. They can be 0 or more of the following parameters: ");
-        System.out.println("        -verbose: prints more information about the solution");
-        System.out.println("        <objective> <objective variable> [-allOpt]: in case you want to find optimal solutions, where:");
+        System.out.println("        -cp: the instance will be solved using the TP Constraint Programming Model");
+        System.out.println("        -ip: the instance will be solved using the TP Integer Programming Model");
+        System.out.println("\n    [options] are applicable only to the CP model and are 0 or more of these parameters: ");
+//        System.out.println("        -verbose: prints more information about the solution");
+        System.out.println("        -hc2: returns only solutions which comply with hard constraint 2 (HC2), ");
+        System.out.println("              specified in the instance input file. HC2 requires that the specified ");
+        System.out.println("              destination must be visited at the specified time at least for one day. ");
+        System.out.println("        <objective> <objective variable> [-allOpt]: finds optimal solutions, where:");
         System.out.println("            <objective> is either -min or -max");
         System.out.println("            <objective variable> is either -cost, -flights, or -trip_duration, where:");
         System.out.println("                -cost: finds the optional solutions with respect to flights cost");

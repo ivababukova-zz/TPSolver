@@ -181,6 +181,14 @@
       "date" : 14,
       "duration" : 1,
       "price" : 24
+    },
+    {
+      "id" : 19,
+      "dep_airport" : "B",
+      "arr_airport" : "P",
+      "date" : 5,
+      "duration" : 1,
+      "price" : 670
     }
   ],
   "holiday_time" : 20,
