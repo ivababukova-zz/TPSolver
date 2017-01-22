@@ -286,7 +286,7 @@ public class CPsolver {
             }
             if (arg.equals("-max")) {
                 System.out.print("Solution with maximum ");
-                m = Model.MINIMIZE;
+                m = Model.MAXIMIZE;
                 isOptimalSearch += 1;
             }
             if (arg.equals("-cost")) {
@@ -347,6 +347,11 @@ public class CPsolver {
     }
 
     private void printSolution(Solution x, Boolean isVerbose) {
+        System.out.print("  ");
+        for (int i = 0; i < x.getIntVal(z); i++) {
+            System.out.print(x.getIntVal(S[i]) + " ");
+        }
+        System.out.println();
         for (int i = 0; i < x.getIntVal(z); i++) {
             String nextVar = x.getIntVal(S[i]) + " ";
             System.out.print("  Flight with id " + nextVar);
@@ -356,8 +361,8 @@ public class CPsolver {
             System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 10);
             System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
         }
-        String tripDuration = "  Trip duration: " + x.getIntVal(trip_duration)/10;
-        String totalCost = " Total cost: " + x.getIntVal(cost_sum)/100 + "\n";
+        String tripDuration = "  Trip duration: " + (x.getIntVal(trip_duration) / 10.0);
+        String totalCost = " Total cost: " + (x.getIntVal(cost_sum) / 100.0) + "\n";
         System.out.print(tripDuration);
         System.out.println(totalCost);
         this.solution += tripDuration + totalCost;

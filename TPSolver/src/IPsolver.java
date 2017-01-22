@@ -15,6 +15,7 @@ public class IPsolver {
     private int B; // upper bound on the cost
     private int m, n;
     private String solution;
+    private String[] args;
 
     GRBEnv env;
     GRBModel model;
@@ -24,8 +25,9 @@ public class IPsolver {
             ArrayList<Airport> as,
             ArrayList<Flight> fs,
             int T,
-            int B
-    ) {
+            int B,
+            String[] args
+            ) {
         this.flights = fs;
         this.airports = as;
         this.T = T;
@@ -33,6 +35,7 @@ public class IPsolver {
         this.h = new HelperMethods(as, fs);
         this.solution = "";
         this.addSpecialFlight();
+        this.args = args;
     }
 
     public String getSolution() throws IOException {
@@ -59,6 +62,10 @@ public class IPsolver {
             expr.addTerm(1.0, S[n][n]);
             expr.addTerm(1.0, S[0][n]);
             model.addConstr(expr, GRB.EQUAL, 1.0, "End with special flight");
+
+//            expr = new GRBLinExpr();
+//            expr.addTerm(1.0, S[6][13]);
+//            model.addConstr(expr, GRB.EQUAL, 1.0, "iva");
 
             // I have no idea why I need this. It is taken from the sudoku example.
             // The code does not work without it.
@@ -221,9 +228,21 @@ public class IPsolver {
         model.setObjective(expr, GRB.MINIMIZE);
     }
 
+    // set an objective for minimizing the flight cost
+    private void maxCostObjective() throws GRBException {
+        GRBLinExpr expr = new GRBLinExpr();
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < m; j++) {
+                expr.addTerm(h.getFlightByID(j+1).cost, S[i][j]);
+            }
+        }
+        model.setObjective(expr, GRB.MAXIMIZE);
+    }
+
+
     private void getAllSols() throws GRBException {
         // Limit the search space by setting a gap for the worst possible solution that will be accepted
-        model.set(GRB.DoubleParam.PoolGap, 1);
+        model.set(GRB.DoubleParam.PoolGap, 10000);
         // do a systematic search for the k-best solutions
         model.set(GRB.IntParam.PoolSearchMode, 2);
 
@@ -232,11 +251,15 @@ public class IPsolver {
     }
 
     private void printAllSolutions() throws GRBException, IOException {
-        GRBVar[] vars = model.getVars();
         System.out.println();
-        for (int k = 0; k < model.get(GRB.IntAttr.SolCount); ++k) {
-            model.set(GRB.IntParam.SolutionNumber, k);
-            double[][] x = model.get(GRB.DoubleAttr.Xn, S);
+        if (allRequired()) {
+            for (int k = 0; k < model.get(GRB.IntAttr.SolCount); ++k) {
+                model.set(GRB.IntParam.SolutionNumber, k);
+                double[][] x = model.get(GRB.DoubleAttr.Xn, S);
+                printSolution(x);
+            }
+        } else {
+            double[][] x = model.get(GRB.DoubleAttr.X, S);
             printSolution(x);
         }
     }
@@ -261,7 +284,14 @@ public class IPsolver {
                 if (x[i][j] > 0.5 && j != m-1) {
                     cost = cost + h.getFlightByID(j+1).cost;
                     System.out.println(
-                            MessageFormat.format("from {0} to {1} on date: {2} costs: {3}", h.getFlightByID(j + 1).dep.name, h.getFlightByID(j + 1).arr.name, h.getFlightByID(j + 1).date, h.getFlightByID(j + 1).cost)
+                            MessageFormat.format(
+                            "Flight with id {0} from {1} to {2} on date: {3} costs: {4}",
+                                    (j+1),
+                                    h.getFlightByID(j + 1).dep.name,
+                                    h.getFlightByID(j + 1).arr.name,
+                                    h.getFlightByID(j + 1).date,
+                                    h.getFlightByID(j + 1).cost
+                            )
                     );
                 }
             }
@@ -305,5 +335,12 @@ public class IPsolver {
         Airport a0 = h.getHomePoint();
         Flight special = new Flight(flights.size()+1, a0, a0, T, 0, 0);
         flights.add(special);
+    }
+
+    private Boolean allRequired() {
+        for (String arg: args) {
+            if (arg.equals("-allOpt")) return true;
+        }
+        return false;
     }
 }

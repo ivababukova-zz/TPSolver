@@ -59,7 +59,7 @@ public class InstanceParser {
             solution = s.getSolution();
         }
         else if (args[1].equals("-ip")) {
-            IPsolver s = new IPsolver(airports, flights, T, B);
+            IPsolver s = new IPsolver(airports, flights, T, B, args);
             solFileName = getSolFileName("ip");
             solution = s.getSolution();
         }
