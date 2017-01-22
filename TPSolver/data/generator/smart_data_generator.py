@@ -101,9 +101,7 @@ def divide_flight(f, id1, id2):
     conn_time = [d["connection_time"] for d in allairports if d["name"] == arr1]
     conn_time = round(conn_time[0], 2)
     D = (round(f["duration"], 2) - conn_time)/2
-    print("D 1: ", D)
     if min_dur > D:
-        print("this flight is undivisible 1. ", D)
         return(-1)
     edate1 = round(f["date"], 2)
     duration1 = round(random.uniform(min_dur, D), 2)
@@ -111,21 +109,14 @@ def divide_flight(f, id1, id2):
     cost1 = round(random.uniform(min_cost, max_cost), 2)
     
     edate2 = date1 + duration1 + conn_time
-    print("new conn time: ", conn_time)
-    print("earliest date 1: ", edate1, " earliest date 2: ", edate2)
     D = round(f["date"], 2) + round(f["duration"], 2) - (date1 + duration1 + conn_time)
     if min_dur > D:
-        print("this flight is undivisible 2. ", D)
         return(-1)
-    print("D 2: ", D)
     duration2 = round(random.uniform(min_dur, D), 2)
     date2 = round(random.uniform(edate2, edate2 + D - duration2), 2)
     cost2 = round(random.uniform(min_cost, max_cost), 2)
     f1 = generate_flight(id1, dep, arr1, date1, duration1, cost1)
     f2 = generate_flight(id2, arr1, arr, date2, duration2, cost2)
-    print(f1)
-    print(f2)
-    print("-------------------------------------------------------")
     pair.append(f1)
     pair.append(f2)
     return(pair)
@@ -135,21 +126,15 @@ def divide_flights(flights):
     for f in flights:
         if m <= len(flights):
             break
-        print(f)
         pair = divide_flight(f, next_id, (next_id + 1))
         if pair != -1:
-            print("division successful")
             flights.append(pair[0])
             flights.append(pair[1])
             next_id = len(flights) + 1
         pair = []
-    print("**********that is all:********")
-    pprint(flights)
-    print("******************************")
     return flights
     
 def tsp(route_seed, hp):
-    print(route_seed)
     route_flights = []
     prev_duration = 0
     C = sum_conn_time(route_seed, hp)
@@ -186,7 +171,6 @@ def tsp(route_seed, hp):
         
     
 def get_n_flights(seed_flights_len):
-    print("******Now random flights:******")
     airps = allairports
     flights = []
     
@@ -201,7 +185,6 @@ def get_n_flights(seed_flights_len):
         duration = round(random.uniform(min_dur, max_dur), 2)
         cost = round(random.uniform(min_cost, max_cost), 2)
         f = generate_flight(i + 1 + seed_flights_len, dep, arr, date, duration, cost)
-        print(f)
         flights.append(f)
         
     return flights
