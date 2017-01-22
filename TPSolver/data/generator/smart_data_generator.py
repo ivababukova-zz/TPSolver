@@ -1,3 +1,8 @@
+# 1. Generates an initial trip that goes through all destinations
+# 2. While the required number of flights is not reached:
+#   splits each flight (A, B) into two flights (A, C) and (C, B), C is random
+# 3. Saves the set of flights and airports to a file
+
 from pprint import pprint
 import json
 import random
@@ -127,16 +132,17 @@ def divide_flight(f, id1, id2):
     
 def divide_flights(flights):
     next_id = len(flights) + 1
-    while(m > len(flights)):
-        for f in flights:
-            print(f)
-            pair = divide_flight(f, next_id, (next_id + 1))
-            if pair != -1:
-                print("division successful")
-                flights.append(pair[0])
-                flights.append(pair[1])
-                next_id = len(flights) + 1
-            pair = []
+    for f in flights:
+        if m <= len(flights):
+            break
+        print(f)
+        pair = divide_flight(f, next_id, (next_id + 1))
+        if pair != -1:
+            print("division successful")
+            flights.append(pair[0])
+            flights.append(pair[1])
+            next_id = len(flights) + 1
+        pair = []
     print("**********that is all:********")
     pprint(flights)
     print("******************************")
@@ -175,7 +181,7 @@ def tsp(route_seed, hp):
         route_flights.append(f)
         C = C - conn_time
         D = (T - (duration + C + date))/(d - i + 1)
-        edate = date + duration
+        edate = date + duration + conn_time
     return divide_flights(route_flights)
         
     
@@ -184,7 +190,7 @@ def get_n_flights(seed_flights_len):
     airps = allairports
     flights = []
     
-    for i in range(0, m - seed_flights_len -1):
+    for i in range(0, m - seed_flights_len):
         dep_num = random.randint(0, len(airps)-1)
         allowed_arr = list(range(0, dep_num)) + list(range(dep_num+1, len(airps)-1))
         arr_num = random.choice(allowed_arr)
