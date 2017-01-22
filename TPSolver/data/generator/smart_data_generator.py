@@ -83,7 +83,64 @@ def generate_flight(id, dep, arr, date, duration, cost):
             "duration": duration,
             "price": cost
         }
+
+def divide_flight(f, id1, id2):
+    airps = allairports
+    dep = f["dep_airport"]
+    arr = f["arr_airport"]
+    pair = []
+    arr1 = airps[random.randint(0, len(airps)-1)]["name"]
+    while arr1 == dep or arr1 == arr:
+        arr1 = airps[random.randint(0, len(airps)-1)]["name"]
     
+    conn_time = [d["connection_time"] for d in allairports if d["name"] == arr1]
+    conn_time = round(conn_time[0], 2)
+    D = (round(f["duration"], 2) - conn_time)/2
+    print("D 1: ", D)
+    if min_dur > D:
+        print("this flight is undivisible 1. ", D)
+        return(-1)
+    edate1 = round(f["date"], 2)
+    duration1 = round(random.uniform(min_dur, D), 2)
+    date1 = round(random.uniform(edate1, edate1 + D - duration1), 2)
+    cost1 = round(random.uniform(min_cost, max_cost), 2)
+    
+    edate2 = date1 + duration1 + conn_time
+    print("new conn time: ", conn_time)
+    print("earliest date 1: ", edate1, " earliest date 2: ", edate2)
+    D = round(f["date"], 2) + round(f["duration"], 2) - (date1 + duration1 + conn_time)
+    if min_dur > D:
+        print("this flight is undivisible 2. ", D)
+        return(-1)
+    print("D 2: ", D)
+    duration2 = round(random.uniform(min_dur, D), 2)
+    date2 = round(random.uniform(edate2, edate2 + D - duration2), 2)
+    cost2 = round(random.uniform(min_cost, max_cost), 2)
+    f1 = generate_flight(id1, dep, arr1, date1, duration1, cost1)
+    f2 = generate_flight(id2, arr1, arr, date2, duration2, cost2)
+    print(f1)
+    print(f2)
+    print("-------------------------------------------------------")
+    pair.append(f1)
+    pair.append(f2)
+    return(pair)
+    
+def divide_flights(flights):
+    next_id = len(flights) + 1
+    while(m > len(flights)):
+        for f in flights:
+            print(f)
+            pair = divide_flight(f, next_id, (next_id + 1))
+            if pair != -1:
+                print("division successful")
+                flights.append(pair[0])
+                flights.append(pair[1])
+                next_id = len(flights) + 1
+            pair = []
+    print("**********that is all:********")
+    pprint(flights)
+    print("******************************")
+    return flights
     
 def tsp(route_seed, hp):
     print(route_seed)
@@ -100,11 +157,10 @@ def tsp(route_seed, hp):
     for i in range(0, len(route_seed)-1):
         dep = route_seed[i]
         arr = route_seed[i+1]
-        
+        conn_time = [d["connection_time"] for d in allairports if d["name"] == arr]
+        conn_time = round(conn_time[0], 2)
         if i != 0 and i != len(route_seed)-1:
-            conn_time = [d["connection_time"] for d in allairports if d["name"] == arr]
-            edate += round(conn_time[0], 2)
-            
+            edate += conn_time
         ldate = edate + D
         md = max_dur
         if md > D:
@@ -115,13 +171,13 @@ def tsp(route_seed, hp):
         prev_arr_date = date + duration
         
         f = generate_flight(i+1, dep, arr, date, duration, cost)
-        print(f)
         duration_sum_temp += duration
         route_flights.append(f)
-        D = (T - C - duration)/(d - i + 1)
+        C = C - conn_time
+        D = (T - (duration + C + date))/(d - i + 1)
         edate = date + duration
-    return route_flights
-    
+    return divide_flights(route_flights)
+        
     
 def get_n_flights(seed_flights_len):
     print("******Now random flights:******")
@@ -152,7 +208,7 @@ def construct_json():
 
 
 # run: python data_generator.py n m T max_cost
-if len(sys.argv) < 12:
+if len(sys.argv) != 8:
     print("usage: python data_generator.py "
           "\n   <number of flights>"
           "\n   <number of airports>"
@@ -160,10 +216,10 @@ if len(sys.argv) < 12:
           "\n   <holiday time>"
           "\n   <min_flight_cost>"
           "\n   <max_flight_cost>"
-          "\n   <min_duration>"
-          "\n   <max_duration>"
-          "\n   <min_connection_time>"
-          "\n   <max_connection_time>"
+          # "\n   <min_duration>"
+          # "\n   <max_duration>"
+          # "\n   <min_connection_time>"
+          # "\n   <max_connection_time>"
           "\n   <number to be appended to the name of the output file>"
           )
     exit(1)
@@ -181,17 +237,17 @@ min_cost = int(sys.argv[5])
 # maximum cost:
 max_cost = int(sys.argv[6])
 # minimum flight duration:
-min_dur = 0.1 #float(sys.argv[7])
+min_dur = 0.1
 # maximum flight duration:
-max_dur = float(sys.argv[8])
+max_dur = 1.5 # float(sys.argv[8])
 # minimum connection time
 min_conn = 0 # float(sys.argv[9])
 # maximum connection time
-max_conn = 0 # float(sys.argv[10])
+max_conn = 1 # float(sys.argv[10])
 # output file id
-id = sys.argv[11]
+id = sys.argv[7]
 
-if m <= n:
+if m <= d or m < (d + 1):
     print("The number of flights must be significantly bigger than the number of airports.")
     exit(1)
 
