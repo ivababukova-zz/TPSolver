@@ -142,12 +142,10 @@ public class IPsolver {
         for (int i = 1; i < m; i++) {
             expr1 = new GRBLinExpr();
             expr2 = new GRBLinExpr();
-            for (int j = 0; j < n; j++) {
-                expr1.addTerm(1.0, S[i-1][j]);
-                expr2.addTerm(1.0, S[i][j]);
-            }
+            expr1.addTerm(1.0, S[i-1][n]);
+            expr2.addTerm(1.0, S[i][n]);
             String s1 = "ValidSchedule_" + String.valueOf(i);
-            model.addConstr(expr1, GRB.GREATER_EQUAL, expr2, s1);
+            model.addConstr(expr1, GRB.LESS_EQUAL, expr2, s1);
         }
     }
 
@@ -266,6 +264,19 @@ public class IPsolver {
 
     private void printSolution(double[][] x) throws GRBException {
         double cost = 0;
+
+//        System.out.println();
+//        for (int i = 0; i < m; i++) {
+//            for (int j = 0; j < m; j++) {
+//                if (x[i][j] > 0.5) {
+//                    System.out.print(1 + " ");
+//                }
+//                else {
+//                    System.out.print(0 + " ");
+//                }
+//            }
+//            System.out.println();
+//        }
 
         System.out.println();
         for (int i = 0; i < m; i++) {

@@ -233,20 +233,31 @@ public class CPsolver {
             );
         }
     }
+
+    private void hardConstraint2v2() {
+        for (Tuple tup : this.tuples) {
+            Airport a = tup.getA();
+            double date = tup.getDate();
+            System.out.println("Be at destination " + a.name + " at date " + date/10);
+            int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
+            int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
+        }
+    }
+
     /*** end of hard constraint 2 code ***/
 
 //    // call this function when no flights to connection airports are allowed
-//    private void removeConnections(){
-//        ArrayList<Flight> newflights = new ArrayList<>();
-//        for(Flight f: this.flights) {
-//            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
-//        }
-//        this.flights = newflights;
-//        for (Flight f: newflights) {
-//            System.out.print(f.dep.name + f.arr.name + " ");
-//        }
-//        System.out.println();
-//    }
+    private void removeConnections(){
+        ArrayList<Flight> newflights = new ArrayList<>();
+        for(Flight f: this.flights) {
+            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
+        }
+        this.flights = newflights;
+        for (Flight f: newflights) {
+            System.out.print(f.dep.name + f.arr.name + " ");
+        }
+        System.out.println();
+    }
 
     public String getSolution() {
         if (init() == 0) {

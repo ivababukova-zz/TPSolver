@@ -36,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IPsolver.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IPsolver.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="244" column="41" lean-forward="false" selection-start-line="244" selection-start-column="18" selection-end-line="244" selection-end-column="41" />
+            <state relative-caret-position="262">
+              <caret line="278" column="11" lean-forward="false" selection-start-line="267" selection-start-column="10" selection-end-line="278" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CPsolver.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CPsolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1148">
-              <caret line="248" column="7" lean-forward="false" selection-start-line="237" selection-start-column="6" selection-end-line="248" selection-end-column="7" />
+            <state relative-caret-position="465">
+              <caret line="242" column="113" lean-forward="false" selection-start-line="242" selection-start-column="113" selection-end-line="242" selection-end-column="113" />
               <folding />
             </state>
           </provider>
@@ -193,12 +193,12 @@
         <option value="$PROJECT_DIR$/src/HelperMethods.java" />
         <option value="$PROJECT_DIR$/data/random_data/500_50_11_3.json" />
         <option value="$PROJECT_DIR$/data/random_data/60_10_5_3.json" />
-        <option value="$PROJECT_DIR$/src/IPsolver.java" />
         <option value="$PROJECT_DIR$/data/random_data/100_40_10_0.json" />
         <option value="$PROJECT_DIR$/data/random_data/12_10_3_0.json" />
         <option value="$PROJECT_DIR$/src/InstanceParser.java" />
         <option value="$PROJECT_DIR$/data/small_test.json" />
         <option value="$PROJECT_DIR$/src/CPsolver.java" />
+        <option value="$PROJECT_DIR$/src/IPsolver.java" />
       </list>
     </option>
   </component>
@@ -269,24 +269,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPSolver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="TPSolver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="random_data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -324,7 +306,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="InstanceParser" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="data/random_data/60_20_5_0.json -cp -all" />
+      <option name="PROGRAM_PARAMETERS" value="data/small_test.json -ip -allOpt" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -939,12 +921,12 @@
       <workItem from="1484481039693" duration="52699000" />
       <workItem from="1484683056421" duration="205000" />
       <workItem from="1484738140237" duration="10666000" />
-      <workItem from="1485025093868" duration="15858000" />
+      <workItem from="1485025093868" duration="17710000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="244933000" />
+    <option name="totallyTimeSpent" value="246785000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -960,12 +942,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34140626" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41015625" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2703125" sideWeight="0.48736462" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2703125" sideWeight="0.48736462" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1264,16 +1246,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="244" column="41" lean-forward="false" selection-start-line="244" selection-start-column="18" selection-end-line="244" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/InstanceParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -1302,9 +1274,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1148">
-          <caret line="248" column="7" lean-forward="false" selection-start-line="237" selection-start-column="6" selection-end-line="248" selection-end-column="7" />
+        <state relative-caret-position="465">
+          <caret line="242" column="113" lean-forward="false" selection-start-line="242" selection-start-column="113" selection-end-line="242" selection-end-column="113" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="278" column="11" lean-forward="false" selection-start-line="267" selection-start-column="10" selection-end-line="278" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
