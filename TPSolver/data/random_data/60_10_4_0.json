@@ -1,0 +1,537 @@
+{
+    "airports": [
+        {
+            "connection_time": 0.5,
+            "name": "Moldova",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.8,
+            "name": "Switzerland",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Somalia",
+            "purpose": "home_point"
+        },
+        {
+            "connection_time": 0.8,
+            "name": "United States",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Niger",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.7,
+            "name": "United Kingdom (Great Britain)",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.4,
+            "name": "Vanuatu",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.0,
+            "name": "Libya",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.6,
+            "name": "Guernsey",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.0,
+            "name": "Sri Lanka",
+            "purpose": "connection"
+        }
+    ],
+    "flights": [
+        {
+            "arr_airport": "United Kingdom (Great Britain)",
+            "date": 8.03,
+            "dep_airport": "Vanuatu",
+            "duration": 0.75,
+            "id": 8,
+            "price": 47.31
+        },
+        {
+            "arr_airport": "United Kingdom (Great Britain)",
+            "date": 5.32,
+            "dep_airport": "Guernsey",
+            "duration": 0.85,
+            "id": 9,
+            "price": 199.91
+        },
+        {
+            "arr_airport": "United States",
+            "date": 7.29,
+            "dep_airport": "Sri Lanka",
+            "duration": 1.0,
+            "id": 10,
+            "price": 149.26
+        },
+        {
+            "arr_airport": "United States",
+            "date": 0.74,
+            "dep_airport": "United Kingdom (Great Britain)",
+            "duration": 0.82,
+            "id": 11,
+            "price": 191.23
+        },
+        {
+            "arr_airport": "Libya",
+            "date": 6.9,
+            "dep_airport": "United States",
+            "duration": 1.16,
+            "id": 12,
+            "price": 108.73
+        },
+        {
+            "arr_airport": "Libya",
+            "date": 2.87,
+            "dep_airport": "Moldova",
+            "duration": 1.48,
+            "id": 13,
+            "price": 184.71
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 3.6,
+            "dep_airport": "Guernsey",
+            "duration": 0.8,
+            "id": 14,
+            "price": 115.31
+        },
+        {
+            "arr_airport": "Switzerland",
+            "date": 0.02,
+            "dep_airport": "Moldova",
+            "duration": 1.31,
+            "id": 15,
+            "price": 77.73
+        },
+        {
+            "arr_airport": "Switzerland",
+            "date": 8.03,
+            "dep_airport": "Moldova",
+            "duration": 0.29,
+            "id": 16,
+            "price": 93.39
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 2.54,
+            "dep_airport": "United Kingdom (Great Britain)",
+            "duration": 1.28,
+            "id": 17,
+            "price": 49.25
+        },
+        {
+            "arr_airport": "United States",
+            "date": 8.42,
+            "dep_airport": "Guernsey",
+            "duration": 0.8,
+            "id": 18,
+            "price": 160.96
+        },
+        {
+            "arr_airport": "Somalia",
+            "date": 0.5,
+            "dep_airport": "Niger",
+            "duration": 0.38,
+            "id": 19,
+            "price": 115.59
+        },
+        {
+            "arr_airport": "Somalia",
+            "date": 4.65,
+            "dep_airport": "Moldova",
+            "duration": 0.59,
+            "id": 20,
+            "price": 84.81
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 5.42,
+            "dep_airport": "Somalia",
+            "duration": 1.02,
+            "id": 21,
+            "price": 17.29
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 6.89,
+            "dep_airport": "Sri Lanka",
+            "duration": 0.29,
+            "id": 22,
+            "price": 63.83
+        },
+        {
+            "arr_airport": "Somalia",
+            "date": 5.88,
+            "dep_airport": "Vanuatu",
+            "duration": 0.79,
+            "id": 23,
+            "price": 23.62
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 7.54,
+            "dep_airport": "Switzerland",
+            "duration": 0.4,
+            "id": 24,
+            "price": 192.01
+        },
+        {
+            "arr_airport": "United States",
+            "date": 5.05,
+            "dep_airport": "Sri Lanka",
+            "duration": 0.88,
+            "id": 25,
+            "price": 106.33
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 5.08,
+            "dep_airport": "Libya",
+            "duration": 1.03,
+            "id": 26,
+            "price": 112.12
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 8.38,
+            "dep_airport": "United Kingdom (Great Britain)",
+            "duration": 1.46,
+            "id": 27,
+            "price": 153.52
+        },
+        {
+            "arr_airport": "Switzerland",
+            "date": 2.09,
+            "dep_airport": "Niger",
+            "duration": 0.14,
+            "id": 28,
+            "price": 86.03
+        },
+        {
+            "arr_airport": "United States",
+            "date": 3.32,
+            "dep_airport": "Switzerland",
+            "duration": 1.39,
+            "id": 29,
+            "price": 13.76
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 7.4,
+            "dep_airport": "Guernsey",
+            "duration": 1.22,
+            "id": 30,
+            "price": 180.66
+        },
+        {
+            "arr_airport": "United States",
+            "date": 2.23,
+            "dep_airport": "Vanuatu",
+            "duration": 1.26,
+            "id": 31,
+            "price": 24.93
+        },
+        {
+            "arr_airport": "United States",
+            "date": 1.73,
+            "dep_airport": "Vanuatu",
+            "duration": 0.26,
+            "id": 32,
+            "price": 10.13
+        },
+        {
+            "arr_airport": "Somalia",
+            "date": 7.33,
+            "dep_airport": "Libya",
+            "duration": 0.82,
+            "id": 33,
+            "price": 94.35
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 4.49,
+            "dep_airport": "Moldova",
+            "duration": 1.03,
+            "id": 34,
+            "price": 72.72
+        },
+        {
+            "arr_airport": "Switzerland",
+            "date": 2.17,
+            "dep_airport": "United Kingdom (Great Britain)",
+            "duration": 1.46,
+            "id": 35,
+            "price": 145.76
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 1.75,
+            "dep_airport": "Switzerland",
+            "duration": 1.22,
+            "id": 36,
+            "price": 104.6
+        },
+        {
+            "arr_airport": "United States",
+            "date": 6.96,
+            "dep_airport": "United Kingdom (Great Britain)",
+            "duration": 0.77,
+            "id": 37,
+            "price": 86.63
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 5.34,
+            "dep_airport": "Guernsey",
+            "duration": 0.53,
+            "id": 38,
+            "price": 103.49
+        },
+        {
+            "arr_airport": "United States",
+            "date": 1.75,
+            "dep_airport": "Guernsey",
+            "duration": 0.17,
+            "id": 39,
+            "price": 136.93
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 0.65,
+            "dep_airport": "Sri Lanka",
+            "duration": 0.7,
+            "id": 40,
+            "price": 183.4
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 0.22,
+            "dep_airport": "Niger",
+            "duration": 0.74,
+            "id": 41,
+            "price": 116.55
+        },
+        {
+            "arr_airport": "United Kingdom (Great Britain)",
+            "date": 3.17,
+            "dep_airport": "Somalia",
+            "duration": 1.34,
+            "id": 42,
+            "price": 96.78
+        },
+        {
+            "arr_airport": "Guernsey",
+            "date": 1.3,
+            "dep_airport": "Switzerland",
+            "duration": 0.39,
+            "id": 43,
+            "price": 38.08
+        },
+        {
+            "arr_airport": "United States",
+            "date": 6.81,
+            "dep_airport": "Guernsey",
+            "duration": 1.35,
+            "id": 44,
+            "price": 11.57
+        },
+        {
+            "arr_airport": "Somalia",
+            "date": 3.13,
+            "dep_airport": "Niger",
+            "duration": 0.12,
+            "id": 45,
+            "price": 68.85
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 0.99,
+            "dep_airport": "Moldova",
+            "duration": 0.29,
+            "id": 46,
+            "price": 7.59
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 1.55,
+            "dep_airport": "Guernsey",
+            "duration": 0.57,
+            "id": 47,
+            "price": 75.93
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 2.0,
+            "dep_airport": "Switzerland",
+            "duration": 0.15,
+            "id": 48,
+            "price": 174.49
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 2.03,
+            "dep_airport": "United Kingdom (Great Britain)",
+            "duration": 1.04,
+            "id": 49,
+            "price": 75.24
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 7.31,
+            "dep_airport": "Moldova",
+            "duration": 0.85,
+            "id": 50,
+            "price": 92.3
+        },
+        {
+            "arr_airport": "United Kingdom (Great Britain)",
+            "date": 4.03,
+            "dep_airport": "United States",
+            "duration": 0.54,
+            "id": 51,
+            "price": 167.23
+        },
+        {
+            "arr_airport": "United States",
+            "date": 3.2,
+            "dep_airport": "Switzerland",
+            "duration": 0.12,
+            "id": 52,
+            "price": 79.21
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 6.56,
+            "dep_airport": "Somalia",
+            "duration": 0.25,
+            "id": 53,
+            "price": 77.78
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 4.46,
+            "dep_airport": "Niger",
+            "duration": 1.33,
+            "id": 54,
+            "price": 14.84
+        },
+        {
+            "arr_airport": "Switzerland",
+            "date": 5.29,
+            "dep_airport": "Guernsey",
+            "duration": 0.9,
+            "id": 55,
+            "price": 164.44
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 3.51,
+            "dep_airport": "Sri Lanka",
+            "duration": 1.45,
+            "id": 56,
+            "price": 24.19
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 7.68,
+            "dep_airport": "Moldova",
+            "duration": 0.76,
+            "id": 57,
+            "price": 5.22
+        },
+        {
+            "arr_airport": "Switzerland",
+            "date": 3.21,
+            "dep_airport": "Niger",
+            "duration": 0.22,
+            "id": 58,
+            "price": 63.16
+        },
+        {
+            "arr_airport": "United Kingdom (Great Britain)",
+            "date": 8.07,
+            "dep_airport": "Libya",
+            "duration": 1.11,
+            "id": 59,
+            "price": 108.14
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 1.19,
+            "dep_airport": "Moldova",
+            "duration": 1.04,
+            "id": 60,
+            "price": 167.73
+        },
+        {
+            "arr_airport": "Niger",
+            "date": 1.28,
+            "dep_airport": "Somalia",
+            "duration": 0.33,
+            "id": 1,
+            "price": 6.61
+        },
+        {
+            "arr_airport": "Switzerland",
+            "date": 2.83,
+            "dep_airport": "Niger",
+            "duration": 0.39,
+            "id": 2,
+            "price": 143.16
+        },
+        {
+            "arr_airport": "United States",
+            "date": 5.05,
+            "dep_airport": "Switzerland",
+            "duration": 0.28,
+            "id": 3,
+            "price": 80.35
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 6.67,
+            "dep_airport": "United States",
+            "duration": 0.43,
+            "id": 4,
+            "price": 95.02
+        },
+        {
+            "arr_airport": "Somalia",
+            "date": 8.01,
+            "dep_airport": "Moldova",
+            "duration": 0.83,
+            "id": 5,
+            "price": 196.8
+        },
+        {
+            "arr_airport": "Somalia",
+            "date": 6.67,
+            "dep_airport": "United States",
+            "duration": 0.11,
+            "id": 6,
+            "price": 92.45
+        },
+        {
+            "arr_airport": "Moldova",
+            "date": 6.98,
+            "dep_airport": "Somalia",
+            "duration": 0.12,
+            "id": 7,
+            "price": 167.03
+        }
+    ],
+    "holiday_time": 10
+}

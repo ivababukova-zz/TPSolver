@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="tpsolver" default="all">
+  
+  
+  <property file="tpsolver.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.ane"/>
+    <include name="*.zip"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.choco-solver-4.0.1-with-dependencies.classpath">
+    <pathelement location="${basedir}/choco-solver-4.0.1-with-dependencies.jar"/>
+  </path>
+  
+  <path id="library.gurobi.classpath">
+    <pathelement location="${basedir}/gurobi.jar"/>
+  </path>
+  
+  <path id="library.json-simple-1.1.1.classpath">
+    <pathelement location="${basedir}/../../../Downloads/json-simple-1.1.1.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module TPSolver1 -->
+  
+  <dirname property="module.tpsolver1.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.tpsolver1" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="tpsolver1.output.dir" value="${module.tpsolver1.basedir}/out/production/TPSolver1"/>
+  <property name="tpsolver1.testoutput.dir" value="${module.tpsolver1.basedir}/out/test/TPSolver1"/>
+  
+  <path id="tpsolver1.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="tpsolver1.module.production.classpath">
+    <path refid="library.choco-solver-4.0.1-with-dependencies.classpath"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <path refid="library.gurobi.classpath"/>
+  </path>
+  
+  <path id="tpsolver1.runtime.production.module.classpath">
+    <pathelement location="${tpsolver1.output.dir}"/>
+    <path refid="library.choco-solver-4.0.1-with-dependencies.classpath"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <path refid="library.gurobi.classpath"/>
+  </path>
+  
+  <path id="tpsolver1.module.classpath">
+    <pathelement location="${tpsolver1.output.dir}"/>
+    <path refid="library.choco-solver-4.0.1-with-dependencies.classpath"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <path refid="library.gurobi.classpath"/>
+  </path>
+  
+  <path id="tpsolver1.runtime.module.classpath">
+    <pathelement location="${tpsolver1.testoutput.dir}"/>
+    <pathelement location="${tpsolver1.output.dir}"/>
+    <path refid="library.choco-solver-4.0.1-with-dependencies.classpath"/>
+    <path refid="library.json-simple-1.1.1.classpath"/>
+    <path refid="library.gurobi.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.tpsolver1">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.tpsolver1">
+    <patternset refid="excluded.from.module.tpsolver1"/>
+  </patternset>
+  
+  <path id="tpsolver1.module.sourcepath">
+    <dirset dir="${module.tpsolver1.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.tpsolver1" depends="compile.module.tpsolver1.production,compile.module.tpsolver1.tests" description="Compile module TPSolver1"/>
+  
+  <target name="compile.module.tpsolver1.production" description="Compile module TPSolver1; production classes">
+    <mkdir dir="${tpsolver1.output.dir}"/>
+    <javac destdir="${tpsolver1.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.tpsolver1}"/>
+      <bootclasspath refid="tpsolver1.module.bootclasspath"/>
+      <classpath refid="tpsolver1.module.production.classpath"/>
+      <src refid="tpsolver1.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.tpsolver1"/>
+    </javac>
+    
+    <copy todir="${tpsolver1.output.dir}">
+      <fileset dir="${module.tpsolver1.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.tpsolver1.tests" depends="compile.module.tpsolver1.production" description="compile module TPSolver1; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.tpsolver1" description="cleanup module">
+    <delete dir="${tpsolver1.output.dir}"/>
+    <delete dir="${tpsolver1.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.tpsolver1" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.tpsolver1" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.tpsolver1:jar" value="${basedir}/out/artifacts/TPSolver1_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.TPSolver1.jar" value="${artifacts.temp.dir}/TPSolver1.jar"/>
+  </target>
+  
+  <target name="artifact.tpsolver1:jar" depends="init.artifacts, compile.module.tpsolver1" description="Build &#39;TPSolver1:jar&#39; artifact">
+    <property name="artifact.temp.output.tpsolver1:jar" value="${artifacts.temp.dir}/TPSolver1_jar"/>
+    <mkdir dir="${artifact.temp.output.tpsolver1:jar}"/>
+    <jar destfile="${temp.jar.path.TPSolver1.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${tpsolver1.output.dir}"/>
+      <zipfileset src="${basedir}/../../../Downloads/gurobi.jar"/>
+      <zipfileset src="${basedir}/choco-solver-4.0.1-with-dependencies.jar"/>
+      <zipfileset src="${basedir}/../../../Downloads/json-simple-1.1.1.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.TPSolver1.jar}" tofile="${artifact.temp.output.tpsolver1:jar}/TPSolver1.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.tpsolver1:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.tpsolver1:jar}"/>
+    <copy todir="${artifact.output.tpsolver1:jar}">
+      <fileset dir="${artifact.temp.output.tpsolver1:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

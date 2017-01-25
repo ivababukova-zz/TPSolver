@@ -4,8 +4,8 @@
     <root id="archive" name="TPSolver1.jar">
       <element id="module-output" name="TPSolver1" />
       <element id="extracted-dir" path="$PROJECT_DIR$/gurobi.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Downloads/json-simple-1.1.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/choco-solver-4.0.1-with-dependencies.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/json-simple-1.1.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

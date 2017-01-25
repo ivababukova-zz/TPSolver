@@ -1,0 +1,907 @@
+{
+    "airports": [
+        {
+            "connection_time": 0.8,
+            "name": "Netherlands",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.6,
+            "name": "Georgia",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.7,
+            "name": "Trinidad and Tobago",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.7,
+            "name": "Haiti",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Sint Maarten",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 1.0,
+            "name": "Madagascar",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Honduras",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.7,
+            "name": "Papua New Guinea",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Mauritius",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Saudi Arabia",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Tunisia",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.9,
+            "name": "Viet Nam",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "South Africa",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Sweden",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 1.0,
+            "name": "Vanuatu",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.9,
+            "name": "Sierra Leone",
+            "purpose": "home_point"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Poland",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.8,
+            "name": "Faroe Islands",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Kiribati",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.4,
+            "name": "Botswana",
+            "purpose": "connection"
+        }
+    ],
+    "flights": [
+        {
+            "arr_airport": "Faroe Islands",
+            "date": 27.63,
+            "dep_airport": "Vanuatu",
+            "duration": 1.3,
+            "id": 24,
+            "price": 35.04
+        },
+        {
+            "arr_airport": "Mauritius",
+            "date": 13.92,
+            "dep_airport": "Madagascar",
+            "duration": 0.3,
+            "id": 25,
+            "price": 75.93
+        },
+        {
+            "arr_airport": "Poland",
+            "date": 4.87,
+            "dep_airport": "Faroe Islands",
+            "duration": 0.9,
+            "id": 26,
+            "price": 194.94
+        },
+        {
+            "arr_airport": "Saudi Arabia",
+            "date": 16.68,
+            "dep_airport": "Faroe Islands",
+            "duration": 0.33,
+            "id": 27,
+            "price": 42.14
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 21.66,
+            "dep_airport": "Tunisia",
+            "duration": 1.16,
+            "id": 28,
+            "price": 192.85
+        },
+        {
+            "arr_airport": "Georgia",
+            "date": 7.53,
+            "dep_airport": "Vanuatu",
+            "duration": 1.39,
+            "id": 29,
+            "price": 41.7
+        },
+        {
+            "arr_airport": "Poland",
+            "date": 11.13,
+            "dep_airport": "Viet Nam",
+            "duration": 0.89,
+            "id": 30,
+            "price": 111.6
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 23.43,
+            "dep_airport": "South Africa",
+            "duration": 0.75,
+            "id": 31,
+            "price": 12.22
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 4.83,
+            "dep_airport": "Botswana",
+            "duration": 0.11,
+            "id": 32,
+            "price": 51.19
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 27.86,
+            "dep_airport": "Haiti",
+            "duration": 0.61,
+            "id": 33,
+            "price": 36.76
+        },
+        {
+            "arr_airport": "Mauritius",
+            "date": 6.17,
+            "dep_airport": "Poland",
+            "duration": 1.4,
+            "id": 34,
+            "price": 196.15
+        },
+        {
+            "arr_airport": "Poland",
+            "date": 26.35,
+            "dep_airport": "Saudi Arabia",
+            "duration": 0.88,
+            "id": 35,
+            "price": 12.7
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 28.3,
+            "dep_airport": "Sierra Leone",
+            "duration": 0.48,
+            "id": 36,
+            "price": 57.65
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 8.06,
+            "dep_airport": "Saudi Arabia",
+            "duration": 0.93,
+            "id": 37,
+            "price": 60.49
+        },
+        {
+            "arr_airport": "Faroe Islands",
+            "date": 0.5,
+            "dep_airport": "Madagascar",
+            "duration": 0.54,
+            "id": 38,
+            "price": 187.75
+        },
+        {
+            "arr_airport": "Georgia",
+            "date": 19.7,
+            "dep_airport": "Sierra Leone",
+            "duration": 0.68,
+            "id": 39,
+            "price": 49.05
+        },
+        {
+            "arr_airport": "Faroe Islands",
+            "date": 28.3,
+            "dep_airport": "Vanuatu",
+            "duration": 0.58,
+            "id": 40,
+            "price": 99.26
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 21.09,
+            "dep_airport": "Botswana",
+            "duration": 0.8,
+            "id": 41,
+            "price": 75.5
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 18.18,
+            "dep_airport": "Faroe Islands",
+            "duration": 1.4,
+            "id": 42,
+            "price": 75.05
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 22.38,
+            "dep_airport": "Sint Maarten",
+            "duration": 1.06,
+            "id": 43,
+            "price": 105.68
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 25.86,
+            "dep_airport": "Sweden",
+            "duration": 0.6,
+            "id": 44,
+            "price": 74.2
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 3.72,
+            "dep_airport": "Mauritius",
+            "duration": 0.29,
+            "id": 45,
+            "price": 142.48
+        },
+        {
+            "arr_airport": "Honduras",
+            "date": 26.69,
+            "dep_airport": "Faroe Islands",
+            "duration": 0.43,
+            "id": 46,
+            "price": 53.0
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 8.76,
+            "dep_airport": "Netherlands",
+            "duration": 0.56,
+            "id": 47,
+            "price": 18.12
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 11.49,
+            "dep_airport": "Georgia",
+            "duration": 0.5,
+            "id": 48,
+            "price": 34.01
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 0.0,
+            "dep_airport": "Saudi Arabia",
+            "duration": 0.96,
+            "id": 49,
+            "price": 128.17
+        },
+        {
+            "arr_airport": "Tunisia",
+            "date": 14.35,
+            "dep_airport": "Vanuatu",
+            "duration": 0.71,
+            "id": 50,
+            "price": 52.02
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 14.62,
+            "dep_airport": "Viet Nam",
+            "duration": 0.54,
+            "id": 51,
+            "price": 131.95
+        },
+        {
+            "arr_airport": "Faroe Islands",
+            "date": 25.06,
+            "dep_airport": "Sierra Leone",
+            "duration": 1.43,
+            "id": 52,
+            "price": 31.82
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 18.25,
+            "dep_airport": "Madagascar",
+            "duration": 0.35,
+            "id": 53,
+            "price": 109.75
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 18.8,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.29,
+            "id": 54,
+            "price": 195.43
+        },
+        {
+            "arr_airport": "Sint Maarten",
+            "date": 19.02,
+            "dep_airport": "Georgia",
+            "duration": 0.46,
+            "id": 55,
+            "price": 10.61
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 18.82,
+            "dep_airport": "Sierra Leone",
+            "duration": 1.33,
+            "id": 56,
+            "price": 54.91
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 8.8,
+            "dep_airport": "South Africa",
+            "duration": 0.34,
+            "id": 57,
+            "price": 71.88
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 9.27,
+            "dep_airport": "Georgia",
+            "duration": 0.22,
+            "id": 58,
+            "price": 98.28
+        },
+        {
+            "arr_airport": "Tunisia",
+            "date": 14.84,
+            "dep_airport": "Netherlands",
+            "duration": 0.12,
+            "id": 59,
+            "price": 72.88
+        },
+        {
+            "arr_airport": "Honduras",
+            "date": 7.52,
+            "dep_airport": "Mauritius",
+            "duration": 0.14,
+            "id": 60,
+            "price": 23.07
+        },
+        {
+            "arr_airport": "Sint Maarten",
+            "date": 12.71,
+            "dep_airport": "Sierra Leone",
+            "duration": 1.4,
+            "id": 61,
+            "price": 23.46
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 2.56,
+            "dep_airport": "Sierra Leone",
+            "duration": 1.29,
+            "id": 62,
+            "price": 171.43
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 24.3,
+            "dep_airport": "Poland",
+            "duration": 0.68,
+            "id": 63,
+            "price": 194.85
+        },
+        {
+            "arr_airport": "Sint Maarten",
+            "date": 9.73,
+            "dep_airport": "South Africa",
+            "duration": 1.46,
+            "id": 64,
+            "price": 97.54
+        },
+        {
+            "arr_airport": "Honduras",
+            "date": 5.61,
+            "dep_airport": "South Africa",
+            "duration": 0.42,
+            "id": 65,
+            "price": 197.38
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 21.27,
+            "dep_airport": "Sweden",
+            "duration": 1.09,
+            "id": 66,
+            "price": 74.99
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 5.25,
+            "dep_airport": "Vanuatu",
+            "duration": 0.8,
+            "id": 67,
+            "price": 109.27
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 11.1,
+            "dep_airport": "South Africa",
+            "duration": 1.25,
+            "id": 68,
+            "price": 192.33
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 23.63,
+            "dep_airport": "Honduras",
+            "duration": 0.23,
+            "id": 69,
+            "price": 33.91
+        },
+        {
+            "arr_airport": "Honduras",
+            "date": 21.35,
+            "dep_airport": "Mauritius",
+            "duration": 0.35,
+            "id": 70,
+            "price": 21.67
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 15.65,
+            "dep_airport": "Netherlands",
+            "duration": 1.41,
+            "id": 71,
+            "price": 192.49
+        },
+        {
+            "arr_airport": "Mauritius",
+            "date": 26.95,
+            "dep_airport": "Papua New Guinea",
+            "duration": 0.74,
+            "id": 72,
+            "price": 117.5
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 21.88,
+            "dep_airport": "Georgia",
+            "duration": 0.87,
+            "id": 73,
+            "price": 196.27
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 2.72,
+            "dep_airport": "Honduras",
+            "duration": 0.95,
+            "id": 74,
+            "price": 11.8
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 6.89,
+            "dep_airport": "Poland",
+            "duration": 1.01,
+            "id": 75,
+            "price": 110.18
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 24.91,
+            "dep_airport": "Madagascar",
+            "duration": 0.13,
+            "id": 76,
+            "price": 123.67
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 5.67,
+            "dep_airport": "Faroe Islands",
+            "duration": 0.99,
+            "id": 77,
+            "price": 85.96
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 26.23,
+            "dep_airport": "Faroe Islands",
+            "duration": 0.11,
+            "id": 78,
+            "price": 162.72
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 11.21,
+            "dep_airport": "Honduras",
+            "duration": 0.79,
+            "id": 79,
+            "price": 34.65
+        },
+        {
+            "arr_airport": "Mauritius",
+            "date": 2.73,
+            "dep_airport": "Netherlands",
+            "duration": 1.09,
+            "id": 80,
+            "price": 34.05
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 14.58,
+            "dep_airport": "Saudi Arabia",
+            "duration": 0.9,
+            "id": 81,
+            "price": 65.07
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 5.46,
+            "dep_airport": "Netherlands",
+            "duration": 1.11,
+            "id": 82,
+            "price": 98.73
+        },
+        {
+            "arr_airport": "Vanuatu",
+            "date": 17.97,
+            "dep_airport": "Poland",
+            "duration": 1.13,
+            "id": 83,
+            "price": 65.13
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 26.76,
+            "dep_airport": "South Africa",
+            "duration": 0.38,
+            "id": 84,
+            "price": 139.11
+        },
+        {
+            "arr_airport": "Sint Maarten",
+            "date": 11.1,
+            "dep_airport": "Viet Nam",
+            "duration": 0.4,
+            "id": 85,
+            "price": 152.75
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 24.06,
+            "dep_airport": "Madagascar",
+            "duration": 1.28,
+            "id": 86,
+            "price": 191.51
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 8.21,
+            "dep_airport": "Faroe Islands",
+            "duration": 0.95,
+            "id": 87,
+            "price": 116.95
+        },
+        {
+            "arr_airport": "Tunisia",
+            "date": 18.69,
+            "dep_airport": "Sweden",
+            "duration": 0.89,
+            "id": 88,
+            "price": 169.25
+        },
+        {
+            "arr_airport": "Faroe Islands",
+            "date": 11.19,
+            "dep_airport": "Poland",
+            "duration": 1.1,
+            "id": 89,
+            "price": 110.23
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 3.49,
+            "dep_airport": "Georgia",
+            "duration": 0.31,
+            "id": 90,
+            "price": 195.84
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 18.29,
+            "dep_airport": "Viet Nam",
+            "duration": 1.25,
+            "id": 91,
+            "price": 21.79
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 10.91,
+            "dep_airport": "Papua New Guinea",
+            "duration": 1.46,
+            "id": 92,
+            "price": 15.85
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 0.19,
+            "dep_airport": "Botswana",
+            "duration": 0.11,
+            "id": 93,
+            "price": 22.54
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 3.44,
+            "dep_airport": "Madagascar",
+            "duration": 0.42,
+            "id": 94,
+            "price": 28.36
+        },
+        {
+            "arr_airport": "Mauritius",
+            "date": 7.39,
+            "dep_airport": "Sint Maarten",
+            "duration": 0.36,
+            "id": 95,
+            "price": 173.13
+        },
+        {
+            "arr_airport": "Viet Nam",
+            "date": 21.84,
+            "dep_airport": "Georgia",
+            "duration": 0.2,
+            "id": 96,
+            "price": 180.31
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 10.06,
+            "dep_airport": "Poland",
+            "duration": 0.77,
+            "id": 97,
+            "price": 142.36
+        },
+        {
+            "arr_airport": "Mauritius",
+            "date": 27.24,
+            "dep_airport": "Botswana",
+            "duration": 1.42,
+            "id": 98,
+            "price": 198.91
+        },
+        {
+            "arr_airport": "South Africa",
+            "date": 17.22,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.05,
+            "id": 99,
+            "price": 133.67
+        },
+        {
+            "arr_airport": "Tunisia",
+            "date": 19.68,
+            "dep_airport": "Haiti",
+            "duration": 0.81,
+            "id": 100,
+            "price": 106.99
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 0.9,
+            "dep_airport": "Sierra Leone",
+            "duration": 1.45,
+            "id": 1,
+            "price": 16.47
+        },
+        {
+            "arr_airport": "Mauritius",
+            "date": 3.61,
+            "dep_airport": "Papua New Guinea",
+            "duration": 0.42,
+            "id": 2,
+            "price": 97.03
+        },
+        {
+            "arr_airport": "Saudi Arabia",
+            "date": 5.13,
+            "dep_airport": "Mauritius",
+            "duration": 1.35,
+            "id": 3,
+            "price": 197.23
+        },
+        {
+            "arr_airport": "Honduras",
+            "date": 8.04,
+            "dep_airport": "Saudi Arabia",
+            "duration": 0.32,
+            "id": 4,
+            "price": 50.86
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 9.4,
+            "dep_airport": "Honduras",
+            "duration": 1.44,
+            "id": 5,
+            "price": 186.43
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 13.6,
+            "dep_airport": "Haiti",
+            "duration": 0.99,
+            "id": 6,
+            "price": 149.4
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 17.44,
+            "dep_airport": "Madagascar",
+            "duration": 0.76,
+            "id": 7,
+            "price": 135.22
+        },
+        {
+            "arr_airport": "Georgia",
+            "date": 20.57,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 0.45,
+            "id": 8,
+            "price": 144.9
+        },
+        {
+            "arr_airport": "Sint Maarten",
+            "date": 21.89,
+            "dep_airport": "Georgia",
+            "duration": 1.1,
+            "id": 9,
+            "price": 163.31
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 24.36,
+            "dep_airport": "Sint Maarten",
+            "duration": 1.18,
+            "id": 10,
+            "price": 116.15
+        },
+        {
+            "arr_airport": "Sierra Leone",
+            "date": 27.7,
+            "dep_airport": "Netherlands",
+            "duration": 0.73,
+            "id": 11,
+            "price": 92.1
+        },
+        {
+            "arr_airport": "Poland",
+            "date": 0.03,
+            "dep_airport": "Sierra Leone",
+            "duration": 0.39,
+            "id": 12,
+            "price": 152.93
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 0.81,
+            "dep_airport": "Poland",
+            "duration": 1.11,
+            "id": 13,
+            "price": 174.61
+        },
+        {
+            "arr_airport": "Poland",
+            "date": 5.31,
+            "dep_airport": "Mauritius",
+            "duration": 0.29,
+            "id": 14,
+            "price": 86.82
+        },
+        {
+            "arr_airport": "Saudi Arabia",
+            "date": 6.14,
+            "dep_airport": "Poland",
+            "duration": 0.31,
+            "id": 15,
+            "price": 67.33
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 9.51,
+            "dep_airport": "Honduras",
+            "duration": 0.5,
+            "id": 16,
+            "price": 108.78
+        },
+        {
+            "arr_airport": "Haiti",
+            "date": 10.38,
+            "dep_airport": "Kiribati",
+            "duration": 0.37,
+            "id": 17,
+            "price": 14.93
+        },
+        {
+            "arr_airport": "Papua New Guinea",
+            "date": 21.9,
+            "dep_airport": "Georgia",
+            "duration": 0.19,
+            "id": 18,
+            "price": 180.58
+        },
+        {
+            "arr_airport": "Sint Maarten",
+            "date": 22.86,
+            "dep_airport": "Papua New Guinea",
+            "duration": 0.11,
+            "id": 19,
+            "price": 71.32
+        },
+        {
+            "arr_airport": "Faroe Islands",
+            "date": 24.36,
+            "dep_airport": "Sint Maarten",
+            "duration": 0.18,
+            "id": 20,
+            "price": 19.61
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 25.36,
+            "dep_airport": "Faroe Islands",
+            "duration": 0.15,
+            "id": 21,
+            "price": 69.74
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 9.53,
+            "dep_airport": "Honduras",
+            "duration": 0.13,
+            "id": 22,
+            "price": 21.09
+        },
+        {
+            "arr_airport": "Kiribati",
+            "date": 9.86,
+            "dep_airport": "Sweden",
+            "duration": 0.12,
+            "id": 23,
+            "price": 179.06
+        }
+    ],
+    "holiday_time": 30
+}

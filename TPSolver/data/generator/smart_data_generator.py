@@ -89,7 +89,12 @@ def generate_flight(id, dep, arr, date, duration, cost):
             "price": cost
         }
 
-def divide_flight(f, id1, id2):
+# def append_flights(f1, f2, id):
+#     dep = f1["dep_airport"]
+#     arr = f2["arr_airport"]
+    
+
+def divide_flight(f, id1, id2, hp):
     airps = allairports
     dep = f["dep_airport"]
     arr = f["arr_airport"]
@@ -100,10 +105,12 @@ def divide_flight(f, id1, id2):
     
     conn_time = [d["connection_time"] for d in allairports if d["name"] == arr1]
     conn_time = round(conn_time[0], 2)
+    edate1 = round(f["date"], 2)
+    if dep == hp:
+        edate1 = 0
     D = (round(f["duration"], 2) - conn_time)/2
     if min_dur > D:
         return(-1)
-    edate1 = round(f["date"], 2)
     duration1 = round(random.uniform(min_dur, D), 2)
     date1 = round(random.uniform(edate1, edate1 + D - duration1), 2)
     cost1 = round(random.uniform(min_cost, max_cost), 2)
@@ -113,7 +120,10 @@ def divide_flight(f, id1, id2):
     if min_dur > D:
         return(-1)
     duration2 = round(random.uniform(min_dur, D), 2)
-    date2 = round(random.uniform(edate2, edate2 + D - duration2), 2)
+    ldate2 = edate2 + D
+    if arr == hp:
+        ldate2 = T
+    date2 = round(random.uniform(edate2, ldate2 - duration2), 2)
     cost2 = round(random.uniform(min_cost, max_cost), 2)
     f1 = generate_flight(id1, dep, arr1, date1, duration1, cost1)
     f2 = generate_flight(id2, arr1, arr, date2, duration2, cost2)
@@ -121,12 +131,12 @@ def divide_flight(f, id1, id2):
     pair.append(f2)
     return(pair)
     
-def divide_flights(flights):
+def divide_flights(flights, hp):
     next_id = len(flights) + 1
     for f in flights:
         if m <= len(flights):
             break
-        pair = divide_flight(f, next_id, (next_id + 1))
+        pair = divide_flight(f, next_id, (next_id + 1), hp)
         if pair != -1:
             flights.append(pair[0])
             flights.append(pair[1])
@@ -167,7 +177,7 @@ def tsp(route_seed, hp):
         C = C - conn_time
         D = (T - (duration + C + date))/(d - i + 1)
         edate = date + duration + conn_time
-    return divide_flights(route_flights)
+    return divide_flights(route_flights, hp)
         
     
 def get_n_flights(seed_flights_len):

@@ -11,9 +11,9 @@ import org.chocosolver.solver.variables.*;
  */
 public class CPsolver {
 
-    private ArrayList<Flight> flights;
+    private ArrayList<Flight> flights; // all flights
     private HelperMethods h;
-    private int T;
+    private int T; // holiday time
     private int B; // upper bound on the total flights cost
     private String[] args;
     ArrayList<Tuple> tuples; // an array of (airport a, date d) that means that traveller must be at a at time d
@@ -47,61 +47,56 @@ public class CPsolver {
         this.solution = "";
     }
 
-
-    // filters out flights that won't arrive within the specified travel time
-    private void filtering() {
-        ArrayList<Flight> newflights = new ArrayList<>();
-        for(Flight f: this.flights) {
-            if (f.date + f.duration <= this.T) newflights.add(f);
-        }
-        this.flights = newflights;
-    }
-
     private int init(){
         this.model = new Model("TP CPsolver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5000000);
-        this.cost_sum = this.model.intVar(0, B);
+        this.cost_sum = this.model.intVar(0, B); // the total cost of the trip
         this.last_flight = this.model.intVar(1, flights.size());
         this.trip_duration = this.model.intVar(1, T);
 
         this.solver = model.getSolver();
 
+        // the total cost of the trip is equal to the sum of the cost of all taken flights:
         this.model.sum(C, "=", cost_sum).post();
+
         if (this.findSchedule() == 0) {
-            return 0;
+            return 0; // trivial failure
         }
         return 1;
     }
 
     private int findSchedule() {
-        Airport a0 = h.getHomePoint();
-        int[] to_home = h.arrayToint(h.allToHome(a0, this.T));
-        int[] from_home = h.arrayToint(h.allFrom(a0));
+        Airport a0 = h.getHomePoint(); // the home point
+        int[] to_home = h.arrayToint(h.allToHome(a0, this.T)); // all flights departing from a0
+        int[] from_home = h.arrayToint(h.allFrom(a0)); // all flights arriving at a0
 
-        // trip property 1
-        model.member(S[0], from_home).post();
-        this.model.arithm(S[1], "!=", 0).post();
+        model.member(S[0], from_home).post(); // trip property 1
+
+        this.model.arithm(S[1], "!=", 0).post(); // S can not be empty
         this.model.arithm(C[0], "!=", 0).post();
 
-        int trip_property_5 = tripProperty5();
+        int trip_property_5 = tripProperty5(); // impose trip property 5
         if (trip_property_5 == 0) {
-            return 0;
+            return 0; // trivial failure
         }
+
+        // if hc2 is specified, impose it:
         if (this.tuples != null) {
-            System.out.println("Searching for solutions with hard constraint 2:");
+            System.out.println("Searching for solutions with HC2 for following dates and destinations:");
             hardConstraint2();
         }
-//
+
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
-            tripProperties2and3and4(f);
-            sequenceConstraints(i, to_home, f);
-//
+            tripProperties2and3and4(f); // impose trip properties 2, 3 and 4
+            sequenceConstraints(i, to_home, f); // impose valid sequence rules
+
         }
+
         costConstraint();
-        this.model.allDifferentExcept0(S).post();
+        this.model.allDifferentExcept0(S).post(); // the same flight can be taken only once
         return 1;
     }
 
@@ -145,7 +140,6 @@ public class CPsolver {
         return 1;
     }
 
-    // todo this is very inefficient
     // set the values of C
     private void costConstraint(){
         for(int i = 1; i<=flights.size(); i++) {
@@ -225,7 +219,7 @@ public class CPsolver {
 
     // hard constraint 2
     private void dateLocationConstraint(Airport a, double date, int index) {
-        System.out.println(a.name + " " + date/10 + " " + index);
+        System.out.println("Be at destination " + a.name + " at date " + date/10);
         int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
         int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
 
@@ -241,18 +235,18 @@ public class CPsolver {
     }
     /*** end of hard constraint 2 code ***/
 
-    // call this function when no flights to connection airports are allowed
-    private void removeConnections(){
-        ArrayList<Flight> newflights = new ArrayList<>();
-        for(Flight f: this.flights) {
-            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
-        }
-        this.flights = newflights;
-        for (Flight f: newflights) {
-            System.out.print(f.dep.name + f.arr.name + " ");
-        }
-        System.out.println();
-    }
+//    // call this function when no flights to connection airports are allowed
+//    private void removeConnections(){
+//        ArrayList<Flight> newflights = new ArrayList<>();
+//        for(Flight f: this.flights) {
+//            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
+//        }
+//        this.flights = newflights;
+//        for (Flight f: newflights) {
+//            System.out.print(f.dep.name + f.arr.name + " ");
+//        }
+//        System.out.println();
+//    }
 
     public String getSolution() {
         if (init() == 0) {
@@ -276,9 +270,6 @@ public class CPsolver {
         int isOptimalSearch = 0;
 
         for (String arg : args) {
-//            if (arg.equals("-verbose")) {
-//                isVerbose = true;
-//            }
             if (arg.equals("-min")) {
                 System.out.print("Solution with minimum ");
                 m = Model.MINIMIZE;

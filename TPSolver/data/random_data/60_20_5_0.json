@@ -1,0 +1,587 @@
+{
+    "airports": [
+        {
+            "connection_time": 0.1,
+            "name": "Kazakhstan",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.6,
+            "name": "Guadeloupe",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.6,
+            "name": "Korea, South",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.9,
+            "name": "Zimbabwe",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.1,
+            "name": "Cocos (Keeling) Islands",
+            "purpose": "destination"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Antigua and Barbuda",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.8,
+            "name": "Tajikistan",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.7,
+            "name": "Ecuador",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.2,
+            "name": "Madagascar",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.0,
+            "name": "Netherlands",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.1,
+            "name": "Sweden",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.9,
+            "name": "Mozambique",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.6,
+            "name": "United States",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.6,
+            "name": "Trinidad and Tobago",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.3,
+            "name": "Sierra Leone",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.5,
+            "name": "Azerbaijan",
+            "purpose": "home_point"
+        },
+        {
+            "connection_time": 0.1,
+            "name": "Chad",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.4,
+            "name": "Tunisia",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.7,
+            "name": "Burkina Faso",
+            "purpose": "connection"
+        },
+        {
+            "connection_time": 0.9,
+            "name": "Barbados",
+            "purpose": "connection"
+        }
+    ],
+    "flights": [
+        {
+            "arr_airport": "Sweden",
+            "date": 7.13,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 0.35,
+            "id": 13,
+            "price": 103.3
+        },
+        {
+            "arr_airport": "Guadeloupe",
+            "date": 2.99,
+            "dep_airport": "Azerbaijan",
+            "duration": 0.85,
+            "id": 14,
+            "price": 174.53
+        },
+        {
+            "arr_airport": "Sierra Leone",
+            "date": 1.68,
+            "dep_airport": "Zimbabwe",
+            "duration": 1.2,
+            "id": 15,
+            "price": 98.01
+        },
+        {
+            "arr_airport": "Mozambique",
+            "date": 6.39,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 0.13,
+            "id": 16,
+            "price": 30.18
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 2.32,
+            "dep_airport": "United States",
+            "duration": 0.72,
+            "id": 17,
+            "price": 144.85
+        },
+        {
+            "arr_airport": "Azerbaijan",
+            "date": 11.21,
+            "dep_airport": "Tunisia",
+            "duration": 0.11,
+            "id": 18,
+            "price": 57.62
+        },
+        {
+            "arr_airport": "Mozambique",
+            "date": 5.45,
+            "dep_airport": "Azerbaijan",
+            "duration": 1.36,
+            "id": 19,
+            "price": 19.76
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 1.3,
+            "dep_airport": "Sierra Leone",
+            "duration": 0.9,
+            "id": 20,
+            "price": 189.0
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 4.63,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.41,
+            "id": 21,
+            "price": 65.07
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 4.43,
+            "dep_airport": "Mozambique",
+            "duration": 0.54,
+            "id": 22,
+            "price": 121.08
+        },
+        {
+            "arr_airport": "Mozambique",
+            "date": 11.96,
+            "dep_airport": "Sierra Leone",
+            "duration": 0.31,
+            "id": 23,
+            "price": 106.1
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 6.59,
+            "dep_airport": "Tunisia",
+            "duration": 0.46,
+            "id": 24,
+            "price": 141.26
+        },
+        {
+            "arr_airport": "Burkina Faso",
+            "date": 6.5,
+            "dep_airport": "Tunisia",
+            "duration": 0.55,
+            "id": 25,
+            "price": 176.02
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 7.18,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 1.36,
+            "id": 26,
+            "price": 20.79
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 12.29,
+            "dep_airport": "Guadeloupe",
+            "duration": 0.67,
+            "id": 27,
+            "price": 12.46
+        },
+        {
+            "arr_airport": "Sierra Leone",
+            "date": 10.08,
+            "dep_airport": "Azerbaijan",
+            "duration": 0.43,
+            "id": 28,
+            "price": 109.86
+        },
+        {
+            "arr_airport": "Guadeloupe",
+            "date": 8.73,
+            "dep_airport": "Netherlands",
+            "duration": 1.23,
+            "id": 29,
+            "price": 42.12
+        },
+        {
+            "arr_airport": "Ecuador",
+            "date": 5.48,
+            "dep_airport": "Netherlands",
+            "duration": 0.28,
+            "id": 30,
+            "price": 121.7
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 0.06,
+            "dep_airport": "Chad",
+            "duration": 0.48,
+            "id": 31,
+            "price": 18.84
+        },
+        {
+            "arr_airport": "Guadeloupe",
+            "date": 11.93,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 0.26,
+            "id": 32,
+            "price": 4.67
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 2.73,
+            "dep_airport": "Guadeloupe",
+            "duration": 1.22,
+            "id": 33,
+            "price": 180.19
+        },
+        {
+            "arr_airport": "Guadeloupe",
+            "date": 0.07,
+            "dep_airport": "Madagascar",
+            "duration": 1.34,
+            "id": 34,
+            "price": 24.62
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 8.13,
+            "dep_airport": "Antigua and Barbuda",
+            "duration": 0.6,
+            "id": 35,
+            "price": 64.66
+        },
+        {
+            "arr_airport": "Tunisia",
+            "date": 1.44,
+            "dep_airport": "Azerbaijan",
+            "duration": 0.35,
+            "id": 36,
+            "price": 75.1
+        },
+        {
+            "arr_airport": "Antigua and Barbuda",
+            "date": 8.34,
+            "dep_airport": "Netherlands",
+            "duration": 1.41,
+            "id": 37,
+            "price": 55.97
+        },
+        {
+            "arr_airport": "Trinidad and Tobago",
+            "date": 0.76,
+            "dep_airport": "Korea, South",
+            "duration": 1.07,
+            "id": 38,
+            "price": 145.15
+        },
+        {
+            "arr_airport": "United States",
+            "date": 1.28,
+            "dep_airport": "Ecuador",
+            "duration": 0.8,
+            "id": 39,
+            "price": 116.99
+        },
+        {
+            "arr_airport": "Burkina Faso",
+            "date": 0.81,
+            "dep_airport": "Azerbaijan",
+            "duration": 0.31,
+            "id": 40,
+            "price": 122.23
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 4.35,
+            "dep_airport": "Tajikistan",
+            "duration": 1.29,
+            "id": 41,
+            "price": 184.25
+        },
+        {
+            "arr_airport": "Azerbaijan",
+            "date": 2.24,
+            "dep_airport": "Guadeloupe",
+            "duration": 0.9,
+            "id": 42,
+            "price": 133.7
+        },
+        {
+            "arr_airport": "Sierra Leone",
+            "date": 1.44,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.56,
+            "id": 43,
+            "price": 163.7
+        },
+        {
+            "arr_airport": "Burkina Faso",
+            "date": 6.59,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.17,
+            "id": 44,
+            "price": 129.43
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 2.53,
+            "dep_airport": "Mozambique",
+            "duration": 1.32,
+            "id": 45,
+            "price": 50.17
+        },
+        {
+            "arr_airport": "Tunisia",
+            "date": 1.42,
+            "dep_airport": "Madagascar",
+            "duration": 0.75,
+            "id": 46,
+            "price": 16.32
+        },
+        {
+            "arr_airport": "Chad",
+            "date": 3.39,
+            "dep_airport": "Netherlands",
+            "duration": 0.34,
+            "id": 47,
+            "price": 150.93
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 1.44,
+            "dep_airport": "Ecuador",
+            "duration": 1.25,
+            "id": 48,
+            "price": 39.54
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 11.25,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.12,
+            "id": 49,
+            "price": 120.65
+        },
+        {
+            "arr_airport": "Madagascar",
+            "date": 10.64,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.37,
+            "id": 50,
+            "price": 124.47
+        },
+        {
+            "arr_airport": "Sierra Leone",
+            "date": 3.59,
+            "dep_airport": "Korea, South",
+            "duration": 0.59,
+            "id": 51,
+            "price": 171.59
+        },
+        {
+            "arr_airport": "United States",
+            "date": 4.08,
+            "dep_airport": "Antigua and Barbuda",
+            "duration": 0.36,
+            "id": 52,
+            "price": 101.59
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 6.11,
+            "dep_airport": "Ecuador",
+            "duration": 0.8,
+            "id": 53,
+            "price": 137.07
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 0.66,
+            "dep_airport": "Netherlands",
+            "duration": 1.21,
+            "id": 54,
+            "price": 183.72
+        },
+        {
+            "arr_airport": "United States",
+            "date": 11.47,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.36,
+            "id": 55,
+            "price": 68.22
+        },
+        {
+            "arr_airport": "United States",
+            "date": 3.96,
+            "dep_airport": "Azerbaijan",
+            "duration": 1.13,
+            "id": 56,
+            "price": 134.65
+        },
+        {
+            "arr_airport": "Guadeloupe",
+            "date": 10.87,
+            "dep_airport": "Azerbaijan",
+            "duration": 0.82,
+            "id": 57,
+            "price": 102.91
+        },
+        {
+            "arr_airport": "Chad",
+            "date": 9.04,
+            "dep_airport": "Sweden",
+            "duration": 0.44,
+            "id": 58,
+            "price": 174.7
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 5.41,
+            "dep_airport": "Trinidad and Tobago",
+            "duration": 1.21,
+            "id": 59,
+            "price": 194.5
+        },
+        {
+            "arr_airport": "Sweden",
+            "date": 2.31,
+            "dep_airport": "Zimbabwe",
+            "duration": 0.42,
+            "id": 60,
+            "price": 144.07
+        },
+        {
+            "arr_airport": "Zimbabwe",
+            "date": 0.78,
+            "dep_airport": "Azerbaijan",
+            "duration": 0.13,
+            "id": 1,
+            "price": 174.77
+        },
+        {
+            "arr_airport": "Cocos (Keeling) Islands",
+            "date": 2.06,
+            "dep_airport": "Zimbabwe",
+            "duration": 0.34,
+            "id": 2,
+            "price": 103.27
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 3.1,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 1.14,
+            "id": 3,
+            "price": 198.04
+        },
+        {
+            "arr_airport": "Korea, South",
+            "date": 5.53,
+            "dep_airport": "Kazakhstan",
+            "duration": 0.19,
+            "id": 4,
+            "price": 69.04
+        },
+        {
+            "arr_airport": "Guadeloupe",
+            "date": 7.92,
+            "dep_airport": "Korea, South",
+            "duration": 1.4,
+            "id": 5,
+            "price": 45.72
+        },
+        {
+            "arr_airport": "Azerbaijan",
+            "date": 10.71,
+            "dep_airport": "Guadeloupe",
+            "duration": 0.68,
+            "id": 6,
+            "price": 55.71
+        },
+        {
+            "arr_airport": "Tajikistan",
+            "date": 3.11,
+            "dep_airport": "Cocos (Keeling) Islands",
+            "duration": 0.14,
+            "id": 7,
+            "price": 191.25
+        },
+        {
+            "arr_airport": "Kazakhstan",
+            "date": 4.06,
+            "dep_airport": "Tajikistan",
+            "duration": 0.15,
+            "id": 8,
+            "price": 106.32
+        },
+        {
+            "arr_airport": "Mozambique",
+            "date": 8.01,
+            "dep_airport": "Korea, South",
+            "duration": 0.11,
+            "id": 9,
+            "price": 151.4
+        },
+        {
+            "arr_airport": "Guadeloupe",
+            "date": 9.11,
+            "dep_airport": "Mozambique",
+            "duration": 0.18,
+            "id": 10,
+            "price": 194.02
+        },
+        {
+            "arr_airport": "Netherlands",
+            "date": 10.8,
+            "dep_airport": "Guadeloupe",
+            "duration": 0.15,
+            "id": 11,
+            "price": 151.2
+        },
+        {
+            "arr_airport": "Azerbaijan",
+            "date": 12.47,
+            "dep_airport": "Netherlands",
+            "duration": 0.18,
+            "id": 12,
+            "price": 92.85
+        }
+    ],
+    "holiday_time": 14
+}
