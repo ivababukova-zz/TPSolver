@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import gurobi.*;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -81,9 +82,10 @@ public class IPsolver {
             this.tripProperty2();
             this.tripProperties3and4();
             this.tripProperty5();
-            this.minCostObjective(); // return a solution with minimised cost
+            this.optimiseWhat();
 
             getAllSols();
+            model.getEnv().set("OutputFlag", "0"); // set to 1 to get gurobi custom output
             // Optimize model
             model.optimize();
 //            this.debugModel();
@@ -215,8 +217,10 @@ public class IPsolver {
         }
     }
 
+    /*** Objective functions for optimisation ***/
+
     // set an objective for minimizing the flight cost
-    private void minCostObjective() throws GRBException {
+    private void minCostObj() throws GRBException {
         GRBLinExpr expr = new GRBLinExpr();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < m; j++) {
@@ -226,8 +230,8 @@ public class IPsolver {
         model.setObjective(expr, GRB.MINIMIZE);
     }
 
-    // set an objective for minimizing the flight cost
-    private void maxCostObjective() throws GRBException {
+    // set an objective for maximizing the flight cost
+    private void maxCostObj() throws GRBException {
         GRBLinExpr expr = new GRBLinExpr();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < m; j++) {
@@ -237,10 +241,49 @@ public class IPsolver {
         model.setObjective(expr, GRB.MAXIMIZE);
     }
 
+    // todo this optimises flights duration, but not trip duration
+    private void minTripDurationObj() throws GRBException {
+        GRBLinExpr expr = new GRBLinExpr();
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < m; j++) {
+                expr.addTerm(h.getFlightByID(j+1).date, S[i][j]);
+            }
+        }
+        model.setObjective(expr, GRB.MAXIMIZE);
+    }
+
+    // todo this optimises flights duration, but not trip duration
+    private void maxTripDurationObj() throws GRBException {
+        GRBLinExpr expr = new GRBLinExpr();
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < m; j++) {
+                expr.addTerm(h.getFlightByID(j+1).duration, S[i][j]);
+            }
+        }
+        model.setObjective(expr, GRB.MINIMIZE);
+    }
+
+    private void minNoFlightsObj() throws GRBException {
+        GRBLinExpr expr = new GRBLinExpr();
+        for (int i = 0; i < m; i++) {
+            expr.addTerm(1.0, S[i][n]);
+        }
+        model.setObjective(expr, GRB.MAXIMIZE); // more dummy flights means less real flights
+    }
+
+    private void maxNoFlightsObj() throws GRBException {
+        GRBLinExpr expr = new GRBLinExpr();
+        for (int i = 0; i < m; i++) {
+            expr.addTerm(1.0, S[i][n]);
+        }
+        model.setObjective(expr, GRB.MINIMIZE); // more dummy flights means less real flights
+    }
+
+     /*** ***/
 
     private void getAllSols() throws GRBException {
         // Limit the search space by setting a gap for the worst possible solution that will be accepted
-        model.set(GRB.DoubleParam.PoolGap, 10000);
+        model.set(GRB.DoubleParam.PoolGap, 1);
         // do a systematic search for the k-best solutions
         model.set(GRB.IntParam.PoolSearchMode, 2);
 
@@ -353,5 +396,39 @@ public class IPsolver {
             if (arg.equals("-allOpt")) return true;
         }
         return false;
+    }
+
+    private void optimiseWhat() throws GRBException {
+        Boolean isMin = false;
+        for (String str : args) {
+            if (str.equals("-min")) {
+                System.out.print("Optimal solutions with minimum ");
+                isMin = true;
+                break;
+            }
+            else if (str.equals("-max")) {
+                System.out.print("Optimal solutions with maximum ");
+                break;
+            }
+        }
+        for (String str : args) {
+            if (str.equals("-cost")) {
+                System.out.println("cost:\n");
+                if (isMin) {minCostObj(); break;}
+                if (!isMin) {maxCostObj(); break;}
+            }
+            if (str.equals("-flights")) {
+                System.out.println("number of flights:\n");
+                if (isMin) {minNoFlightsObj(); break;}
+                if (!isMin) {maxCostObj(); break;}
+            }
+            if (str.equals("-trip_duration")) {
+                System.out.println("\nThis functionality is not implemented yet." +
+                                 "\nWe will return cheapest solutions instead.\n");
+                minCostObj();
+                break;
+            }
+        }
+
     }
 }
