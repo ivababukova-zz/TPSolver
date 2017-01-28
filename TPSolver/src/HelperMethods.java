@@ -171,6 +171,16 @@ public class HelperMethods {
         return destinations;
     }
 
+    public ArrayList<Integer> allConnectionFlights(){
+        ArrayList<Integer> all = new ArrayList<>();
+        for (Flight f : flights) {
+            if (f.arr.purpose.equals("connection")) {
+                all.add(f.id);
+            }
+        }
+        return all;
+    }
+
     public Flight getCheapestAfter(float cost){
         double cheapest = 99999;
         Flight cheapestF = null;

@@ -20,15 +20,19 @@ public class CPsolver {
     ArrayList<Triplet> triplets; // for hard constraint 1
     private String solution;
 
-
+    /** The main model without optimisations and hard and soft constraints: */
     private Model model;
     private Solver solver;
     private IntVar[] S; // the flights schedule
     private IntVar z; // the number of flights in the schedule
+
+    /** Additional variables */
     private IntVar[] C; // C[i] is equal to the cost of flight S[i]
     private IntVar cost_sum; // the total cost of the flights schedule
     private IntVar last_flight; // the day when traveller will have finished the trip
     private IntVar trip_duration;
+    private IntVar[] isConnection;
+    private IntVar connections_count; // the number of connection flights taken during the trip
 
     public CPsolver(
             ArrayList<Airport> as,
@@ -53,14 +57,18 @@ public class CPsolver {
         this.model = new Model("TP CPsolver");
         this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         this.z = model.intVar("End of schedule", 2, flights.size());
+        this.solver = model.getSolver();
+
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5000000);
         this.cost_sum = this.model.intVar(0, B); // the total cost of the trip
         this.last_flight = this.model.intVar(1, flights.size());
         this.trip_duration = this.model.intVar(1, T);
-        this.solver = model.getSolver();
+        this.connections_count = this.model.intVar(0, flights.size());
+        this.isConnection = this.model.boolVarArray(flights.size() + 1);
 
         // the total cost of the trip is equal to the sum of the cost of all taken flights:
         this.model.sum(C, "=", cost_sum).post();
+        this.model.sum(isConnection, "=", connections_count).post();
 
         if (this.findSchedule() == 0) {
             return 0; // trivial failure
@@ -77,18 +85,20 @@ public class CPsolver {
 
         this.model.arithm(S[1], "!=", 0).post(); // S can not be empty
         this.model.arithm(C[0], "!=", 0).post();
+        this.model.arithm(connections_count, "<=", z).post();
 
         int trip_property_5 = tripProperty5(); // impose trip property 5
         if (trip_property_5 == 0) {
             return 0; // trivial failure
         }
 
+        // if hc1 is required, impose it:
         if (this.triplets != null) {
             System.out.println("Searching for solutions with HC1:");
             hardConstraint1();
         }
 
-        // if hc2 is specified, impose it:
+        // if hc2 is required, impose it:
         if (this.tuples != null) {
             System.out.println("Searching for solutions with HC2 for following dates and destinations:");
             hardConstraint2();
@@ -98,12 +108,28 @@ public class CPsolver {
             Flight f = h.getFlightByID(i);
             tripProperties2and3and4(f); // impose trip properties 2, 3 and 4
             sequenceConstraints(i, to_home, f); // impose valid sequence rules
-
+            costAndConnectionsCountConstraints(i);
         }
 
-        costConstraint();
         this.model.allDifferentExcept0(S).post(); // the same flight can be taken only once
         return 1;
+    }
+
+    // set the values of C
+    private void costAndConnectionsCountConstraints(int i){
+        int cost = (int) h.getFlightByID(i).cost;
+        int[] allConnectionFlights = h.arrayToint(h.allConnectionFlights());
+        for (int j = 0; j <= flights.size(); j++) {
+            this.model.ifThen(
+                    model.arithm(S[j], "=", i),
+                    model.arithm(C[j], "=", cost)
+            );
+            model.ifThenElse(
+                        model.member(S[j], allConnectionFlights),
+                        model.arithm(isConnection[j], "=", 1),
+                        model.arithm(isConnection[j], "=", 0)
+            );
+        }
     }
 
     // enforces trip properties 2, 3 and 4
@@ -144,19 +170,6 @@ public class CPsolver {
             this.model.among(X, S, all_to).post(); // S must contain at least one flight that goes to d
         }
         return 1;
-    }
-
-    // set the values of C
-    private void costConstraint(){
-        for(int i = 1; i<=flights.size(); i++) {
-            int cost = (int) h.getFlightByID(i).cost;
-            for (int j = 0; j <= flights.size(); j++) {
-                this.model.ifThen(
-                        model.arithm(S[j], "=", i),
-                        model.arithm(C[j], "=", cost)
-                );
-            }
-        }
     }
 
     private void sequenceConstraints(int i, int[] to_home, Flight f){
@@ -279,6 +292,14 @@ public class CPsolver {
 
     /*** end of hard constraint 2 code ***/
 
+
+
+    /*** HARD CONSTRAINT 3 CODE ***/
+
+
+    /*** end of hard constraint 3 code ***/
+
+
 //    // call this function when no flights to connection airports are allowed
     private void removeConnections(){
         ArrayList<Flight> newflights = new ArrayList<>();
@@ -339,6 +360,10 @@ public class CPsolver {
                 to_optimise = this.trip_duration;
                 isOptimalSearch += 1;
             }
+            if (arg.equals("-connections")) {
+                System.out.println("number of connections:");
+                to_optimise = this.connections_count;
+            }
             if (arg.equals("-allOpt")) {
                 System.out.println("All optimal solutions are:");
                 printAllSols(solver.findAllOptimalSolutions(to_optimise, m), isVerbose);
@@ -397,10 +422,12 @@ public class CPsolver {
             System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
         }
         String tripDuration = "  Trip duration: " + (x.getIntVal(trip_duration) / 10.0);
-        String totalCost = " Total cost: " + (x.getIntVal(cost_sum) / 100.0) + "\n";
+        String totalCost = " Total cost: " + (x.getIntVal(cost_sum) / 100.0);
+        String connCount = " Number of connections: " + (x.getIntVal(connections_count)) + "\n";
         System.out.print(tripDuration);
-        System.out.println(totalCost);
-        this.solution += tripDuration + totalCost;
+        System.out.print(totalCost);
+        System.out.println(connCount);
+        this.solution += tripDuration + connCount + totalCost;
     }
 
 }
