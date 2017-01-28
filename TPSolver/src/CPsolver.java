@@ -361,7 +361,7 @@ public class CPsolver {
                 isOptimalSearch += 1;
             }
             if (arg.equals("-connections")) {
-                System.out.println("number of connections:");
+                System.out.println("the number of flights to connection airports:");
                 to_optimise = this.connections_count;
             }
             if (arg.equals("-allOpt")) {
