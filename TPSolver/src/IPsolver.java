@@ -64,10 +64,6 @@ public class IPsolver {
             expr.addTerm(1.0, S[0][n]);
             model.addConstr(expr, GRB.EQUAL, 1.0, "End with special flight");
 
-//            expr = new GRBLinExpr();
-//            expr.addTerm(1.0, S[6][13]);
-//            model.addConstr(expr, GRB.EQUAL, 1.0, "iva");
-
             // I have no idea why I need this. It is taken from the sudoku example.
             // The code does not work without it.
             for (int i = 0; i < m; i++) {
@@ -252,15 +248,21 @@ public class IPsolver {
         model.setObjective(expr, GRB.MAXIMIZE);
     }
 
-    // todo this optimises flights duration, but not trip duration
+    // todo this is rubbish
     private void maxTripDurationObj() throws GRBException {
-        GRBLinExpr expr = new GRBLinExpr();
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < m; j++) {
-                expr.addTerm(h.getFlightByID(j+1).duration, S[i][j]);
+        GRBLinExpr expr1, expr2, expr4;
+        GRBQuadExpr expr3 = new GRBQuadExpr();
+        for(int i = 1; i < n - 1; i++) {
+            expr1 = new GRBLinExpr();
+            expr2 = new GRBLinExpr();
+            for(int j = 0; j < n - 1; j++) {
+                expr1.addTerm(h.getFlightByID(j).date
+                                + h.getFlightByID(j).duration, S[i-1][j]);
             }
+            expr2.addTerm(1.0, S[i][n]);
+            expr3.add(expr1);
         }
-        model.setObjective(expr, GRB.MINIMIZE);
+        model.setObjective(expr3, GRB.MINIMIZE);
     }
 
     private void minNoFlightsObj() throws GRBException {
@@ -279,7 +281,7 @@ public class IPsolver {
         model.setObjective(expr, GRB.MINIMIZE); // more dummy flights means less real flights
     }
 
-     /*** ***/
+     /*** end of objective functions code ***/
 
     private void getAllSols() throws GRBException {
         // Limit the search space by setting a gap for the worst possible solution that will be accepted

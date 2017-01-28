@@ -184,15 +184,23 @@
     }
   ],
   "holiday_time" : 20,
+  "hard_constraint_1" :
+  [
+    {
+      "airport" : "F",
+      "lb" : 0,
+      "ub" : 20
+    }
+  ],
   "hard_constraint_2" :
   [
     {
       "airport" : "B",
-      "date" : 3
+      "date" : 12
     },
     {
       "airport" : "A",
-      "date" : 12
+      "date" : 2
     }
   ]
 }

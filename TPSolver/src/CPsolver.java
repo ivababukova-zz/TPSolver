@@ -17,13 +17,13 @@ public class CPsolver {
     private int B; // upper bound on the total flights cost
     private String[] args;
     ArrayList<Tuple> tuples; // an array of (airport a, date d) that means that traveller must be at a at time d
+    ArrayList<Triplet> triplets; // for hard constraint 1
     private String solution;
 
 
     private Model model;
     private Solver solver;
     private IntVar[] S; // the flights schedule
-    private IntVar[] D; // for hard constraint 2
     private IntVar z; // the number of flights in the schedule
     private IntVar[] C; // C[i] is equal to the cost of flight S[i]
     private IntVar cost_sum; // the total cost of the flights schedule
@@ -36,7 +36,8 @@ public class CPsolver {
             int T,
             int B,
             String[] args,
-            ArrayList<Tuple> tuples
+            ArrayList<Tuple> tuples,
+            ArrayList<Triplet> triplets
     ){
         this.flights = fs;
         this.T = T;
@@ -44,6 +45,7 @@ public class CPsolver {
         this.h = new HelperMethods(as, fs);
         this.args = args;
         this.tuples = tuples;
+        this.triplets = triplets;
         this.solution = "";
     }
 
@@ -55,7 +57,6 @@ public class CPsolver {
         this.cost_sum = this.model.intVar(0, B); // the total cost of the trip
         this.last_flight = this.model.intVar(1, flights.size());
         this.trip_duration = this.model.intVar(1, T);
-
         this.solver = model.getSolver();
 
         // the total cost of the trip is equal to the sum of the cost of all taken flights:
@@ -80,6 +81,11 @@ public class CPsolver {
         int trip_property_5 = tripProperty5(); // impose trip property 5
         if (trip_property_5 == 0) {
             return 0; // trivial failure
+        }
+
+        if (this.triplets != null) {
+            System.out.println("Searching for solutions with HC1:");
+            hardConstraint1();
         }
 
         // if hc2 is specified, impose it:
@@ -197,10 +203,47 @@ public class CPsolver {
         );
     }
 
+    /*** HARD CONSTRAINT 1 CODE ***/
+    private void hardConstraint1(){
+        IntVar[] D = model.intVarArray("Destinations with hard constr 1",
+                triplets.size() + 1,
+                0,
+                flights.size());
+        this.model.arithm(D[0], "=", 0).post(); // D[0] is not important
+        this.model.allDifferent(D).post();
+        int index = 1;
+        for (Triplet tri : this.triplets) {
+            Airport a = tri.getA();
+            a.setIndex(index);
+            double lb = tri.getLb();
+            double ub = tri.getUb();
+            this.hc1(D, a, lb, ub, index);
+            index ++;
+        }
+    }
+
+    private void hc1(IntVar[] D, Airport a, double lb, double ub, int index) {
+        int[] all_to = h.arrayToint(h.allTo(a));
+        for (int i = 1; i <= flights.size(); i++) {
+            model.ifThen(
+                    model.arithm(D[index], "=", i),
+                    model.member(S[i-1], all_to)
+            );
+            for (int prev : all_to) {
+                int[] next = h.arrayToint(h.allowedNextFlightHC1(h.getFlightByID(prev), lb, ub));
+                model.ifThen(
+                        model.arithm(S[i-1], "=", prev),
+                        model.member(S[i], next)
+                );
+            }
+        }
+    }
+
+    /*** end of hard constraint 1 code ***/
 
     /*** HARD CONSTRAINT 2 CODE ***/
     private void hardConstraint2(){
-        this.D = model.intVarArray(
+        IntVar[] D = model.intVarArray(
                 "Destinations with hard constr 2",
                 tuples.size() + 1,
                 0,
@@ -212,13 +255,13 @@ public class CPsolver {
             Airport a = tup.getA();
             a.setIndex(index);
             double date = tup.getDate();
-            this.dateLocationConstraint(a, date, index);
+            this.dateLocationConstraint(D, a, date, index);
             index ++;
         }
     }
 
     // hard constraint 2
-    private void dateLocationConstraint(Airport a, double date, int index) {
+    private void dateLocationConstraint(IntVar[] D, Airport a, double date, int index) {
         System.out.println("Be at destination " + a.name + " at date " + date/10);
         int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
         int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
@@ -231,16 +274,6 @@ public class CPsolver {
                             model.member(S[j], all_from_after)
                     )
             );
-        }
-    }
-
-    private void hardConstraint2v2() {
-        for (Tuple tup : this.tuples) {
-            Airport a = tup.getA();
-            double date = tup.getDate();
-            System.out.println("Be at destination " + a.name + " at date " + date/10);
-            int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
-            int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
         }
     }
 

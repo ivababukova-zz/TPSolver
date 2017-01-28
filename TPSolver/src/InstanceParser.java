@@ -1,3 +1,4 @@
+import gnu.trove.impl.sync.TSynchronizedRandomAccessIntList;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -39,22 +40,22 @@ public class InstanceParser {
         JSONArray jairports = (JSONArray) jobj.get("airports");
         JSONArray jflights = (JSONArray) jobj.get("flights");
         JSONArray jtuples = (JSONArray) jobj.get("hard_constraint_2");
+        JSONArray jtriplets = (JSONArray) jobj.get("hard_constraint_1");
 
         T = ((Number)jobj.get("holiday_time")).intValue();
         createAirports(jairports);
         flights = createFlights(jflights);
         ArrayList<Tuple> tuples = null;
-        if (    args.length > 2 &&
-                jtuples != null &&
-                args[1].equals("-cp") &&
-                args[2].equals("-hc2")) {
-            tuples = createHC2(jtuples);
+        ArrayList<Triplet> triplets = null;
+        if (args.length > 2 && args[1].equals("-cp")) {
+            if (jtuples != null && args[2].equals("-hc2")) tuples = createHC2(jtuples);
+            if (jtriplets != null && args[2].equals("-hc1")) triplets = createHC1(jtriplets);
         }
         String solFileName = "";
         String solution = "";
         if (args[1].equals("-cp")) {
             modifyData();
-            CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples);
+            CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples, triplets);
             solFileName = getSolFileName("cp");
             solution = s.getSolution();
         }
@@ -129,6 +130,20 @@ public class InstanceParser {
             tuples.add(t);
         }
         return tuples;
+    }
+
+    private static ArrayList<Triplet> createHC1 (JSONArray jtriplets) {
+        ArrayList<Triplet> triplets = new ArrayList<>();
+        for (int i = 0; i < jtriplets.size(); i++) {
+            JSONObject triplet = (JSONObject) jtriplets.get(i);
+            Airport a = getByName((String) triplet.get("airport"));
+            double lb = ((Number)triplet.get("lb")).doubleValue() * 10;
+            double ub = ((Number)triplet.get("ub")).doubleValue() * 10;
+            Triplet tr = new Triplet(a, lb, ub);
+            triplets.add(tr);
+        }
+
+        return triplets;
     }
 
     private static Airport getByName(String name){

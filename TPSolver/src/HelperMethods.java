@@ -77,9 +77,24 @@ public class HelperMethods {
         return froma;
     }
 
+    public ArrayList<Integer> allowedNextFlightHC1(Flight f, double lb, double up) {
+//        System.out.println("\n" + f.id + " can go before: ");
+        ArrayList<Integer> froma = new ArrayList<>();
+        Airport dep = f.arr;
+        for (Flight fl: flights) {
+            if (fl.dep == dep && fl.date > f.date) {
+                double stay_time = fl.date - (f.date + f.duration + dep.conn_time);
+                if (stay_time >= lb && stay_time <= up) {
+//                    System.out.println(fl.id + " stay time: " + stay_time);
+                    froma.add(fl.id);
+                }
+            }
+        }
+        return froma;
+    }
+
     public ArrayList<Integer> allFromAfter(Airport a, double date) {
         ArrayList<Integer> froma = new ArrayList<>();
-        Flight test = this.getFlightByID(7);
         for (Flight f: flights) {
             // allow for at least 1 day stay at a. Date is multiplied by 0 due to
             // choco not supporting double values properly
