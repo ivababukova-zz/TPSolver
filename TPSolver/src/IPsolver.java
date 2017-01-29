@@ -63,15 +63,6 @@ public class IPsolver {
             expr.addTerm(1.0, S[0][n]);
             model.addConstr(expr, GRB.EQUAL, 1.0, "End with special flight");
 
-            // I have no idea why I need this. It is taken from the sudoku example.
-            // The code does not work without it.
-//            for (int i = 0; i < m; i++) {
-//                expr = new GRBLinExpr();
-//                expr.addTerms(null, S[i]);
-//                String st = "V_" + String.valueOf(i);
-//                model.addConstr(expr, GRB.EQUAL, 1.0, st);
-//            }
-
             this.matrixContraints();
             this.tripProperty1();
             this.tripProperty2();
@@ -214,30 +205,18 @@ public class IPsolver {
 
     /*** Objective functions for optimisation ***/
 
-    // set an objective for minimizing the flight cost
-    private void minCostObj() throws GRBException {
+    private void costObj(Boolean toMinimise) throws GRBException {
         GRBLinExpr expr = new GRBLinExpr();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < m; j++) {
                 expr.addTerm(h.getFlightByID(j+1).cost, S[i][j]);
             }
         }
-        model.setObjective(expr, GRB.MINIMIZE);
+        if (toMinimise) model.setObjective(expr, GRB.MINIMIZE);
+        else model.setObjective(expr, GRB.MAXIMIZE);
     }
 
-    // set an objective for maximizing the flight cost
-    private void maxCostObj() throws GRBException {
-        GRBLinExpr expr = new GRBLinExpr();
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < m; j++) {
-                expr.addTerm(h.getFlightByID(j+1).cost, S[i][j]);
-            }
-        }
-        model.setObjective(expr, GRB.MAXIMIZE);
-    }
-
-    // todo this optimises flights duration, but not trip duration
-    private void minTripDurationObj() throws GRBException {
+    private void tripDurationObj(Boolean toMinimise) throws GRBException {
         Airport a0 = h.getHomePoint();
         ArrayList<Integer> toHome = h.allTo(a0);
         int dummy = toHome.size() - 1;
@@ -262,7 +241,9 @@ public class IPsolver {
                 nj ++;
             }
         }
-        model.setObjective(last, GRB.MINIMIZE);
+        if (toMinimise) model.setObjective(last, GRB.MINIMIZE);
+        else model.setObjective(last, GRB.MAXIMIZE);
+
     }
 
     private GRBVar[][] createNarray(int size1, int size2) throws GRBException {
@@ -274,33 +255,16 @@ public class IPsolver {
                 N[i][j] = model.addVar(0.0, 1.0, 0.0, GRB.BINARY, st);
             }
         }
-//        GRBLinExpr expr;
-//        for (int i = 0; i < size1; i++) {
-//            expr = new GRBLinExpr();
-//            expr.addTerms(null, N[i]);
-//            String st = "N1_" + String.valueOf(i);
-//            model.addConstr(expr, GRB.EQUAL, 1.0, st);
-//        }
         return N;
     }
 
-    private void maxTripDurationObj() throws GRBException {
-    }
-
-    private void minNoFlightsObj() throws GRBException {
+    private void noFlightsObj(Boolean toMinimise) throws GRBException {
         GRBLinExpr expr = new GRBLinExpr();
         for (int i = 0; i < m; i++) {
             expr.addTerm(1.0, S[i][n]);
         }
-        model.setObjective(expr, GRB.MAXIMIZE); // more dummy flights means less real flights
-    }
-
-    private void maxNoFlightsObj() throws GRBException {
-        GRBLinExpr expr = new GRBLinExpr();
-        for (int i = 0; i < m; i++) {
-            expr.addTerm(1.0, S[i][n]);
-        }
-        model.setObjective(expr, GRB.MINIMIZE); // more dummy flights means less real flights
+        if (toMinimise) model.setObjective(expr, GRB.MAXIMIZE); // more dummy flights means less real flights
+        else model.setObjective(expr, GRB.MINIMIZE); // more dummy flights means less real flights
     }
 
      /*** end of objective functions code ***/
@@ -322,29 +286,10 @@ public class IPsolver {
                 model.set(GRB.IntParam.SolutionNumber, k);
                 double[][] x = model.get(GRB.DoubleAttr.Xn, S);
                 printSolution(x);
-                double[][] y = model.get(GRB.DoubleAttr.Xn, N);
-                printN(y);
             }
         } else {
             double[][] x = model.get(GRB.DoubleAttr.X, S);
             printSolution(x);
-            double[][] y = model.get(GRB.DoubleAttr.X, N);
-            printN(y);
-        }
-    }
-
-    private void printN (double[][] x)  throws GRBException {
-        System.out.println();
-        Airport a0 = h.getHomePoint();
-        ArrayList<Integer> allTo = h.allTo(a0);
-        for (int i = 0; i < n - 1; i++) {
-            System.out.print(i + ": ");
-            for (int j = 0; j < (allTo.size()-1); j++) {
-                String flightMssg = x[i][j] + " ";
-                System.out.print(flightMssg);
-                this.solution += flightMssg;
-            }
-            System.out.println();
         }
     }
 
@@ -457,23 +402,15 @@ public class IPsolver {
         for (String str : args) {
             if (str.equals("-cost")) {
                 System.out.println("cost:\n");
-                if (isMin) {minCostObj(); break;}
-                if (!isMin) {maxCostObj(); break;}
+                costObj(isMin);
             }
             if (str.equals("-flights")) {
                 System.out.println("number of flights:\n");
-                if (isMin) {minNoFlightsObj(); break;}
-                if (!isMin) {maxNoFlightsObj(); break;}
+                noFlightsObj(isMin);
             }
             if (str.equals("-trip_duration")) {
                 System.out.println("trip duration:\n");
-                if (isMin) {minTripDurationObj(); break;}
-                if (!isMin) {
-                    System.out.println("\nThis functionality is not implemented yet." +
-                            "\nWe will return cheapest solutions instead.\n");
-                    minCostObj();
-                    break;
-                }
+                tripDurationObj(isMin);
             }
         }
 
