@@ -1,4 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import gurobi.*;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -233,31 +232,31 @@ public class IPsolver {
         ArrayList<Integer> toHome = h.allTo(a0);
         int dummy = toHome.size() - 1;
         toHome.remove(dummy);
-        GRBVar[][] N = createNarray(n - 1, toHome.size());
+        GRBVar[][] Y = createNarray(n - 1, toHome.size());
         GRBLinExpr potentialLast;
-        GRBLinExpr last = new GRBLinExpr();
+        GRBLinExpr trip_duration = new GRBLinExpr();
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < toHome.size(); j++) {
                 int fj = toHome.get(j) - 1;
-                // magic, equivalent to N[i][nj] = S[i][fj] * S[i+1][n]
-                    // If N[i][j] = 0, then S[i][fj] is not the last flight.
-                    // If N[i][j] = 1, then S[i][fj] is the last flight and we add the sum of its date and duration
-                model.addConstr(N[i][j], GRB.GREATER_EQUAL, 0, "");
-                model.addConstr(N[i][j], GRB.LESS_EQUAL, S[i][fj], "");
-                model.addConstr(N[i][j], GRB.LESS_EQUAL, S[i+1][n], "");
+                // magic, equivalent to Y[i][nj] = S[i][fj] * S[i+1][n]
+                    // If Y[i][j] = 0, then S[i][fj] is not the last flight.
+                    // If Y[i][j] = 1, then S[i][fj] is the last flight and we add the sum of its date and duration
+                model.addConstr(Y[i][j], GRB.GREATER_EQUAL, 0, "");
+                model.addConstr(Y[i][j], GRB.LESS_EQUAL, S[i][fj], "");
+                model.addConstr(Y[i][j], GRB.LESS_EQUAL, S[i+1][n], "");
                 potentialLast = new GRBLinExpr();
                 potentialLast.addTerm(1.0, S[i][fj]);
                 potentialLast.addTerm(1.0, S[i+1][n]);
                 potentialLast.addConstant(-1);
                 // end of magic
 
-                model.addConstr(N[i][j], GRB.GREATER_EQUAL, potentialLast, "");
+                model.addConstr(Y[i][j], GRB.GREATER_EQUAL, potentialLast, "");
                 // the value of last is equal to the sum of the date and duration of the last flight
-                last.addTerm(h.getFlightByID(fj+1).date + h.getFlightByID(fj+1).duration, N[i][j]);
+                trip_duration.addTerm(h.getFlightByID(fj+1).date + h.getFlightByID(fj+1).duration, Y[i][j]);
             }
         }
-        if (toMinimise) model.setObjective(last, GRB.MINIMIZE);
-        else model.setObjective(last, GRB.MAXIMIZE);
+        if (toMinimise) model.setObjective(trip_duration, GRB.MINIMIZE);
+        else model.setObjective(trip_duration, GRB.MAXIMIZE);
 
     }
 
@@ -426,6 +425,15 @@ public class IPsolver {
                 costObj(true);
             }
         }
+    }
 
+    private void multiObj() throws GRBException {
+        model.set(GRB.IntAttr.NumObj, 2);
+        int SetObjPriority[] = new int[] {1, 1};
+        double SetObjWeight[] = new double[] {0.5, 0.5};
+        model.set(GRB.IntAttr.ObjNPriority, SetObjPriority[0]);
+        model.set(GRB.DoubleAttr.ObjNWeight, SetObjWeight[0]);
+        model.set(GRB.IntParam.ObjNumber, 0);
+//        model.set(GRB.DoubleAttr.ObjN, "", "", 0, 0);
     }
 }

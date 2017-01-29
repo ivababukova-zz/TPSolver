@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
+import org.chocosolver.solver.objective.ParetoOptimizer;
 import org.chocosolver.solver.variables.*;
 
 /**
@@ -330,7 +331,8 @@ public class CPsolver {
             return getStats();
         }
         Boolean m = null;
-        IntVar to_optimise = null;
+        IntVar[] to_optimise = new IntVar[4];
+        int objSize = 0;
         Boolean isVerbose = false;
         int isOptimalSearch = 0;
 
@@ -347,26 +349,29 @@ public class CPsolver {
             }
             if (arg.equals("-cost")) {
                 System.out.println("cost:");
-                to_optimise = this.cost_sum;
+                to_optimise[objSize] = this.cost_sum;
+                objSize ++;
                 isOptimalSearch += 1;
             }
             if (arg.equals("-flights")) {
                 System.out.println("number of flights:");
-                to_optimise = this.z;
+                to_optimise[objSize] = this.z;
+                objSize ++;
                 isOptimalSearch += 1;
             }
             if (arg.equals("-trip_duration")) {
                 System.out.println("trip duration:");
-                to_optimise = this.trip_duration;
+                to_optimise[objSize] = this.trip_duration;
                 isOptimalSearch += 1;
             }
             if (arg.equals("-connections")) {
                 System.out.println("the number of flights to connection airports:");
-                to_optimise = this.connections_count;
+                to_optimise[objSize] = this.connections_count;
+                objSize ++;
             }
             if (arg.equals("-allOpt")) {
                 System.out.println("All optimal solutions are:");
-                printAllSols(solver.findAllOptimalSolutions(to_optimise, m), isVerbose);
+                printAllSols(solver.findAllOptimalSolutions(to_optimise[0], m), isVerbose);
                 return getStats();
             }
             if (arg.equals("-all")) {
@@ -375,13 +380,25 @@ public class CPsolver {
                 return getStats();
             }
         }
-        if (isOptimalSearch == 2) {
-            returnOneOptimal(m, to_optimise, isVerbose);
+        if (isOptimalSearch == 2 && objSize == 1) {
+            returnOneOptimal(m, to_optimise[0], isVerbose);
         } else if (isOptimalSearch == 1) {
             System.out.println("\nNot enough arguments provided");
             return "";
+        } else if (objSize > 1) {
+            this.multiobjective(new IntVar[] {this.cost_sum, this.trip_duration});
         }
         return getStats();
+    }
+
+    private void multiobjective(IntVar[] objectives) {
+        System.out.println("Doing multiobjective optimisation:");
+        ParetoOptimizer po = new ParetoOptimizer(Model.MINIMIZE, objectives);
+        solver.plugMonitor(po);
+        while (solver.solve()) {
+            List<Solution> paretoFront = po.getParetoFront();
+            printAllSols(paretoFront, false);
+        }
     }
 
     private String getStats() {
