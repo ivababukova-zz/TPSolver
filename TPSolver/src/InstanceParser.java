@@ -164,35 +164,6 @@ public class InstanceParser {
         }
     }
 
-    private static void printUsage() {
-        System.out.println("Usage:\n    java -jar TPSolver1.jar <filename> <model> [-options]");
-        System.out.println("Where:\n    <filename> is the relative path to and the name of the TP instance");
-        System.out.println(        "               you want to solve, which must be a .json file, containing");
-        System.out.println(        "               a list of airports, a list of flights and a holiday time.");
-        System.out.println(        "               See example instance files for more info.");
-        System.out.println("\n    <model> is either:");
-        System.out.println("            -cp: the instance will be solved using the TP Constraint Programming Model");
-        System.out.println("            -ip: the instance will be solved using the TP Integer Programming Model");
-        System.out.println("\n    [options] are applicable only to the CP model and are 0 or more of these parameters:\n");
-        System.out.println("        -allOpt: returns all optimal solutions.\n");
-        System.out.println("        -all: returns all solutions.\n");
-        System.out.println("        -hc1: finds solutions that comply with hard constraint 1 (HC1). HC1 requires the following:");
-        System.out.println("              \"Travellers may wish to spend a certain amount of consecutive days at a given destination," +
-                "\n               specified by both upper and lower bounds.\" " +
-                "\n              The destination and the bounds are specified in the instance file.\n");
-        System.out.println("        -hc2: finds solutions that comply with hard constraint 2 (HC2). HC2 requires the following:");
-        System.out.println("              \"Travellers may require to spend a given date at a given destination\"" +
-                "\n              The destination and the date are specified in the instance file.\n");
-        System.out.println("        <objective> <objective variable> [-allOpt]: in case you want to find optimal solutions, where:\n");
-        System.out.println("            <objective> is either -min or -max.\n");
-        System.out.println("            <objective variable> is either -cost, -flights, or -trip_duration, where:\n");
-        System.out.println("                -cost: finds the optional solutions with respect to flights cost.\n");
-        System.out.println("                -flights: finds the optional solutions with respect to number of flights.\n");
-        System.out.println("                -trip_duration: finds the optional solutions with respect to trip duration.\n");
-        System.out.println("                -connections: finds the optional solutions with respect to number of flights" +
-                "\n                              to connection airports.\n");
-    }
-
     private static void printUsageJar() {
         System.out.println("Usage:\n    java -jar TPSolver1.jar <filename> -cp [-options]");
         System.out.println("Where:\n    <filename> is the relative path to and the name of the TP instance");
@@ -223,34 +194,35 @@ public class InstanceParser {
 
     private static void printUsageEclipse() {
         System.out.println("Usage with Eclipse:"
-                + "\n    1. Go to \"Run/Run Configurations ...\""
-                + "\n    2. Click on \"Arguments\" and add to \"program arguments\" <filename> <model> [-options],");
-        System.out.println("where:\n    <filename> is the relative path to and the name of the TP instance you want to solve,");
-        System.out.println("               which must be a .json file containing a list of airports, a list of flights and");
-        System.out.println("               a holiday time. See example instance files for more info.");
+                + "\n  1. Go to \"Run/Run Configurations ...\""
+                + "\n  2. Click on \"Arguments\" and add to \"program arguments\" <filename> <model> [-options],");
+        System.out.println("where:\n  <filename> is the relative path to and the name of the TP instance you want to solve,");
+        System.out.println("             which must be a .json file containing a list of airports, a list of flights and");
+        System.out.println("             a holiday time. See example instance files for more info.");
         System.out.println("\n    <model> is either:");
-        System.out.println("        -cp: the instance will be solved using the TP Constraint Programming Model");
-        System.out.println("        -ip: the instance will be solved using the TP Integer Programming Model");
-        System.out.println("\n    [options] are applicable only to the CP model and are optional. They can be 0 or more of the following parameters:\n");
-        System.out.println("        -allOpt: returns all optimal solutions.\n");
-        System.out.println("        -all: returns all solutions.\n");
-        System.out.println("        -hc1: finds solutions that comply with hard constraint 1 (HC1). HC1 requires the following:");
-        System.out.println("              \"Travellers may wish to spend a certain amount of consecutive days at a given destination," +
-                           "\n               specified by both upper and lower bounds.\" " +
-                           "\n              The destination and the bounds are specified in the instance file.\n");
-        System.out.println("        -hc2: finds solutions that comply with hard constraint 2 (HC2). HC2 requires the following:");
-        System.out.println("              \"Travellers may require to spend a given date at a given destination\"" +
-                           "\n              The destination and the date are specified in the instance file.\n");
-        System.out.println("        <objective> <objective variable> [-allOpt]: in case you want to find optimal solutions, where:\n");
-        System.out.println("            <objective> is either -min or -max.\n");
-        System.out.println("            <objective variable> is either -cost, -flights, or -trip_duration, where:\n");
-        System.out.println("                -cost: finds the optional solutions with respect to flights cost.\n");
-        System.out.println("                -flights: finds the optional solutions with respect to number of flights.\n");
-        System.out.println("                -trip_duration: finds the optional solutions with respect to trip duration.\n");
-        System.out.println("                -connections: finds the optional solutions with respect to number of flights" +
-                           "\n                              to connection airports.\n");
+        System.out.println("      -cp: the instance will be solved using the TP Constraint Programming Model");
+        System.out.println("      -ip: the instance will be solved using the TP Integer Programming Model");
+        System.out.println("\n    [options] are optional. They can be 0 or more of the following parameters:\n");
+        System.out.println("        <objective> <objective variable> [-allOpt]: finds optimal solutions, where:");
+        System.out.println("          -allOpt: is an optional flag. It returns all optimal solutions.");
+        System.out.println("          <objective> is either -min or -max.\n");
+        System.out.println("          <objective variable> is either -cost, -flights, -trip_duration or -connections, where:");
+        System.out.println("              -cost: finds the optional solutions with respect to flights cost.");
+        System.out.println("              -flights: finds the optional solutions with respect to number of flights.");
+        System.out.println("              -trip_duration: finds the optional solutions with respect to trip duration.");
+        System.out.println("              -connections: finds the optional solutions with respect to number of flights" +
+                           "\n                            to connection airports. It is implemented only for CP.\n");
+        System.out.println("The following parameters are applicable only for the CP model:");
+        System.out.println("      -all: returns all solutions.\n");
+        System.out.println("      -hc1: finds solutions that comply with hard constraint 1 (HC1). HC1 requires the following:");
+        System.out.println("            \"Travellers may wish to spend a certain amount of consecutive days at a given destination," +
+                "\n             specified by both upper and lower bounds.\" " +
+                "\n             The destination and the bounds are specified in the instance file.\n");
+        System.out.println("      -hc2: finds solutions that comply with hard constraint 2 (HC2). HC2 requires the following:");
+        System.out.println("            \"Travellers may require to spend a given date at a given destination\"" +
+                "\n            The destination and the date are specified in the instance file.\n");
         System.out.println("Example program arguments:"
                 + "\n    \"data/small_test.json -cp -all\": this runs the CP solver and prints all solutions for small_test.json instance. "
-                + "\n    \"data/small_test.json -cp -min -cost -allOpt\": this runs the CP solver and returns all optimal solutions with minimum flights cost");
+                + "\n    \"data/small_test.json -ip -min -cost -allOpt\": this runs the IP solver and returns all optimal solutions with minimum flights cost");
     }
 }
