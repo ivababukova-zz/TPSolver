@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.chocosolver.memory.IStateDouble;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
 import org.chocosolver.solver.objective.ParetoOptimizer;
 import org.chocosolver.solver.variables.*;
+import org.chocosolver.solver.variables.impl.FixedIntVarImpl;
 
 /**
  * Created by ivababukova on 12/16/16.
@@ -30,8 +32,9 @@ public class CPsolver {
     /** Additional variables */
     private IntVar[] C; // C[i] is equal to the cost of flight S[i]
     private IntVar cost_sum; // the total cost of the flights schedule
-    private IntVar last_flight; // the day when traveller will have finished the trip
+
     private IntVar trip_duration;
+
     private IntVar[] isConnection;
     private IntVar connections_count; // the number of connection flights taken during the trip
 
@@ -62,8 +65,9 @@ public class CPsolver {
 
         this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5000000);
         this.cost_sum = this.model.intVar(0, B); // the total cost of the trip
-        this.last_flight = this.model.intVar(1, flights.size());
+
         this.trip_duration = this.model.intVar(1, T);
+
         this.connections_count = this.model.intVar(0, flights.size());
         this.isConnection = this.model.boolVarArray(flights.size() + 1);
 
@@ -110,10 +114,25 @@ public class CPsolver {
             tripProperties2and3and4(f); // impose trip properties 2, 3 and 4
             sequenceConstraints(i, to_home, f); // impose valid sequence rules
             costAndConnectionsCountConstraints(i);
+            lastFlightConstr(i);
         }
 
         this.model.allDifferentExcept0(S).post(); // the same flight can be taken only once
         return 1;
+    }
+
+    private void lastFlightConstr (int i) {
+        for (int j = 1; j <= flights.size(); j++) {
+            Flight f = h.getFlightByID(j);
+
+            model.ifThen(
+                    model.and(
+                            model.arithm(z, "=", i),
+                            model.arithm(S[i-1], "=", j)
+                    ),
+                    model.arithm(trip_duration, "=", (int) (f.date + f.duration))
+            );
+        }
     }
 
     // set the values of C
@@ -179,8 +198,7 @@ public class CPsolver {
                 model.arithm(z, "=", i),
                 model.and(
                         model.arithm(S[i], "=", 0),
-                        model.member(S[i-1], to_home),
-                        model.arithm(last_flight, "=", S[i-1])
+                        model.member(S[i-1], to_home)
                 )
         );
 
@@ -209,11 +227,6 @@ public class CPsolver {
         this.model.ifThen(
                 model.arithm(S[i], "!=", 0),
                 model.arithm(C[i], "!=", 0)
-        );
-
-        model.ifThen(
-                model.arithm(last_flight, "=", i),
-                model.arithm(trip_duration, "=", (int) (f.date + f.duration))
         );
     }
 
@@ -300,20 +313,6 @@ public class CPsolver {
 
     /*** end of hard constraint 3 code ***/
 
-
-//    // call this function when no flights to connection airports are allowed
-    private void removeConnections(){
-        ArrayList<Flight> newflights = new ArrayList<>();
-        for(Flight f: this.flights) {
-            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
-        }
-        this.flights = newflights;
-        for (Flight f: newflights) {
-            System.out.print(f.dep.name + f.arr.name + " ");
-        }
-        System.out.println();
-    }
-
     public String getSolution() {
         if (init() == 0) {
             return "";
@@ -368,6 +367,7 @@ public class CPsolver {
                 System.out.println("the number of flights to connection airports:");
                 to_optimise[objSize] = this.connections_count;
                 objSize ++;
+                isOptimalSearch += 1;
             }
             if (arg.equals("-allOpt")) {
                 System.out.println("All optimal solutions are:");
@@ -386,14 +386,14 @@ public class CPsolver {
             System.out.println("\nNot enough arguments provided");
             return "";
         } else if (objSize > 1) {
-            this.multiobjective(new IntVar[] {this.cost_sum, this.trip_duration});
+            this.multiobjective(new IntVar[] {this.cost_sum, this.trip_duration}, m);
         }
         return getStats();
     }
 
-    private void multiobjective(IntVar[] objectives) {
+    private void multiobjective(IntVar[] objectives, Boolean goal) {
         System.out.println("Doing multiobjective optimisation:");
-        ParetoOptimizer po = new ParetoOptimizer(Model.MINIMIZE, objectives);
+        ParetoOptimizer po = new ParetoOptimizer(goal, objectives);
         solver.plugMonitor(po);
         while (solver.solve()) {
             List<Solution> paretoFront = po.getParetoFront();
@@ -446,5 +446,19 @@ public class CPsolver {
         System.out.println(connCount);
         this.solution += tripDuration + connCount + totalCost;
     }
+
+    // call this function when no flights to connection airports are allowed
+    private void removeConnections(){
+        ArrayList<Flight> newflights = new ArrayList<>();
+        for(Flight f: this.flights) {
+            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
+        }
+        this.flights = newflights;
+        for (Flight f: newflights) {
+            System.out.print(f.dep.name + f.arr.name + " ");
+        }
+        System.out.println();
+    }
+
 
 }

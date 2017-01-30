@@ -91,14 +91,6 @@
       "date" : 10,
       "duration" : 1,
       "price" : 74
-    },
-    {
-      "id" : 11,
-      "dep_airport" : "A",
-      "arr_airport" : "G",
-      "date" : 11,
-      "duration" : 1,
-      "price" : 74
     }
   ],
   "holiday_time" : 20
