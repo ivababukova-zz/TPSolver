@@ -7,10 +7,12 @@ public class HelperMethods {
 
     private ArrayList<Airport> airports;
     private ArrayList<Flight> flights;
+    double T;
 
-    public HelperMethods(ArrayList<Airport> a, ArrayList<Flight> f){
+    public HelperMethods(ArrayList<Airport> a, ArrayList<Flight> f, double T){
         this.airports = a;
         this.flights = f;
+        this.T = T;
     }
 
     public Airport getAirportByName(String name){

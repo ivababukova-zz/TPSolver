@@ -56,8 +56,8 @@
       <file leaf-file-name="IPsolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="436" column="48" lean-forward="false" selection-start-line="436" selection-start-column="0" selection-end-line="437" selection-end-column="0" />
+            <state relative-caret-position="192">
+              <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,8 +78,8 @@
       <file leaf-file-name="CPsolver.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="369" column="37" lean-forward="false" selection-start-line="369" selection-start-column="37" selection-end-line="369" selection-end-column="37" />
+            <state relative-caret-position="357">
+              <caret line="61" column="68" lean-forward="true" selection-start-line="60" selection-start-column="70" selection-end-line="61" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -87,31 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test1.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/test1.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="239" column="5" lean-forward="false" selection-start-line="239" selection-start-column="5" selection-end-line="239" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Airport.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Airport.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="HelperMethods.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HelperMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="615">
-              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="210">
+              <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -138,7 +118,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>allFromTimed</find>
       <find>dateLocationConstraint</find>
       <find>allToBefore</find>
       <find>cost_sum</find>
@@ -168,6 +147,7 @@
       <find>last_flight</find>
       <find>connections_count</find>
       <find>isConnection</find>
+      <find>allToHome</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -224,10 +204,10 @@
         <option value="$PROJECT_DIR$/src/Triplet.java" />
         <option value="$PROJECT_DIR$/src/CPconstraints.java" />
         <option value="$PROJECT_DIR$/data/small_test.json" />
-        <option value="$PROJECT_DIR$/src/HelperMethods.java" />
         <option value="$PROJECT_DIR$/src/InstanceParser.java" />
-        <option value="$PROJECT_DIR$/src/IPsolver.java" />
         <option value="$PROJECT_DIR$/data/test_max_flights.json" />
+        <option value="$PROJECT_DIR$/src/HelperMethods.java" />
+        <option value="$PROJECT_DIR$/src/IPsolver.java" />
         <option value="$PROJECT_DIR$/src/CPsolver.java" />
       </list>
     </option>
@@ -336,7 +316,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="InstanceParser" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="data/small_test.json -cp -min -connections" />
+      <option name="PROGRAM_PARAMETERS" value="data/small_test.json -cp -min -connections -allOpt" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -952,12 +932,12 @@
       <workItem from="1484683056421" duration="205000" />
       <workItem from="1484738140237" duration="10666000" />
       <workItem from="1485025093868" duration="33350000" />
-      <workItem from="1485613909647" duration="37916000" />
+      <workItem from="1485613909647" duration="40185000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="300341000" />
+    <option name="totallyTimeSpent" value="302610000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -966,13 +946,13 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32699275" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252841" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40703124" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29296875" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1232,24 +1212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/HelperMethods.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="436" column="48" lean-forward="false" selection-start-line="436" selection-start-column="0" selection-end-line="437" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/test_max_flights.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="517">
@@ -1284,10 +1246,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/HelperMethods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="19" lean-forward="false" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="28" column="18" lean-forward="true" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="369" column="37" lean-forward="false" selection-start-line="369" selection-start-column="37" selection-end-line="369" selection-end-column="37" />
+        <state relative-caret-position="357">
+          <caret line="61" column="68" lean-forward="true" selection-start-line="60" selection-start-column="70" selection-end-line="61" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

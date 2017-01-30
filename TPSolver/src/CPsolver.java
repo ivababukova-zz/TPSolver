@@ -1,12 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import org.chocosolver.memory.IStateDouble;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.*;
 import org.chocosolver.solver.objective.ParetoOptimizer;
 import org.chocosolver.solver.variables.*;
-import org.chocosolver.solver.variables.impl.FixedIntVarImpl;
 
 /**
  * Created by ivababukova on 12/16/16.
@@ -14,68 +12,60 @@ import org.chocosolver.solver.variables.impl.FixedIntVarImpl;
  */
 public class CPsolver {
 
-    private ArrayList<Flight> flights; // all flights
-    private HelperMethods h;
-    private int T; // holiday time
-    private int B; // upper bound on the total flights cost
-    private String[] args;
+    ArrayList<Flight> flights; // all flights
+    HelperMethods h;
+    int T; // holiday time
+    int B; // upper bound on the total flights cost
+    String[] args;
     ArrayList<Tuple> tuples; // an array of (airport a, date d) that means that traveller must be at a at time d
     ArrayList<Triplet> triplets; // for hard constraint 1
-    private String solution;
 
     /** The main model without optimisations and hard and soft constraints: */
-    private Model model;
-    private Solver solver;
-    private IntVar[] S; // the flights schedule
-    private IntVar z; // the number of flights in the schedule
+    Model model;
+    Solver solver;
+    IntVar[] S; // the flights schedule
+    IntVar z; // the number of flights in the schedule
 
     /** Additional variables */
-    private IntVar[] C; // C[i] is equal to the cost of flight S[i]
-    private IntVar cost_sum; // the total cost of the flights schedule
+    IntVar[] C; // C[i] is equal to the cost of flight S[i]
+    IntVar cost_sum; // the total cost of the flights schedule
 
-    private IntVar trip_duration;
+    IntVar trip_duration;
 
-    private IntVar[] isConnection;
-    private IntVar connections_count; // the number of connection flights taken during the trip
+    IntVar[] isConnection;
+    IntVar connections_count; // the number of connection flights taken during the trip
 
     public CPsolver(
             ArrayList<Airport> as,
             ArrayList<Flight> fs,
-            int T,
-            int B,
-            String[] args,
-            ArrayList<Tuple> tuples,
-            ArrayList<Triplet> triplets
+            int holiday_time,
+            int ub,
+            String[] arguments,
+            ArrayList<Tuple> tups,
+            ArrayList<Triplet> tris
     ){
-        this.flights = fs;
-        this.T = T;
-        this.B = B;
-        this.h = new HelperMethods(as, fs);
-        this.args = args;
-        this.tuples = tuples;
-        this.triplets = triplets;
-        this.solution = "";
+        flights = fs;
+        T = holiday_time;
+        B = ub;
+        h = new HelperMethods(as, fs, T);
+        args = arguments;
+        tuples = tups;
+        triplets = tris;
     }
 
     private int init(){
-        this.model = new Model("TP CPsolver");
-        this.S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
-        this.z = model.intVar("End of schedule", 2, flights.size());
-        this.solver = model.getSolver();
+        model = new Model("TP CPsolver");
+        S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
+        z = model.intVar("End of schedule", 2, flights.size());
+        solver = model.getSolver();
+        C = model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5000000);
+        cost_sum = model.intVar(0, B); // the total cost of the trip
+        trip_duration = model.intVar(1, T);
+        connections_count = model.intVar(0, flights.size());
+        // array 0s and 1s. isConnection[i] = 1 if flight with id i+1 arrives at connection airport
+        isConnection = model.boolVarArray(flights.size() + 1);
 
-        this.C = this.model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5000000);
-        this.cost_sum = this.model.intVar(0, B); // the total cost of the trip
-
-        this.trip_duration = this.model.intVar(1, T);
-
-        this.connections_count = this.model.intVar(0, flights.size());
-        this.isConnection = this.model.boolVarArray(flights.size() + 1);
-
-        // the total cost of the trip is equal to the sum of the cost of all taken flights:
-        this.model.sum(C, "=", cost_sum).post();
-        this.model.sum(isConnection, "=", connections_count).post();
-
-        if (this.findSchedule() == 0) {
+        if (findSchedule() == 0) {
             return 0; // trivial failure
         }
         return 1;
@@ -88,9 +78,11 @@ public class CPsolver {
 
         model.member(S[0], from_home).post(); // trip property 1
 
-        this.model.arithm(S[1], "!=", 0).post(); // S can not be empty
-        this.model.arithm(C[0], "!=", 0).post();
-        this.model.arithm(connections_count, "<=", z).post();
+        model.arithm(S[1], "!=", 0).post(); // S can not be empty
+        model.arithm(connections_count, "<=", z).post();
+        // the total cost of the trip is equal to the sum of the cost of all taken flights:
+        model.sum(C, "=", cost_sum).post();
+        model.sum(isConnection, "=", connections_count).post(); // the number of connection flights
 
         int trip_property_5 = tripProperty5(); // impose trip property 5
         if (trip_property_5 == 0) {
@@ -98,13 +90,13 @@ public class CPsolver {
         }
 
         // if hc1 is required, impose it:
-        if (this.triplets != null) {
+        if (triplets != null) {
             System.out.println("Searching for solutions with HC1:");
             hardConstraint1();
         }
 
         // if hc2 is required, impose it:
-        if (this.tuples != null) {
+        if (tuples != null) {
             System.out.println("Searching for solutions with HC2 for following dates and destinations:");
             hardConstraint2();
         }
@@ -275,8 +267,8 @@ public class CPsolver {
                 tuples.size() + 1,
                 0,
                 flights.size());
-        this.model.arithm(D[0], "=", 0).post(); // D[0] is not important
-        this.model.allDifferent(D).post();
+        model.arithm(D[0], "=", 0).post(); // D[0] is not important
+        model.allDifferent(D).post();
         int index = 1;
         for (Tuple tup : this.tuples) {
             Airport a = tup.getA();
@@ -364,7 +356,7 @@ public class CPsolver {
                 isOptimalSearch += 1;
             }
             if (arg.equals("-connections")) {
-                System.out.println("the number of flights to connection airports:");
+                System.out.println("number of flights to connection airports:");
                 to_optimise[objSize] = this.connections_count;
                 objSize ++;
                 isOptimalSearch += 1;
@@ -386,7 +378,7 @@ public class CPsolver {
             System.out.println("\nNot enough arguments provided");
             return "";
         } else if (objSize > 1) {
-            this.multiobjective(new IntVar[] {this.cost_sum, this.trip_duration}, m);
+            multiobjective(new IntVar[] {cost_sum, trip_duration}, m);
         }
         return getStats();
     }
@@ -402,10 +394,10 @@ public class CPsolver {
     }
 
     private String getStats() {
-        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                "   cpu: " + solver.getMeasures().getTimeCount());
-        return this.solution + "nodes: " + solver.getMeasures().getNodeCount() +
+        String stats = "nodes: " + solver.getMeasures().getNodeCount() +
                 "   cpu: " + solver.getMeasures().getTimeCount();
+        System.out.println(stats);
+        return stats;
     }
 
     private void returnOneOptimal(Boolean m, IntVar to_optimise, Boolean isVerbose) {
@@ -432,33 +424,13 @@ public class CPsolver {
         for (int i = 0; i < x.getIntVal(z); i++) {
             String nextVar = x.getIntVal(S[i]) + " ";
             System.out.print("  Flight with id " + nextVar);
-            this.solution += nextVar;
             System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
             System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
             System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 10);
             System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
         }
-        String tripDuration = "  Trip duration: " + (x.getIntVal(trip_duration) / 10.0);
-        String totalCost = " Total cost: " + (x.getIntVal(cost_sum) / 100.0);
-        String connCount = " Number of connections: " + (x.getIntVal(connections_count)) + "\n";
-        System.out.print(tripDuration);
-        System.out.print(totalCost);
-        System.out.println(connCount);
-        this.solution += tripDuration + connCount + totalCost;
+        System.out.print("  Trip duration: " + (x.getIntVal(trip_duration) / 10.0));
+        System.out.print(" Total cost: " + (x.getIntVal(cost_sum) / 100.0));
+        System.out.println(" Number of connections: " + (x.getIntVal(connections_count)) + "\n");
     }
-
-    // call this function when no flights to connection airports are allowed
-    private void removeConnections(){
-        ArrayList<Flight> newflights = new ArrayList<>();
-        for(Flight f: this.flights) {
-            if (!f.arr.purpose.equals("connection") && !f.dep.purpose.equals("connection")) newflights.add(f);
-        }
-        this.flights = newflights;
-        for (Flight f: newflights) {
-            System.out.print(f.dep.name + f.arr.name + " ");
-        }
-        System.out.println();
-    }
-
-
 }

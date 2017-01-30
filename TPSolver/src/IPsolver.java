@@ -33,7 +33,7 @@ public class IPsolver {
         this.airports = as;
         this.T = T;
         this.B = B;
-        this.h = new HelperMethods(as, fs);
+        this.h = new HelperMethods(as, fs, T);
         this.solution = "";
         this.addSpecialFlight();
         this.args = args;
