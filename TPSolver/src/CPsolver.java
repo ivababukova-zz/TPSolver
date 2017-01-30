@@ -200,12 +200,13 @@ public class CPsolver {
     /*** HARD CONSTRAINT 1 CODE ***/
     private void hardConstraint1(){
         System.out.println("Searching for solutions with HC1:");
-        IntVar[] D = model.intVarArray("Destinations with hard constr 1",
+        IntVar[] D = model.intVarArray(
+                "Destinations with hard constr 1",
                 triplets.size() + 1,
                 0,
                 flights.size());
-        this.model.arithm(D[0], "=", 0).post(); // D[0] is not important
-        this.model.allDifferent(D).post();
+        model.arithm(D[0], "=", 0).post(); // D[0] is not important
+        model.allDifferent(D).post();
         int index = 1;
         for (Triplet tri : this.triplets) {
             Airport a = tri.getA();
@@ -225,7 +226,7 @@ public class CPsolver {
                     model.member(S[i-1], all_to)
             );
             for (int prev : all_to) {
-                int[] next = h.arrayToint(h.allowedNextFlightHC1(h.getFlightByID(prev), lb, ub));
+                int[] next = h.allowedNextFlightsHC1(prev, lb, ub);
                 model.ifThen(
                         model.arithm(S[i-1], "=", prev),
                         model.member(S[i], next)
@@ -274,7 +275,7 @@ public class CPsolver {
     }
 
     /*** end of hard constraint 2 code ***/
-    
+
 
     public String getSolution() {
         if (init() == 0) {
@@ -288,14 +289,13 @@ public class CPsolver {
             }
             else {
                 System.out.println("A solution:");
-                printSolution(x, false);
+                printSolution(x);
             }
             return getStats();
         }
         Boolean m = null;
         IntVar[] to_optimise = new IntVar[4];
         int objSize = 0;
-        Boolean isVerbose = false;
         int isOptimalSearch = 0;
 
         for (String arg : args) {
@@ -334,17 +334,17 @@ public class CPsolver {
             }
             if (arg.equals("-allOpt")) {
                 System.out.println("All optimal solutions are:");
-                printAllSols(solver.findAllOptimalSolutions(to_optimise[0], m), isVerbose);
+                printAllSols(solver.findAllOptimalSolutions(to_optimise[0], m));
                 return getStats();
             }
             if (arg.equals("-all")) {
                 System.out.println("All solutions are:");
-                printAllSols(solver.findAllSolutions(), isVerbose);
+                printAllSols(solver.findAllSolutions());
                 return getStats();
             }
         }
         if (isOptimalSearch == 2 && objSize == 1) {
-            returnOneOptimal(m, to_optimise[0], isVerbose);
+            returnOneOptimal(m, to_optimise[0]);
         } else if (isOptimalSearch == 1) {
             System.out.println("\nNot enough arguments provided");
             return "";
@@ -360,7 +360,7 @@ public class CPsolver {
         solver.plugMonitor(po);
         while (solver.solve()) {
             List<Solution> paretoFront = po.getParetoFront();
-            printAllSols(paretoFront, false);
+            printAllSols(paretoFront);
         }
     }
 
@@ -371,22 +371,22 @@ public class CPsolver {
         return stats;
     }
 
-    private void returnOneOptimal(Boolean m, IntVar to_optimise, Boolean isVerbose) {
+    private void returnOneOptimal(Boolean m, IntVar to_optimise) {
         Solution x = solver.findOptimalSolution(to_optimise, m);
         if (x == null) {
             System.out.println("No optimal solution was found");
             return;
         }
-        printSolution(x, isVerbose);
+        printSolution(x);
     }
 
-    private void printAllSols(List<Solution> solutions, Boolean isVerbose) {
+    private void printAllSols(List<Solution> solutions) {
         for (Solution sol : solutions) {
-            if (sol != null) printSolution(sol, isVerbose);
+            if (sol != null) printSolution(sol);
         }
     }
 
-    private void printSolution(Solution x, Boolean isVerbose) {
+    private void printSolution(Solution x) {
         System.out.print("  ");
         for (int i = 0; i < x.getIntVal(z); i++) {
             System.out.print(x.getIntVal(S[i]) + " ");

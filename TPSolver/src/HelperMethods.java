@@ -53,8 +53,9 @@ public class HelperMethods {
         return froma;
     }
 
-    public ArrayList<Integer> allowedNextFlightHC1(Flight f, double lb, double up) {
+    public int[] allowedNextFlightsHC1(int prev, double lb, double up) {
         ArrayList<Integer> froma = new ArrayList<>();
+        Flight f = getFlightByID(prev);
         Airport dep = f.arr;
         for (Flight fl: flights) {
             if (fl.dep == dep && fl.date > f.date) {
@@ -64,7 +65,7 @@ public class HelperMethods {
                 }
             }
         }
-        return froma;
+        return arrayToint(froma);
     }
 
     public ArrayList<Integer> allToBefore(Airport a, double date) {
