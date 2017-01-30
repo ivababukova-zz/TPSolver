@@ -139,7 +139,7 @@ public class IPsolver {
     private void tripProperty1() throws GRBException {
         GRBLinExpr expr1, expr2;
         Airport a0 = h.getHomePoint();
-        ArrayList<Integer> from_home = h.allFrom(a0);
+        ArrayList<Integer> from_home = h.allFromAirport(a0);
         expr1 = new GRBLinExpr();
         expr2 = new GRBLinExpr();
         for (int j = 0; j < m; j++) {
@@ -156,8 +156,8 @@ public class IPsolver {
     private void tripProperty2() throws GRBException {
         GRBLinExpr expr1, expr2;
         for (Airport a: this.airports) {
-            ArrayList<Integer> all_to = h.allTo(a);
-            ArrayList<Integer> all_from = h.allFrom(a);
+            ArrayList<Integer> all_to = h.allToAirport(a);
+            ArrayList<Integer> all_from = h.allFromAirport(a);
             for (int i = 1; i < m; i++) {
                 expr1 = new GRBLinExpr();
                 expr2 = new GRBLinExpr();
@@ -191,7 +191,7 @@ public class IPsolver {
         GRBLinExpr expr;
         ArrayList<Airport> D =  h.getDestinations();
         for (Airport d : D) {
-            ArrayList<Integer> all_to = h.allTo(d);
+            ArrayList<Integer> all_to = h.allToAirport(d);
             expr = new GRBLinExpr();
             for(int i = 0; i < n; i++) {
                 for (int j : all_to) {
@@ -229,7 +229,7 @@ public class IPsolver {
     // minimise or maximise the duration of the trip
     private void tripDurationObj(Boolean toMinimise) throws GRBException {
         Airport a0 = h.getHomePoint();
-        ArrayList<Integer> toHome = h.allTo(a0);
+        ArrayList<Integer> toHome = h.allToAirport(a0);
         int dummy = toHome.size() - 1;
         toHome.remove(dummy);
         GRBVar[][] Y = createNarray(n - 1, toHome.size());

@@ -15,13 +15,6 @@ public class HelperMethods {
         this.T = T;
     }
 
-    public Airport getAirportByName(String name){
-        for (Airport a : this.airports) {
-            if (a.name.equals(name)) return a;
-        }
-        return null;
-    }
-
     public Airport getHomePoint(){
         for (Airport a: this.airports) {
             if(a.purpose.equals("home_point")) return a;
@@ -37,28 +30,8 @@ public class HelperMethods {
         return null;
     }
 
-    public ArrayList<Integer> allTo(Airport a) {
-        ArrayList<Integer> toa = new ArrayList<>();
-        for (Flight f: flights) {
-            if (f.arr == a) {
-                toa.add(f.id);
-            }
-        }
-        return toa;
-    }
-
-    public ArrayList<Integer> allToBefore(Airport a, double date) {
-        ArrayList<Integer> toa = new ArrayList<>();
-        for (Flight f: flights) {
-            if (f.arr == a && (f.date + f.duration + a.conn_time) <= date) {
-                toa.add(f.id);
-            }
-        }
-        return toa;
-    }
-
     // this containts trip property 4
-    public ArrayList<Integer> allToHome(Airport a, float T) {
+    public ArrayList<Integer> allToAirport(Airport a) {
         ArrayList<Integer> toa = new ArrayList<>();
         for (Flight f: flights) {
             double time = f.date + f.duration;
@@ -69,10 +42,11 @@ public class HelperMethods {
         return toa;
     }
 
-    public ArrayList<Integer> allFrom(Airport a) {
+    public ArrayList<Integer> allFromAirport(Airport a) {
         ArrayList<Integer> froma = new ArrayList<>();
         for (Flight f: flights) {
-            if (f.dep == a) {
+            double time = f.date + f.duration;
+            if (f.dep == a && time <= T) {
                 froma.add(f.id);
             }
         }
@@ -80,19 +54,27 @@ public class HelperMethods {
     }
 
     public ArrayList<Integer> allowedNextFlightHC1(Flight f, double lb, double up) {
-//        System.out.println("\n" + f.id + " can go before: ");
         ArrayList<Integer> froma = new ArrayList<>();
         Airport dep = f.arr;
         for (Flight fl: flights) {
             if (fl.dep == dep && fl.date > f.date) {
                 double stay_time = fl.date - (f.date + f.duration + dep.conn_time);
                 if (stay_time >= lb && stay_time <= up) {
-//                    System.out.println(fl.id + " stay time: " + stay_time);
                     froma.add(fl.id);
                 }
             }
         }
         return froma;
+    }
+
+    public ArrayList<Integer> allToBefore(Airport a, double date) {
+        ArrayList<Integer> toa = new ArrayList<>();
+        for (Flight f: flights) {
+            if (f.arr == a && (f.date + f.duration + a.conn_time) <= date) {
+                toa.add(f.id);
+            }
+        }
+        return toa;
     }
 
     public ArrayList<Integer> allFromAfter(Airport a, double date) {
@@ -107,7 +89,7 @@ public class HelperMethods {
         return froma;
     }
 
-    public ArrayList<Integer> allFromTimedConn(Flight fl) {
+    public ArrayList<Integer> allowedNextFlights(Flight fl) {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
         Airport a = fl.arr;
         double connTime = a.conn_time;
@@ -120,7 +102,7 @@ public class HelperMethods {
         return allowedFlights;
     }
 
-    public ArrayList<Integer> allFromTimed(Flight fl) {
+    public ArrayList<Integer> allowedLastFlights(Flight fl) {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
         Airport a = fl.arr;
         for (Flight f: flights) {

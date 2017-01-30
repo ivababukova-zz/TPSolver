@@ -62,61 +62,41 @@ public class CPsolver {
         cost_sum = model.intVar(0, B); // the total cost of the trip
         trip_duration = model.intVar(1, T);
         connections_count = model.intVar(0, flights.size());
-        // array 0s and 1s. isConnection[i] = 1 if flight with id i+1 arrives at connection airport
-        isConnection = model.boolVarArray(flights.size() + 1);
+        isConnection = model.boolVarArray(flights.size() + 1); // isConnection[i] = 1 if flight i+1 is connecting
 
-        if (findSchedule() == 0) {
-            return 0; // trivial failure
-        }
+        if (findSchedule() == 0) return 0; // trivial failure
         return 1;
     }
 
     private int findSchedule() {
         Airport a0 = h.getHomePoint(); // the home point
-        int[] to_home = h.arrayToint(h.allToHome(a0, this.T)); // all flights departing from a0
-        int[] from_home = h.arrayToint(h.allFrom(a0)); // all flights arriving at a0
+        int[] to_home = h.arrayToint(h.allToAirport(a0)); // all flights arriving from a0
+        int[] from_home = h.arrayToint(h.allFromAirport(a0)); // all flights departing from a0
 
         model.member(S[0], from_home).post(); // trip property 1
-
         model.arithm(S[1], "!=", 0).post(); // S can not be empty
         model.arithm(connections_count, "<=", z).post();
-        // the total cost of the trip is equal to the sum of the cost of all taken flights:
-        model.sum(C, "=", cost_sum).post();
+        model.sum(C, "=", cost_sum).post(); // the trip cost = the sum of the cost of all taken flights:
         model.sum(isConnection, "=", connections_count).post(); // the number of connection flights
 
-        int trip_property_5 = tripProperty5(); // impose trip property 5
-        if (trip_property_5 == 0) {
-            return 0; // trivial failure
-        }
-
-        // if hc1 is required, impose it:
-        if (triplets != null) {
-            System.out.println("Searching for solutions with HC1:");
-            hardConstraint1();
-        }
-
-        // if hc2 is required, impose it:
-        if (tuples != null) {
-            System.out.println("Searching for solutions with HC2 for following dates and destinations:");
-            hardConstraint2();
-        }
+        if (tripProperty5() == 0) return 0; // trivial failure
+        if (triplets != null) hardConstraint1(); // if hc1 is required, impose it
+        if (tuples != null) hardConstraint2(); // if hc2 is required, impose it
 
         for(int i = 1; i <= flights.size(); i++) {
             Flight f = h.getFlightByID(i);
             tripProperties2and3and4(f); // impose trip properties 2, 3 and 4
             sequenceConstraints(i, to_home, f); // impose valid sequence rules
             costAndConnectionsCountConstraints(i);
-            lastFlightConstr(i);
+            lastFlightConstraint(i);
         }
-
         this.model.allDifferentExcept0(S).post(); // the same flight can be taken only once
         return 1;
     }
 
-    private void lastFlightConstr (int i) {
+    private void lastFlightConstraint(int i) {
         for (int j = 1; j <= flights.size(); j++) {
             Flight f = h.getFlightByID(j);
-
             model.ifThen(
                     model.and(
                             model.arithm(z, "=", i),
@@ -129,15 +109,13 @@ public class CPsolver {
 
     // set the values of C
     private void costAndConnectionsCountConstraints(int i){
-        int cost = (int) h.getFlightByID(i).cost;
-        int[] allConnectionFlights = h.arrayToint(h.allConnectionFlights());
         for (int j = 0; j <= flights.size(); j++) {
             this.model.ifThen(
                     model.arithm(S[j], "=", i),
-                    model.arithm(C[j], "=", cost)
+                    model.arithm(C[j], "=", (int) h.getFlightByID(i).cost)
             );
             model.ifThenElse(
-                        model.member(S[j], allConnectionFlights),
+                        model.member(S[j], h.arrayToint(h.allConnectionFlights())),
                         model.arithm(isConnection[j], "=", 1),
                         model.arithm(isConnection[j], "=", 0)
             );
@@ -146,26 +124,23 @@ public class CPsolver {
 
     // enforces trip properties 2, 3 and 4
     private void tripProperties2and3and4(Flight f){
-        ArrayList<Integer> af_conn = h.allFromTimedConn(f);
-        ArrayList<Integer> af = h.allFromTimed(f);
+        int[] allowed_next = h.arrayToint(h.allowedNextFlights(f)); // trip property 3
+        int[] allowed_last = h.arrayToint(h.allowedLastFlights(f)); // trip property 4
 
-        int[] all_from_conn = h.arrayToint(af_conn); // for trip property 3
         // todo there is no need to enforce trip property 4, it is already enforced
         // when last flight is constrained to arrive at the home point
-        int[] all_from = h.arrayToint(af); // for trip property 4
-
         for (int j = 1; j < flights.size(); j++) {
             model.ifThen(
                     model.and(
                             model.arithm(S[j-1],"=", f.id),
                             model.arithm(z, ">", j+1)),
-                    model.member(S[j], all_from_conn)
+                    model.member(S[j], allowed_next)
             );
             model.ifThen(
                     model.and(
                             model.arithm(S[j-1],"=", f.id),
                             model.arithm(z, "=", j+1)),
-                    model.member(S[j], all_from)
+                    model.member(S[j], allowed_last)
             );
         }
     }
@@ -173,7 +148,7 @@ public class CPsolver {
     // all destinations must be visited
     private int tripProperty5(){
         for (Airport d: h.getDestinations()) {
-            int[] all_to = h.arrayToint(h.allTo(d)); // all flights that fly to d
+            int[] all_to = h.arrayToint(h.allToAirport(d)); // all flights that fly to d
             if (all_to.length == 0) {
                 System.out.println("It is impossible to visit destination " + d.name + ".\nThe instance has no solution.");
                 return 0;
@@ -224,6 +199,7 @@ public class CPsolver {
 
     /*** HARD CONSTRAINT 1 CODE ***/
     private void hardConstraint1(){
+        System.out.println("Searching for solutions with HC1:");
         IntVar[] D = model.intVarArray("Destinations with hard constr 1",
                 triplets.size() + 1,
                 0,
@@ -242,7 +218,7 @@ public class CPsolver {
     }
 
     private void hc1(IntVar[] D, Airport a, double lb, double ub, int index) {
-        int[] all_to = h.arrayToint(h.allTo(a));
+        int[] all_to = h.arrayToint(h.allToAirport(a));
         for (int i = 1; i <= flights.size(); i++) {
             model.ifThen(
                     model.arithm(D[index], "=", i),
@@ -262,6 +238,7 @@ public class CPsolver {
 
     /*** HARD CONSTRAINT 2 CODE ***/
     private void hardConstraint2(){
+        System.out.println("Searching for solutions with HC2 for following dates and destinations:");
         IntVar[] D = model.intVarArray(
                 "Destinations with hard constr 2",
                 tuples.size() + 1,
@@ -297,13 +274,7 @@ public class CPsolver {
     }
 
     /*** end of hard constraint 2 code ***/
-
-
-
-    /*** HARD CONSTRAINT 3 CODE ***/
-
-
-    /*** end of hard constraint 3 code ***/
+    
 
     public String getSolution() {
         if (init() == 0) {
