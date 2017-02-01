@@ -1,11 +1,7 @@
-import gnu.trove.impl.sync.TSynchronizedRandomAccessIntList;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
 import org.json.simple.parser.*;
-
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,7 +27,7 @@ public class InstanceParser {
         readJsonFile(args);
     }
 
-    private static void readJsonFile(String[] args) throws IOException, ParseException {
+    static void readJsonFile(String[] args) throws IOException, ParseException {
         filename = args[0];
 
         JSONParser p = new JSONParser();
@@ -42,7 +38,7 @@ public class InstanceParser {
         JSONArray jtuples = (JSONArray) jobj.get("hard_constraint_2");
         JSONArray jtriplets = (JSONArray) jobj.get("hard_constraint_1");
 
-        T = ((Number)jobj.get("holiday_time")).intValue();
+        T = ((Number)jobj.get("holiday_time")).intValue() * 100;
         createAirports(jairports);
         flights = createFlights(jflights);
         ArrayList<Tuple> tuples = null;
@@ -51,81 +47,50 @@ public class InstanceParser {
             if (jtuples != null && args[2].equals("-hc2")) tuples = createHC2(jtuples);
             if (jtriplets != null && args[2].equals("-hc1")) triplets = createHC1(jtriplets);
         }
-        String solFileName = "";
-        String solution = "";
         if (args[1].equals("-cp")) {
-            modifyData();
-            CPsolver s = new CPsolver(airports, flights, T*10, B*100, args, tuples, triplets);
-            solFileName = getSolFileName("cp");
-            solution = s.getSolution();
+            CPsolver s = new CPsolver(airports, flights, T, B, args, tuples, triplets);
+            s.getSolution();
         }
         else if (args[1].equals("-ip")) {
             IPsolver s = new IPsolver(airports, flights, T, B, args);
-            solFileName = getSolFileName("ip");
-            solution = s.getSolution();
+            s.getSolution();
         }
-        else {
-            printUsageEclipse();
-            return;
-        }
-//        writeSolutionToFile(solFileName, solution);
+        else printUsageEclipse();
     }
 
-    private static String getSolFileName(String model) {
-        String[] filenameParts = filename.split("/");
-        String parentFolders = "";
-        for (int i = 0; i < filenameParts.length - 1; i++) {
-            parentFolders += filenameParts[i] + "/";
-        }
-        String name = filenameParts[filenameParts.length - 1];
-        filenameParts = name.split("\\.");
-
-        String finalName = parentFolders + "solutions/" + model + "/" + filenameParts[0] + ".sol";
-//        System.out.println("Solution will be saved in file " + finalName + "\n");
-        return finalName;
-    }
-
-    private static void writeSolutionToFile(String solFileName, String solutions) throws IOException {
-        FileWriter fw = new FileWriter(solFileName);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(solutions);
-        bw.close();
-        fw.close();
-    }
-
-    private static ArrayList<Flight> createFlights(JSONArray jflights){
+    static ArrayList<Flight> createFlights(JSONArray jflights){
         ArrayList<Flight> flights = new ArrayList<>();
         for(int i = 0; i < jflights.size(); i++) {
             JSONObject flight = (JSONObject) jflights.get(i);
             int id = ((Number)flight.get("id")).intValue();
             Airport dep = getByName((String) flight.get("dep_airport"));
             Airport arr = getByName((String) flight.get("arr_airport"));
-            double date = ((Number)flight.get("date")).doubleValue();
-            double duration = ((Number)flight.get("duration")).doubleValue();
-            double price = ((Number)flight.get("price")).doubleValue();
+            double date = ((Number)flight.get("date")).doubleValue() * 100;
+            double duration = ((Number)flight.get("duration")).doubleValue() * 100;
+            double price = ((Number)flight.get("price")).doubleValue() * 100;
             Flight f = new Flight(id, dep, arr, date, duration, price);
             flights.add(f);
         }
         return flights;
     }
 
-    private static void createAirports(JSONArray jairports) {
+    static void createAirports(JSONArray jairports) {
         for (int i = 0; i < jairports.size(); i++) {
             JSONObject airport = (JSONObject) jairports.get(i);
             String name = (String) airport.get("name");
-            double conn_time = ((Number)airport.get("connection_time")).doubleValue();
+            double conn_time = ((Number)airport.get("connection_time")).doubleValue() * 100;
             String purpose = (String) airport.get("purpose");
             Airport a = new Airport(name, conn_time, purpose);
             airports.add(a);
         }
     }
 
-    private static ArrayList<Tuple> createHC2 (JSONArray jtuples) {
+    static ArrayList<Tuple> createHC2 (JSONArray jtuples) {
         ArrayList<Tuple> tuples = new ArrayList<>();
         for (int i = 0; i < jtuples.size(); i++) {
             JSONObject tuple = (JSONObject) jtuples.get(i);
             Airport a = getByName((String) tuple.get("airport"));
-            double date = ((Number)tuple.get("date")).doubleValue() * 10;
+            double date = ((Number)tuple.get("date")).doubleValue() * 100;
             Tuple t = new Tuple(a, date);
             tuples.add(t);
         }
@@ -137,8 +102,8 @@ public class InstanceParser {
         for (int i = 0; i < jtriplets.size(); i++) {
             JSONObject triplet = (JSONObject) jtriplets.get(i);
             Airport a = getByName((String) triplet.get("airport"));
-            double lb = ((Number)triplet.get("lb")).doubleValue() * 10;
-            double ub = ((Number)triplet.get("ub")).doubleValue() * 10;
+            double lb = ((Number)triplet.get("lb")).doubleValue() * 100;
+            double ub = ((Number)triplet.get("ub")).doubleValue() * 100;
             Triplet tr = new Triplet(a, lb, ub);
             triplets.add(tr);
         }
@@ -153,18 +118,7 @@ public class InstanceParser {
         return null;
     }
 
-    private static void modifyData(){
-        for(Flight f: flights){
-            f.cost = f.cost*100;
-            f.duration = f.duration*10;
-            f.date = f.date*10;
-        }
-        for(Airport a: airports) {
-            a.conn_time = a.conn_time*10;
-        }
-    }
-
-    private static void printUsageJar() {
+    public static void printUsageJar() {
         System.out.println("Usage:\n    java -jar TPSolver1.jar <filename> -cp [-options]");
         System.out.println("Where:\n    <filename> is the relative path to and the name of the TP instance");
         System.out.println(        "               you want to solve, which must be a .json file, containing");
@@ -192,7 +146,7 @@ public class InstanceParser {
     }
 
 
-    private static void printUsageEclipse() {
+    public static void printUsageEclipse() {
         System.out.println("Usage with Eclipse:"
                 + "\n  1. Go to \"Run/Run Configurations ...\""
                 + "\n  2. Click on \"Arguments\" and add to \"program arguments\" <filename> <model> [-options],");

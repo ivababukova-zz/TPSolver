@@ -259,7 +259,7 @@ public class CPsolver {
 
     // hard constraint 2
     private void dateLocationConstraint(IntVar[] D, Airport a, double date, int index) {
-        System.out.println("Be at destination " + a.name + " at date " + date/10);
+        System.out.println("Be at destination " + a.name + " at date " + date/100);
         int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
         int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
 
@@ -346,7 +346,8 @@ public class CPsolver {
         if (isOptimalSearch == 2 && objSize == 1) {
             returnOneOptimal(m, to_optimise[0]);
         } else if (isOptimalSearch == 1) {
-            System.out.println("\nNot enough arguments provided");
+            System.out.println("\nNot enough arguments provided\n");
+            InstanceParser.printUsageEclipse();
             return "";
         } else if (objSize > 1) {
             multiobjective(new IntVar[] {cost_sum, trip_duration}, m);
@@ -397,10 +398,10 @@ public class CPsolver {
             System.out.print("  Flight with id " + nextVar);
             System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
             System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
-            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 10);
+            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 100);
             System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
         }
-        System.out.print("  Trip duration: " + (x.getIntVal(trip_duration) / 10.0));
+        System.out.print("  Trip duration: " + (x.getIntVal(trip_duration) / 100.0));
         System.out.print(" Total cost: " + (x.getIntVal(cost_sum) / 100.0));
         System.out.println(" Number of connections: " + (x.getIntVal(connections_count)) + "\n");
     }
