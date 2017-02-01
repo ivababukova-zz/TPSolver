@@ -1,5 +1,4 @@
 import gurobi.*;
-import org.chocosolver.solver.variables.IntVar;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -16,32 +15,24 @@ public class IPsolver {
     private int T;
     private int B; // upper bound on the cost
     private int m;
-    private String solution;
     private String[] args;
 
     GRBEnv env;
     GRBModel model;
     GRBVar[][] S;
-    GRBVar[][] N;
 
     public IPsolver(
             ArrayList<Airport> as,
             ArrayList<Flight> fs,
-            int T,
-            int B,
-            String[] args
+            int Time,
+            int Bound,
+            String[] argsss
             ) {
-        this.flights = fs;
-        this.airports = as;
-        this.T = T;
-        this.B = B;
-        this.h = new HelperMethods(as, fs, T);
-        this.solution = "";
-        this.addSpecialFlight();
-        this.args = args;
+        flights = fs; airports = as; T = Time; B = Bound; args = argsss;
+        h = new HelperMethods(as, fs, T); addSpecialFlight();
     }
 
-    public String getSolution() throws IOException {
+    public void getSolution() throws IOException {
         try {
             env = new GRBEnv("tp.log");
             model = new GRBModel(env);
@@ -56,25 +47,20 @@ public class IPsolver {
                 }
             }
 
-            /*** Add constraints ***/
+            /*** All Constraints ***/
             model.addConstr(S[m-1][m-1], GRB.EQUAL, 1.0, "End with special flight");
 
-            this.matrixContraints();
-            this.tripProperty1();
-            this.tripProperty2();
-            this.tripProperties3and4();
-            this.tripProperty5();
-            this.setObjectiveFunction();
+            matrixConstraints();
+            tripProperty1();
+            tripProperty2();
+            tripProperties3and4();
+            tripProperty5();
+            setObjectiveFunction();
 
-            model.getEnv().set("OutputFlag", "0"); // set to 1 to get gurobi custom output
-            // Optimize model
+            model.getEnv().set("OutputFlag", "0"); // set to 1 to get Gurobi custom output
             model.optimize();
-//            this.debugModel();
-
-            // Print and return solution
+            debugModel();
             printAllSolutions();
-
-            // Dispose of model and environment
             model.dispose();
             env.dispose();
 
@@ -82,10 +68,9 @@ public class IPsolver {
             System.out.println("Error code: " + e.getErrorCode() + ". " +
                     e.getMessage());
         }
-        return this.solution;
     }
 
-    private void matrixContraints() throws GRBException {
+    private void matrixConstraints() throws GRBException {
         GRBLinExpr expr;
 
         // there must be 1 in only one row in the matrix
@@ -108,10 +93,10 @@ public class IPsolver {
             model.addConstr(expr, GRB.LESS_EQUAL, 1.0, s1);
         }
 
-        this.specialFlightConstr();
+        this.specialFlightConstraints();
     }
 
-    private void specialFlightConstr() throws GRBException{
+    private void specialFlightConstraints() throws GRBException{
         GRBLinExpr expr, expr1, expr2;
 
         // there can be more than one special flight scheduled
@@ -192,7 +177,7 @@ public class IPsolver {
         }
     }
 
-    /*** Objective functions for optimisation ***/
+    /*** Objective functions ***/
 
     // minimise or maximise the cost of the trip
     private void costObj(Boolean toMinimise) throws GRBException {
@@ -251,7 +236,7 @@ public class IPsolver {
 
     // helper function for trip duration optimisation
     private GRBVar[][] createNarray(int size1, int size2) throws GRBException {
-        N = new GRBVar[size1][size2];
+        GRBVar[][] N = new GRBVar[size1][size2];
         System.out.println("Number of to home flights: " + size2);
         for (int i = 0; i < size1; i++) {
             for (int j = 0; j < size2; j++) {
@@ -280,7 +265,7 @@ public class IPsolver {
 
     private Boolean allRequired() {
         for (String arg: args) {
-            if (arg.equals("-allOpt")) return true;
+            if (arg.equals("-allOpt") || arg.equals("-all")) return true;
         }
         return false;
     }
@@ -321,7 +306,7 @@ public class IPsolver {
                 objectives.add("-connections");
                 connectionsObj(isMin);
             }
-            if (str.equals("-hc1") || str.equals("-hc2") || str.equals("-all")) {
+            if (str.equals("-hc1") || str.equals("-hc2")) {
                 System.out.println("\nThere is no support for this option: " + str + ". I will return a solution with minimum cost instead.");
                 costObj(true);
             }
@@ -364,15 +349,8 @@ public class IPsolver {
     private void printSolution(double[][] x) throws GRBException {
         double cost = 0;
 
-        System.out.println();
         for (int i = 0; i < m; i++) {
-            for (int j = 0; j < m; j++) {
-                if (x[i][j] > 0.5 && j != m-1) {
-                    String flightMssg = (j+1) + " ";
-                    System.out.print(flightMssg);
-                    this.solution += flightMssg;
-                }
-            }
+            for (int j = 0; j < m; j++) if (x[i][j] > 0.5 && j != m-1) System.out.print((j+1) + " ");
         }
 
         System.out.println();
@@ -381,37 +359,33 @@ public class IPsolver {
                 if (x[i][j] > 0.5 && j != m-1) {
                     cost = cost + h.getFlightByID(j+1).cost;
                     System.out.println(
-                            MessageFormat.format(
+                        MessageFormat.format(
                             "Flight with id {0} from {1} to {2} on date: {3} costs: {4}",
-                                    (j+1),
-                                    h.getFlightByID(j + 1).dep.name,
-                                    h.getFlightByID(j + 1).arr.name,
-                                    h.getFlightByID(j + 1).date / 100,
-                                    h.getFlightByID(j + 1).cost / 100
-                            )
+                            (j+1),
+                            h.getFlightByID(j + 1).dep.name,
+                            h.getFlightByID(j + 1).arr.name,
+                            h.getFlightByID(j + 1).date / 100,
+                            h.getFlightByID(j + 1).cost / 100
+                        )
                     );
                 }
             }
         }
-        String costMssg = "Total cost: " + cost / 100;
-        System.out.println(costMssg);
-        this.solution += costMssg + "\n";
+        System.out.println("Total cost: " + cost / 100);
     }
 
     private void debugModel() throws GRBException {
         int status = model.get(GRB.IntAttr.Status);
         if (status == GRB.Status.UNBOUNDED) {
-            System.out.println("The model cannot be solved "
-                    + "because it is unbounded");
+            System.out.println("The model cannot be solved because it is unbounded");
             return;
         }
         if (status == GRB.Status.OPTIMAL) {
-            System.out.println("The optimal objective is " +
-                    model.get(GRB.DoubleAttr.ObjVal));
+            System.out.println("The optimal objective is " + model.get(GRB.DoubleAttr.ObjVal));
             return;
         }
         if (status != GRB.Status.INF_OR_UNBD &&
-                status != GRB.Status.INFEASIBLE    ){
+                status != GRB.Status.INFEASIBLE){
             System.out.println("Optimization was stopped with status " + status);
             return;
         }
@@ -419,12 +393,9 @@ public class IPsolver {
         // Compute IIS
         System.out.println("The model is infeasible; computing IIS");
         model.computeIIS();
-        System.out.println("\nThe following constraint(s) "
-                + "cannot be satisfied:");
+        System.out.println("\nThe following constraint(s) cannot be satisfied:");
         for (GRBConstr c : model.getConstrs()) {
-            if (c.get(GRB.IntAttr.IISConstr) == 1) {
-                System.out.println(c.get(GRB.StringAttr.ConstrName));
-            }
+            if (c.get(GRB.IntAttr.IISConstr) == 1) System.out.println(c.get(GRB.StringAttr.ConstrName));
         }
     }
 
