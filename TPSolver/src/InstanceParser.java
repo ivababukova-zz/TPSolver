@@ -4,6 +4,7 @@ import org.json.simple.parser.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InstanceParser {
 
@@ -43,16 +44,18 @@ public class InstanceParser {
         flights = createFlights(jflights);
         ArrayList<Tuple> tuples = null;
         ArrayList<Triplet> triplets = null;
+        int offset = args.length - 2;
         if (args.length > 2 && args[1].equals("-cp")) {
             if (jtuples != null && args[2].equals("-hc2")) tuples = createHC2(jtuples);
             if (jtriplets != null && args[2].equals("-hc1")) triplets = createHC1(jtriplets);
         }
+        String[] new_args = Arrays.copyOfRange(args, offset, offset + 2);
         if (args[1].equals("-cp")) {
             CPsolver s = new CPsolver(airports, flights, T, B, args, tuples, triplets);
             s.getSolution();
         }
         else if (args[1].equals("-ip")) {
-            IPsolver s = new IPsolver(airports, flights, T, B, args);
+            IPsolver s = new IPsolver(airports, flights, T, B, new_args);
             s.getSolution();
         }
         else printUsageEclipse();

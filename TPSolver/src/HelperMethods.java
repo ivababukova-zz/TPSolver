@@ -117,16 +117,16 @@ public class HelperMethods {
 
     // this is for trip properties 3,4 for the IP model
     public ArrayList<Integer> disallowedPrev(int next_id) {
-        ArrayList<Integer> toa = new ArrayList<>();
+        ArrayList<Integer> forbidden = new ArrayList<>();
         Flight next = getFlightByID(next_id);
         double conn_time = getConnTimeIP(next);
         for (Flight prev : flights) {
             double arrival_prev = prev.date + prev.duration;
             if (arrival_prev + conn_time > next.date) {
-                toa.add(prev.id);
+                forbidden.add(prev.id);
             }
         }
-        return toa;
+        return forbidden;
     }
 
     // this is for trip properties 3,4 for the IP model
@@ -135,7 +135,7 @@ public class HelperMethods {
         if (f.arr == a0 && f.dep == a0 && f.duration == 0 && f.cost == 0) {
             return 0;
         }
-        return f.arr.conn_time;
+        return f.dep.conn_time;
     }
 
     public int[] arrayToint(ArrayList<Integer> arr){
