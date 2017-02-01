@@ -15,7 +15,7 @@ public class IPsolver {
     private HelperMethods h;
     private int T;
     private int B; // upper bound on the cost
-    private int m, n;
+    private int m;
     private String solution;
     private String[] args;
 
@@ -45,8 +45,7 @@ public class IPsolver {
         try {
             env = new GRBEnv("tp.log");
             model = new GRBModel(env);
-            this.n = flights.size() - 1;
-            this.m = n + 1; // add the extra flight
+            this.m = flights.size(); // add the extra flight
             // Create Xi,j
             S = new GRBVar[m][m];
 
@@ -58,7 +57,7 @@ public class IPsolver {
             }
 
             /*** Add constraints ***/
-            model.addConstr(S[n][n], GRB.EQUAL, 1.0, "End with special flight");
+            model.addConstr(S[m-1][m-1], GRB.EQUAL, 1.0, "End with special flight");
 
             this.matrixContraints();
             this.tripProperty1();
@@ -100,9 +99,9 @@ public class IPsolver {
         }
 
         // there must be 1 in at most one column that does not represent special flight
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j < m-1; j++) {
             expr = new GRBLinExpr();
-            for (int i = 0; i < n; i++) {
+            for (int i = 0; i < m-1; i++) {
                 expr.addTerm(1.0, S[i][j]);
             }
             String s1 = "C_" + String.valueOf(j);
@@ -118,7 +117,7 @@ public class IPsolver {
         // there can be more than one special flight scheduled
         expr = new GRBLinExpr();
         for (int i = 0; i < m; i++) {
-            expr.addTerm(1.0, S[i][n]);
+            expr.addTerm(1.0, S[i][m-1]);
         }
         model.addConstr(expr, GRB.GREATER_EQUAL, 1.0, "One or more special flights");
 
@@ -126,8 +125,8 @@ public class IPsolver {
         for (int i = 1; i < m; i++) {
             expr1 = new GRBLinExpr();
             expr2 = new GRBLinExpr();
-            expr1.addTerm(1.0, S[i-1][n]);
-            expr2.addTerm(1.0, S[i][n]);
+            expr1.addTerm(1.0, S[i-1][m-1]);
+            expr2.addTerm(1.0, S[i][m-1]);
             String s1 = "ValidSchedule_" + String.valueOf(i);
             model.addConstr(expr1, GRB.LESS_EQUAL, expr2, s1);
         }
@@ -165,7 +164,7 @@ public class IPsolver {
 
     private void tripProperties3and4() throws GRBException {
         GRBLinExpr expr;
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < m - 2; i++) {
             for (int next = 0; next < m; next++) {
                 expr = new GRBLinExpr();
                 ArrayList<Integer> disallowed_prev = h.disallowedPrev(next+1);
@@ -184,7 +183,7 @@ public class IPsolver {
         for (Airport d : D) {
             ArrayList<Integer> all_to = h.allToAirport(d);
             expr = new GRBLinExpr();
-            for(int i = 0; i < n; i++) {
+            for(int i = 0; i < m - 1; i++) {
                 for (int j : all_to) {
                     expr.addTerm(1.0, S[i][j-1]);
                 }
@@ -211,7 +210,7 @@ public class IPsolver {
     private void noFlightsObj(Boolean toMinimise) throws GRBException {
         GRBLinExpr expr = new GRBLinExpr();
         for (int i = 0; i < m; i++) {
-            expr.addTerm(1.0, S[i][n]);
+            expr.addTerm(1.0, S[i][m - 1]);
         }
         if (toMinimise) model.setObjective(expr, GRB.MAXIMIZE); // more dummy flights means less real flights
         else model.setObjective(expr, GRB.MINIMIZE); // more dummy flights means less real flights
@@ -223,10 +222,10 @@ public class IPsolver {
         ArrayList<Integer> toHome = h.allToAirport(a0);
         int dummy = toHome.size() - 1;
         toHome.remove(dummy);
-        GRBVar[][] Y = createNarray(n - 1, toHome.size());
+        GRBVar[][] Y = createNarray(m - 2, toHome.size());
         GRBLinExpr potentialLast;
         GRBLinExpr trip_duration = new GRBLinExpr();
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < m - 2; i++) {
             for (int j = 0; j < toHome.size(); j++) {
                 int fj = toHome.get(j) - 1;
                 // magic, equivalent to Y[i][nj] = S[i][fj] * S[i+1][n]
@@ -234,9 +233,9 @@ public class IPsolver {
                     // If Y[i][j] = 1, then S[i][fj] is the last flight and we add the sum of its date and duration
                 model.addConstr(Y[i][j], GRB.GREATER_EQUAL, 0, "");
                 model.addConstr(Y[i][j], GRB.LESS_EQUAL, S[i][fj], "");
-                model.addConstr(Y[i][j], GRB.LESS_EQUAL, S[i+1][n], "");
+                model.addConstr(Y[i][j], GRB.LESS_EQUAL, S[i+1][m - 1], "");
                 potentialLast = new GRBLinExpr();
-                potentialLast.addTerms(new double[] {1.0, 1.0}, new GRBVar[] {S[i][fj], S[i+1][n]});
+                potentialLast.addTerms(new double[] {1.0, 1.0}, new GRBVar[] {S[i][fj], S[i+1][m - 1]});
                 potentialLast.addConstant(-1);
                 // end of magic
 
@@ -263,7 +262,21 @@ public class IPsolver {
         return N;
     }
 
-     /*** end of objective functions code ***/
+    private void connectionsObj (Boolean toMinimise) throws GRBException {
+        ArrayList<Integer> allConnFlights = h.allConnectionFlights();
+        GRBLinExpr connections_count = new GRBLinExpr();
+
+        for (int i = 0; i < m - 1; i++) {
+            for (int j: allConnFlights) {
+                connections_count.addTerm(1.0, S[i][j-1]);
+            }
+        }
+
+        if (toMinimise) model.setObjective(connections_count, GRB.MINIMIZE);
+        else model.setObjective(connections_count, GRB.MAXIMIZE);
+    }
+
+    /*** end of objective functions code ***/
 
     private Boolean allRequired() {
         for (String arg: args) {
@@ -303,7 +316,12 @@ public class IPsolver {
                 objectives.add("-trip_duration");
                 tripDurationObj(isMin);
             }
-            if (str.equals("-hc1") || str.equals("-hc2") || str.equals("-all") || str.equals("-connections")) {
+            if (str.equals("-connections")) {
+                System.out.println("connection flights:\n");
+                objectives.add("-connections");
+                connectionsObj(isMin);
+            }
+            if (str.equals("-hc1") || str.equals("-hc2") || str.equals("-all")) {
                 System.out.println("\nThere is no support for this option: " + str + ". I will return a solution with minimum cost instead.");
                 costObj(true);
             }
@@ -324,7 +342,6 @@ public class IPsolver {
     }
 
     private void printAllSolutions() throws GRBException, IOException {
-        System.out.println();
         if (allRequired()) {
             // Limit the search space by setting a gap for the worst possible solution that will be accepted
             model.set(GRB.DoubleParam.PoolGap, 1);

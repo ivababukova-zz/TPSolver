@@ -27,13 +27,8 @@ public class CPsolver {
     IntVar z; // the number of flights in the schedule
 
     /** Additional variables */
-    IntVar[] C; // C[i] is equal to the cost of flight S[i]
-    IntVar cost_sum; // the total cost of the flights schedule
-
-    IntVar trip_duration;
-
-    IntVar[] isConnection;
-    IntVar connections_count; // the number of connection flights taken during the trip
+    IntVar[] C, isConnection; // C[i] is equal to the cost of flight S[i]
+    IntVar cost_sum, trip_duration, connections_count;
 
     public CPsolver(
             ArrayList<Airport> as,
@@ -278,8 +273,7 @@ public class CPsolver {
 
 
     public void getSolution() {
-
-        if (init() == 0) { getStats(); return;}
+        if (init() == 0) return;
 
         String response = "";
         Boolean m = true, allRequired = false;
@@ -291,24 +285,26 @@ public class CPsolver {
             if (arg.equals("-cost")) {response += "cost "; to_optimise.add(this.cost_sum);}
             if (arg.equals("-flights")) {response += "number of flights "; to_optimise.add(this.z);}
             if (arg.equals("-trip_duration")) {response += "trip duration"; to_optimise.add(this.trip_duration);}
-            if (arg.equals("-connections")) {response += "number of flights to connection airports ";to_optimise.add(this.connections_count);}
+            if (arg.equals("-connections")) {response += "connections "; to_optimise.add(this.connections_count);}
             if (arg.equals("-allOpt") || arg.equals("-all")) allRequired = true;
         }
 
         if (to_optimise.size() <= 1) {
-            if (!allRequired) singleSolution(m, to_optimise, response);
-            else allSolutions(m, to_optimise, response);
+            if (!allRequired) getSingleSolution(m, to_optimise, response);
+            else getAllSolutions(m, to_optimise, response);
         }
+
         if (to_optimise.size() > 1) multiobjective(to_optimise, m);
-        getStats();
+
+        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
+                "   cpu: " + solver.getMeasures().getTimeCount());
     }
 
-    private void singleSolution(Boolean m, ArrayList<IntVar> to_optimise, String response) {
+    private void getSingleSolution(Boolean m, ArrayList<IntVar> to_optimise, String response) {
         System.out.println("Single solution with " + response + ":");
         Solution x;
         if (to_optimise.size() > 0) x = solver.findOptimalSolution(to_optimise.get(0), m);
         else x = solver.findSolution();
-
         if (x == null) {
             System.out.println("No solution was found");
             return;
@@ -316,12 +312,14 @@ public class CPsolver {
         printSolution(x);
     }
 
-    private void allSolutions(Boolean m, ArrayList<IntVar> to_optimise, String response) {
+    private void getAllSolutions(Boolean m, ArrayList<IntVar> to_optimise, String response) {
         System.out.println("Multiple solutions with " + response + ":");
         List<Solution> solutions;
         if (to_optimise.size() > 0) solutions = solver.findAllOptimalSolutions(to_optimise.get(0), m);
         else solutions = solver.findAllSolutions();
-        printAllSols(solutions);
+        for (Solution sol : solutions) {
+            if (sol != null) printSolution(sol);
+        }
     }
 
     private void multiobjective(ArrayList<IntVar> obj, Boolean goal) {
@@ -332,29 +330,9 @@ public class CPsolver {
         solver.plugMonitor(po);
         while (solver.solve()) {
             List<Solution> paretoFront = po.getParetoFront();
-            printAllSols(paretoFront);
-        }
-    }
-
-    private String getStats() {
-        String stats = "nodes: " + solver.getMeasures().getNodeCount() +
-                "   cpu: " + solver.getMeasures().getTimeCount();
-        System.out.println(stats);
-        return stats;
-    }
-
-    private void returnOneOptimal(Boolean m, IntVar to_optimise) {
-        Solution x = solver.findOptimalSolution(to_optimise, m);
-        if (x == null) {
-            System.out.println("No optimal solution was found");
-            return;
-        }
-        printSolution(x);
-    }
-
-    private void printAllSols(List<Solution> solutions) {
-        for (Solution sol : solutions) {
-            if (sol != null) printSolution(sol);
+            for (Solution sol : paretoFront) {
+                if (sol != null) printSolution(sol);
+            }
         }
     }
 
