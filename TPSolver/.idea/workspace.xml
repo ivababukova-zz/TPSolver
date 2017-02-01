@@ -27,7 +27,7 @@
       <file leaf-file-name="InstanceParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/InstanceParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
+            <state relative-caret-position="735">
               <caret line="120" column="36" lean-forward="false" selection-start-line="120" selection-start-column="23" selection-end-line="120" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -53,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IPsolver.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IPsolver.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="28" column="18" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+            <state relative-caret-position="475">
+              <caret line="333" column="24" lean-forward="false" selection-start-line="333" selection-start-column="20" selection-end-line="333" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CPsolver.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CPsolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1765">
-              <caret line="348" column="65" lean-forward="false" selection-start-line="348" selection-start-column="65" selection-end-line="348" selection-end-column="65" />
+            <state relative-caret-position="355">
+              <caret line="254" column="41" lean-forward="false" selection-start-line="254" selection-start-column="41" selection-end-line="254" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -204,11 +204,11 @@
         <option value="$PROJECT_DIR$/src/Triplet.java" />
         <option value="$PROJECT_DIR$/src/CPconstraints.java" />
         <option value="$PROJECT_DIR$/data/test_max_flights.json" />
-        <option value="$PROJECT_DIR$/src/IPsolver.java" />
         <option value="$PROJECT_DIR$/src/HelperMethods.java" />
         <option value="$PROJECT_DIR$/data/small_test.json" />
         <option value="$PROJECT_DIR$/src/InstanceParser.java" />
         <option value="$PROJECT_DIR$/src/CPsolver.java" />
+        <option value="$PROJECT_DIR$/src/IPsolver.java" />
       </list>
     </option>
   </component>
@@ -316,7 +316,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="InstanceParser" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="data/small_test.json -cp -min -connections" />
+      <option name="PROGRAM_PARAMETERS" value="data/small_test.json -ip -min -flights" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -932,12 +932,12 @@
       <workItem from="1484683056421" duration="205000" />
       <workItem from="1484738140237" duration="10666000" />
       <workItem from="1485025093868" duration="33350000" />
-      <workItem from="1485613909647" duration="45209000" />
+      <workItem from="1485613909647" duration="45370000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="307634000" />
+    <option name="totallyTimeSpent" value="307795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -952,7 +952,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43203124" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36796874" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1244,10 +1244,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
+    <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="28" column="18" lean-forward="false" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
+        <state relative-caret-position="355">
+          <caret line="254" column="41" lean-forward="false" selection-start-line="254" selection-start-column="41" selection-end-line="254" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1256,7 +1256,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/InstanceParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
+        <state relative-caret-position="735">
           <caret line="120" column="36" lean-forward="false" selection-start-line="120" selection-start-column="23" selection-end-line="120" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1264,10 +1264,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
+    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1765">
-          <caret line="348" column="65" lean-forward="false" selection-start-line="348" selection-start-column="65" selection-end-line="348" selection-end-column="65" />
+        <state relative-caret-position="475">
+          <caret line="333" column="24" lean-forward="false" selection-start-line="333" selection-start-column="20" selection-end-line="333" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

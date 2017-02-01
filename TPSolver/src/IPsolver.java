@@ -338,14 +338,14 @@ public class IPsolver {
                                     (j+1),
                                     h.getFlightByID(j + 1).dep.name,
                                     h.getFlightByID(j + 1).arr.name,
-                                    h.getFlightByID(j + 1).date,
-                                    h.getFlightByID(j + 1).cost
+                                    h.getFlightByID(j + 1).date / 100,
+                                    h.getFlightByID(j + 1).cost / 100
                             )
                     );
                 }
             }
         }
-        String costMssg = "Total cost: " + cost;
+        String costMssg = "Total cost: " + cost / 100;
         System.out.println(costMssg);
         this.solution += costMssg + "\n";
     }
