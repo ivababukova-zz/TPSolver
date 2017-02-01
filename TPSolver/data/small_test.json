@@ -7,7 +7,7 @@
     },
     {
       "name" : "A",
-      "connection_time" : 0.1,
+      "connection_time" : 0,
       "purpose" : "destination"
     },
     {

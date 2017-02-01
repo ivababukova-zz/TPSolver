@@ -1,4 +1,6 @@
 import gurobi.*;
+import org.chocosolver.solver.variables.IntVar;
+
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -56,23 +58,19 @@ public class IPsolver {
             }
 
             /*** Add constraints ***/
-            GRBLinExpr expr;
-            expr = new GRBLinExpr();
-            expr.addTerm(1.0, S[n][n]);
-            model.addConstr(expr, GRB.EQUAL, 1.0, "End with special flight");
+            model.addConstr(S[n][n], GRB.EQUAL, 1.0, "End with special flight");
 
             this.matrixContraints();
             this.tripProperty1();
             this.tripProperty2();
             this.tripProperties3and4();
             this.tripProperty5();
-            this.optimiseWhat();
+            this.setObjectiveFunction();
 
-            getAllSols();
             model.getEnv().set("OutputFlag", "0"); // set to 1 to get gurobi custom output
             // Optimize model
             model.optimize();
-            this.debugModel();
+//            this.debugModel();
 
             // Print and return solution
             printAllSolutions();
@@ -238,8 +236,7 @@ public class IPsolver {
                 model.addConstr(Y[i][j], GRB.LESS_EQUAL, S[i][fj], "");
                 model.addConstr(Y[i][j], GRB.LESS_EQUAL, S[i+1][n], "");
                 potentialLast = new GRBLinExpr();
-                potentialLast.addTerm(1.0, S[i][fj]);
-                potentialLast.addTerm(1.0, S[i+1][n]);
+                potentialLast.addTerms(new double[] {1.0, 1.0}, new GRBVar[] {S[i][fj], S[i+1][n]});
                 potentialLast.addConstant(-1);
                 // end of magic
 
@@ -268,20 +265,74 @@ public class IPsolver {
 
      /*** end of objective functions code ***/
 
+    private Boolean allRequired() {
+        for (String arg: args) {
+            if (arg.equals("-allOpt")) return true;
+        }
+        return false;
+    }
 
-    private void getAllSols() throws GRBException {
-        // Limit the search space by setting a gap for the worst possible solution that will be accepted
-        model.set(GRB.DoubleParam.PoolGap, 1);
-        // do a systematic search for the k-best solutions
-        model.set(GRB.IntParam.PoolSearchMode, 2);
+    private void setObjectiveFunction() throws GRBException {
+        Boolean isMin = true;
+        ArrayList<String> objectives = new ArrayList<>();
+        for (String str : args) {
+            if (str.equals("-min")) {
+                System.out.print("Optimal solutions with minimum ");
+                isMin = true;
+                break;
+            }
+            else if (str.equals("-max")) {
+                System.out.print("Optimal solutions with maximum ");
+                isMin = false;
+                break;
+            }
+        }
+        for (String str : args) {
+            if (str.equals("-cost")) {
+                System.out.println("cost:\n");
+                objectives.add("-cost");
+                costObj(isMin);
+            }
+            if (str.equals("-flights")) {
+                System.out.println("number of flights:\n");
+                objectives.add("-flights");
+                noFlightsObj(isMin);
+            }
+            if (str.equals("-trip_duration")) {
+                System.out.println("trip duration:\n");
+                objectives.add("-trip_duration");
+                tripDurationObj(isMin);
+            }
+            if (str.equals("-hc1") || str.equals("-hc2") || str.equals("-all") || str.equals("-connections")) {
+                System.out.println("\nThere is no support for this option: " + str + ". I will return a solution with minimum cost instead.");
+                costObj(true);
+            }
+        }
+        if (objectives.size() > 1) {
+            setMultipleObjectives(objectives, isMin);
+        }
+    }
 
-        int nSolutions = model.get(GRB.IntAttr.SolCount);
-        System.out.println("Number of solutions found: " + nSolutions);
+    private void setMultipleObjectives(ArrayList<String> objectives, Boolean goal) throws GRBException {
+        model.set(GRB.IntAttr.NumObj, 2);
+        int SetObjPriority[] = new int[] {1, 1};
+        double SetObjWeight[] = new double[] {0.5, 0.5};
+        model.set(GRB.IntAttr.ObjNPriority, SetObjPriority[0]);
+        model.set(GRB.DoubleAttr.ObjNWeight, SetObjWeight[0]);
+        model.set(GRB.IntParam.ObjNumber, 0);
+//        model.set(GRB.DoubleAttr.ObjN, "", "", 0, 0);
     }
 
     private void printAllSolutions() throws GRBException, IOException {
         System.out.println();
         if (allRequired()) {
+            // Limit the search space by setting a gap for the worst possible solution that will be accepted
+            model.set(GRB.DoubleParam.PoolGap, 1);
+            // do a systematic search for the k-best solutions
+            model.set(GRB.IntParam.PoolSearchMode, 2);
+            int nSolutions = model.get(GRB.IntAttr.SolCount);
+            System.out.println("Number of solutions found: " + nSolutions);
+
             for (int k = 0; k < model.get(GRB.IntAttr.SolCount); ++k) {
                 model.set(GRB.IntParam.SolutionNumber, k);
                 double[][] x = model.get(GRB.DoubleAttr.Xn, S);
@@ -364,56 +415,5 @@ public class IPsolver {
         Airport a0 = h.getHomePoint();
         Flight special = new Flight(flights.size()+1, a0, a0, T, 0, 0);
         flights.add(special);
-    }
-
-    private Boolean allRequired() {
-        for (String arg: args) {
-            if (arg.equals("-allOpt")) return true;
-        }
-        return false;
-    }
-
-    private void optimiseWhat() throws GRBException {
-        Boolean isMin = true;
-        for (String str : args) {
-            if (str.equals("-min")) {
-                System.out.print("Optimal solutions with minimum ");
-                isMin = true;
-                break;
-            }
-            else if (str.equals("-max")) {
-                System.out.print("Optimal solutions with maximum ");
-                isMin = false;
-                break;
-            }
-        }
-        for (String str : args) {
-            if (str.equals("-cost")) {
-                System.out.println("cost:\n");
-                costObj(isMin);
-            }
-            if (str.equals("-flights")) {
-                System.out.println("number of flights:\n");
-                noFlightsObj(isMin);
-            }
-            if (str.equals("-trip_duration")) {
-                System.out.println("trip duration:\n");
-                tripDurationObj(isMin);
-            }
-            if (str.equals("-hc1") || str.equals("-hc2") || str.equals("-all") || str.equals("-connections")) {
-                System.out.println("\nThere is no support for this option: " + str + ". I will return a solution with minimum cost instead.");
-                costObj(true);
-            }
-        }
-    }
-
-    private void multiObj() throws GRBException {
-        model.set(GRB.IntAttr.NumObj, 2);
-        int SetObjPriority[] = new int[] {1, 1};
-        double SetObjWeight[] = new double[] {0.5, 0.5};
-        model.set(GRB.IntAttr.ObjNPriority, SetObjPriority[0]);
-        model.set(GRB.DoubleAttr.ObjNWeight, SetObjWeight[0]);
-        model.set(GRB.IntParam.ObjNumber, 0);
-//        model.set(GRB.DoubleAttr.ObjN, "", "", 0, 0);
     }
 }

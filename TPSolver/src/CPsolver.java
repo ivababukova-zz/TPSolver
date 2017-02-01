@@ -277,9 +277,10 @@ public class CPsolver {
     /*** end of hard constraint 2 code ***/
 
 
-    public String getSolution() {
+    public void getSolution() {
         if (init() == 0) {
-            return "";
+            getStats();
+            return;
         }
 
         if (args.length == 2 || (args.length == 3 && args[2].equals("-hc2"))) {
@@ -291,68 +292,63 @@ public class CPsolver {
                 System.out.println("A solution:");
                 printSolution(x);
             }
-            return getStats();
+            getStats();
+            return;
         }
-        Boolean m = null;
+
+        Boolean m = true;
         IntVar[] to_optimise = new IntVar[4];
         int objSize = 0;
-        int isOptimalSearch = 0;
 
         for (String arg : args) {
             if (arg.equals("-min")) {
                 System.out.print("Solution with minimum ");
                 m = Model.MINIMIZE;
-                isOptimalSearch += 1;
             }
             if (arg.equals("-max")) {
                 System.out.print("Solution with maximum ");
                 m = Model.MAXIMIZE;
-                isOptimalSearch += 1;
             }
             if (arg.equals("-cost")) {
                 System.out.println("cost:");
                 to_optimise[objSize] = this.cost_sum;
                 objSize ++;
-                isOptimalSearch += 1;
             }
             if (arg.equals("-flights")) {
                 System.out.println("number of flights:");
                 to_optimise[objSize] = this.z;
                 objSize ++;
-                isOptimalSearch += 1;
             }
             if (arg.equals("-trip_duration")) {
                 System.out.println("trip duration:");
                 to_optimise[objSize] = this.trip_duration;
-                isOptimalSearch += 1;
+                objSize ++;
             }
             if (arg.equals("-connections")) {
                 System.out.println("number of flights to connection airports:");
                 to_optimise[objSize] = this.connections_count;
                 objSize ++;
-                isOptimalSearch += 1;
             }
             if (arg.equals("-allOpt")) {
                 System.out.println("All optimal solutions are:");
                 printAllSols(solver.findAllOptimalSolutions(to_optimise[0], m));
-                return getStats();
+                return;
             }
             if (arg.equals("-all")) {
                 System.out.println("All solutions are:");
                 printAllSols(solver.findAllSolutions());
-                return getStats();
+                return;
             }
         }
-        if (isOptimalSearch == 2 && objSize == 1) {
-            returnOneOptimal(m, to_optimise[0]);
-        } else if (isOptimalSearch == 1) {
-            System.out.println("\nNot enough arguments provided\n");
-            InstanceParser.printUsageEclipse();
-            return "";
-        } else if (objSize > 1) {
-            multiobjective(new IntVar[] {cost_sum, trip_duration}, m);
-        }
-        return getStats();
+        if (objSize == 1) returnOneOptimal(m, to_optimise[0]);
+        else if (objSize == 0) {
+            Solution x = solver.findSolution();
+            if (x == null) System.out.println("No solution was found");
+            else {
+                System.out.println("A solution:");
+                printSolution(x);
+            }
+        } else if (objSize > 1) multiobjective(to_optimise, m);
     }
 
     private void multiobjective(IntVar[] objectives, Boolean goal) {
@@ -385,6 +381,7 @@ public class CPsolver {
         for (Solution sol : solutions) {
             if (sol != null) printSolution(sol);
         }
+        getStats();
     }
 
     private void printSolution(Solution x) {
