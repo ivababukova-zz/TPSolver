@@ -278,80 +278,55 @@ public class CPsolver {
 
 
     public void getSolution() {
-        if (init() == 0) {
-            getStats();
-            return;
-        }
 
-        if (args.length == 2 || (args.length == 3 && args[2].equals("-hc2"))) {
-            Solution x = solver.findSolution();
-            if (x == null) {
-                System.out.println("No solution was found");
-            }
-            else {
-                System.out.println("A solution:");
-                printSolution(x);
-            }
-            getStats();
-            return;
-        }
+        if (init() == 0) { getStats(); return;}
 
-        Boolean m = true;
-        IntVar[] to_optimise = new IntVar[4];
-        int objSize = 0;
+        String response = "";
+        Boolean m = true, allRequired = false;
+        ArrayList<IntVar> to_optimise = new ArrayList<>();
 
         for (String arg : args) {
-            if (arg.equals("-min")) {
-                System.out.print("Solution with minimum ");
-                m = Model.MINIMIZE;
-            }
-            if (arg.equals("-max")) {
-                System.out.print("Solution with maximum ");
-                m = Model.MAXIMIZE;
-            }
-            if (arg.equals("-cost")) {
-                System.out.println("cost:");
-                to_optimise[objSize] = this.cost_sum;
-                objSize ++;
-            }
-            if (arg.equals("-flights")) {
-                System.out.println("number of flights:");
-                to_optimise[objSize] = this.z;
-                objSize ++;
-            }
-            if (arg.equals("-trip_duration")) {
-                System.out.println("trip duration:");
-                to_optimise[objSize] = this.trip_duration;
-                objSize ++;
-            }
-            if (arg.equals("-connections")) {
-                System.out.println("number of flights to connection airports:");
-                to_optimise[objSize] = this.connections_count;
-                objSize ++;
-            }
-            if (arg.equals("-allOpt")) {
-                System.out.println("All optimal solutions are:");
-                printAllSols(solver.findAllOptimalSolutions(to_optimise[0], m));
-                return;
-            }
-            if (arg.equals("-all")) {
-                System.out.println("All solutions are:");
-                printAllSols(solver.findAllSolutions());
-                return;
-            }
+            if (arg.equals("-min")) {response += "minimum "; m = Model.MINIMIZE;}
+            if (arg.equals("-max")) {response += "maximum "; m = Model.MAXIMIZE;}
+            if (arg.equals("-cost")) {response += "cost "; to_optimise.add(this.cost_sum);}
+            if (arg.equals("-flights")) {response += "number of flights "; to_optimise.add(this.z);}
+            if (arg.equals("-trip_duration")) {response += "trip duration"; to_optimise.add(this.trip_duration);}
+            if (arg.equals("-connections")) {response += "number of flights to connection airports ";to_optimise.add(this.connections_count);}
+            if (arg.equals("-allOpt") || arg.equals("-all")) allRequired = true;
         }
-        if (objSize == 1) returnOneOptimal(m, to_optimise[0]);
-        else if (objSize == 0) {
-            Solution x = solver.findSolution();
-            if (x == null) System.out.println("No solution was found");
-            else {
-                System.out.println("A solution:");
-                printSolution(x);
-            }
-        } else if (objSize > 1) multiobjective(to_optimise, m);
+
+        if (to_optimise.size() <= 1) {
+            if (!allRequired) singleSolution(m, to_optimise, response);
+            else allSolutions(m, to_optimise, response);
+        }
+        if (to_optimise.size() > 1) multiobjective(to_optimise, m);
+        getStats();
     }
 
-    private void multiobjective(IntVar[] objectives, Boolean goal) {
+    private void singleSolution(Boolean m, ArrayList<IntVar> to_optimise, String response) {
+        System.out.println("Single solution with " + response + ":");
+        Solution x;
+        if (to_optimise.size() > 0) x = solver.findOptimalSolution(to_optimise.get(0), m);
+        else x = solver.findSolution();
+
+        if (x == null) {
+            System.out.println("No solution was found");
+            return;
+        }
+        printSolution(x);
+    }
+
+    private void allSolutions(Boolean m, ArrayList<IntVar> to_optimise, String response) {
+        System.out.println("Multiple solutions with " + response + ":");
+        List<Solution> solutions;
+        if (to_optimise.size() > 0) solutions = solver.findAllOptimalSolutions(to_optimise.get(0), m);
+        else solutions = solver.findAllSolutions();
+        printAllSols(solutions);
+    }
+
+    private void multiobjective(ArrayList<IntVar> obj, Boolean goal) {
+        IntVar[] objectives = new IntVar[obj.size()];
+        obj.toArray(objectives);
         System.out.println("Doing multiobjective optimisation:");
         ParetoOptimizer po = new ParetoOptimizer(goal, objectives);
         solver.plugMonitor(po);
@@ -381,7 +356,6 @@ public class CPsolver {
         for (Solution sol : solutions) {
             if (sol != null) printSolution(sol);
         }
-        getStats();
     }
 
     private void printSolution(Solution x) {
