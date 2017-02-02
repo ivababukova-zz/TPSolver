@@ -1843,3 +1843,170 @@ Gurobi 7.0.1 (mac64, Java) logging started Wed Feb  1 19:34:32 2017
 
 Gurobi 7.0.1 (mac64, Java) logging started Wed Feb  1 19:34:45 2017
 
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:05:30 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:09:10 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:10:06 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:10:15 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:14:27 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:14:38 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:14:47 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:15:19 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:15:48 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:16:35 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:17:04 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:17:26 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:22:13 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:22:23 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:22:38 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:22:48 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:23:24 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:24:07 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:26:49 2017
+
+Optimize a model with 558 rows, 400 columns and 6022 nonzeros
+Variable types: 0 continuous, 400 integer (400 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [2e+03, 3e+04]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 558 rows and 400 columns
+Presolve time: 0.02s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 1: 37900 
+Pool objective bound 37900
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.790000000000e+04, best bound 3.790000000000e+04, gap 0.0000%
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:27:04 2017
+
+Optimize a model with 558 rows, 400 columns and 6022 nonzeros
+Variable types: 0 continuous, 400 integer (400 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [2e+03, 3e+04]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve removed 558 rows and 400 columns
+Presolve time: 0.02s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.02 seconds
+Thread count was 1 (of 4 available processors)
+
+Solution count 1: 37900 
+Pool objective bound 37900
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.790000000000e+04, best bound 3.790000000000e+04, gap 0.0000%
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:27:12 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:27:23 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:27:35 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:28:09 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:28:20 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:28:41 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:35:38 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:36:39 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:36:54 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 11:37:04 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:24:42 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:24:53 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:25:04 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:25:19 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:44:20 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:44:33 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:44:46 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:45:13 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:45:37 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:52:11 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:52:50 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 12:52:59 2017
+
+
+Gurobi 7.0.1 (mac64, Java) logging started Thu Feb  2 13:12:28 2017
+

@@ -282,10 +282,10 @@ public class CPsolver {
         for (String arg : args) {
             if (arg.equals("-min")) {response += "minimum "; m = Model.MINIMIZE;}
             if (arg.equals("-max")) {response += "maximum "; m = Model.MAXIMIZE;}
-            if (arg.equals("-cost")) {response += "cost "; to_optimise.add(this.cost_sum);}
-            if (arg.equals("-flights")) {response += "number of flights "; to_optimise.add(this.z);}
-            if (arg.equals("-trip_duration")) {response += "trip duration"; to_optimise.add(this.trip_duration);}
-            if (arg.equals("-connections")) {response += "connections "; to_optimise.add(this.connections_count);}
+            if (arg.equals("-cost")) {response += "cost, "; to_optimise.add(this.cost_sum);}
+            if (arg.equals("-flights")) {response += "number of flights, "; to_optimise.add(this.z);}
+            if (arg.equals("-trip_duration")) {response += "trip duration,"; to_optimise.add(this.trip_duration);}
+            if (arg.equals("-connections")) {response += "connections, "; to_optimise.add(this.connections_count);}
             if (arg.equals("-allOpt") || arg.equals("-all")) allRequired = true;
         }
 
@@ -294,7 +294,7 @@ public class CPsolver {
             else getAllSolutions(m, to_optimise, response);
         }
 
-        if (to_optimise.size() > 1) multiobjective(to_optimise, m);
+        if (to_optimise.size() > 1) multiobjective(to_optimise, m, response);
 
         System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
                 "   cpu: " + solver.getMeasures().getTimeCount());
@@ -322,10 +322,10 @@ public class CPsolver {
         }
     }
 
-    private void multiobjective(ArrayList<IntVar> obj, Boolean goal) {
+    private void multiobjective(ArrayList<IntVar> obj, Boolean goal, String response) {
         IntVar[] objectives = new IntVar[obj.size()];
         obj.toArray(objectives);
-        System.out.println("Doing multiobjective optimisation:");
+        System.out.println("Doing multiobjective optimisation with " + response + ":");
         ParetoOptimizer po = new ParetoOptimizer(goal, objectives);
         solver.plugMonitor(po);
         while (solver.solve()) {

@@ -44,18 +44,16 @@ public class InstanceParser {
         flights = createFlights(jflights);
         ArrayList<Tuple> tuples = null;
         ArrayList<Triplet> triplets = null;
-        int offset = args.length - 2;
         if (args.length > 2 && args[1].equals("-cp")) {
             if (jtuples != null && args[2].equals("-hc2")) tuples = createHC2(jtuples);
             if (jtriplets != null && args[2].equals("-hc1")) triplets = createHC1(jtriplets);
         }
-        String[] new_args = Arrays.copyOfRange(args, offset, offset + 2);
         if (args[1].equals("-cp")) {
             CPsolver s = new CPsolver(airports, flights, T, B, args, tuples, triplets);
             s.getSolution();
         }
         else if (args[1].equals("-ip")) {
-            IPsolver s = new IPsolver(airports, flights, T, B, new_args);
+            IPsolver s = new IPsolver(airports, flights, T, B, args);
             s.getSolution();
         }
         else printUsageEclipse();
@@ -120,34 +118,6 @@ public class InstanceParser {
         }
         return null;
     }
-
-    public static void printUsageJar() {
-        System.out.println("Usage:\n    java -jar TPSolver1.jar <filename> -cp [-options]");
-        System.out.println("Where:\n    <filename> is the relative path to and the name of the TP instance");
-        System.out.println(        "               you want to solve, which must be a .json file, containing");
-        System.out.println(        "               a list of airports, a list of flights and a holiday time.");
-        System.out.println(        "               See example instance files for more info.");
-        System.out.println("\n    [options] are 0 or more of the following parameters:\n");
-        System.out.println("        -allOpt: returns all optimal solutions.\n");
-        System.out.println("        -all: returns all solutions.\n");
-        System.out.println("        -hc1: finds solutions that comply with hard constraint 1 (HC1). HC1 requires the following:");
-        System.out.println("              \"Travellers may wish to spend a certain amount of consecutive days at a given destination," +
-                "\n               specified by both upper and lower bounds.\" " +
-                "\n              The destination and the bounds are specified in the instance file.\n");
-        System.out.println("        -hc2: finds solutions that comply with hard constraint 2 (HC2). HC2 requires the following:");
-        System.out.println("              \"Travellers may require to spend a given date at a given destination\"" +
-                "\n              The destination and the date are specified in the instance file.\n");
-        System.out.println("        <objective> <objective variable> [-allOpt]: in case you want to find optimal solutions, where:\n");
-        System.out.println("            <objective> is either -min or -max.\n");
-        System.out.println("            <objective variable> is either -cost, -flights, or -trip_duration, where:\n");
-        System.out.println("                -cost: finds the optional solutions with respect to flights cost.\n");
-        System.out.println("                -flights: finds the optional solutions with respect to number of flights.\n");
-        System.out.println("                -trip_duration: finds the optional solutions with respect to trip duration.\n");
-        System.out.println("                -connections: finds the optional solutions with respect to number of flights" +
-                "\n                              to connection airports.\n");
-        System.out.println("\nExample: \"java -jar data/small_test.json -cp -min -trip_duration -allOpt\" \n         returns all solutions with minimum duration of the trip.");
-    }
-
 
     public static void printUsageEclipse() {
         System.out.println("Usage with Eclipse:"
