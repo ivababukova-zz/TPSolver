@@ -49,16 +49,17 @@ public class IPsolver {
 
             /*** All Constraints ***/
             model.addConstr(S[m-1][m-1], GRB.EQUAL, 1.0, "End with special flight");
+            matrixConstraints(); tripProperty1(); tripProperty2(); tripProperties3and4(); tripProperty5();
 
-            matrixConstraints();
-            tripProperty1();
-            tripProperty2();
-            tripProperties3and4();
-            tripProperty5();
             model.getEnv().set("OutputFlag", "0"); // set to 1 to get Gurobi custom output
+
             setObjectiveFunction();
-            model.dispose();
-            env.dispose();
+            getAllSols();
+
+            model.optimize();
+            printAllSolutions();
+
+            model.dispose(); env.dispose();
 
         } catch (GRBException e) {
             System.out.println("Error code: " + e.getErrorCode() + ". " +
@@ -255,13 +256,6 @@ public class IPsolver {
 
     /*** end of objective functions code ***/
 
-    private Boolean allRequired() {
-        for (String arg: args) {
-            if (arg.equals("-allOpt") || arg.equals("-all")) return true;
-        }
-        return false;
-    }
-
     private void setObjectiveFunction() throws GRBException, IOException {
         int isMin = 1;
         ArrayList<String> objectives = new ArrayList<>();
@@ -289,8 +283,6 @@ public class IPsolver {
             if (objective.equals("-flights")) model.setObjective(flightsObj(), isMin); // todo this is opposite
             if (objective.equals("-trip_duration")) model.setObjective(tripDurationObj(), isMin);
             if (objective.equals("-connections")) model.setObjective(connectionsObj(), isMin);
-            model.optimize();
-            printAllSolutions();
         }
     }
 
@@ -305,32 +297,32 @@ public class IPsolver {
                 model.optimize();
                 optCostSol = model.get(GRB.DoubleAttr.X, S);
                 optCost = getSolutionCost(optCostSol);
-                printSolution(optCostSol);
             }
             if (obj.equals("-flights")) {
                 model.setObjective(flightsObj(), isMin);
                 model.optimize();
                 optFlightsSol = model.get(GRB.DoubleAttr.X, S);
                 optFlightsNo = getSolutionNumbOfFlights(optFlightsSol);
-                printSolution(optFlightsSol);
             }
             if (obj.equals("-trip_duration")) {
                 model.setObjective(tripDurationObj(), isMin);
                 model.optimize();
                 optTripDurationSol = model.get(GRB.DoubleAttr.X, S);
                 optTripDuration = getSolutionDuration(optTripDurationSol);
-                printSolution(optTripDurationSol);
             }
             if (obj.equals("-connections")) {
                 model.setObjective(connectionsObj(), isMin);
                 model.optimize();
                 optConnectionsCountSol = model.get(GRB.DoubleAttr.X, S);
                 optConnCount = getSolutionNumbOfConnections(optConnectionsCountSol);
-                printSolution(optConnectionsCountSol);
             }
         }
         GRBLinExpr multiObjFunc = new GRBLinExpr();
-        multiObjFunc.add(costObj());
+        multiObjFunc.multAdd(0.5/optCost, costObj());
+        multiObjFunc.multAdd(1.0/optFlightsNo, flightsObj());
+        multiObjFunc.multAdd(1.0/optTripDuration, tripDurationObj());
+        multiObjFunc.multAdd(0.5/optConnCount, connectionsObj());
+        model.setObjective(multiObjFunc, isMin);
     }
 
     private double getSolutionCost(double[][] x) {
@@ -372,7 +364,7 @@ public class IPsolver {
     private int getLastFlight(double[][] x) {
         int last = 0;
         for (int i = 0; i < m - 1; i++) {
-            Boolean isLast = false;
+            Boolean isLast;
             for (int j = 0; j < m - 1; j++) {
                 isLast = x[i][j] * x[i+1][m-1] == 1;
                 if (isLast) {
@@ -395,15 +387,22 @@ public class IPsolver {
         return connections_count;
     }
 
-    private void printAllSolutions() throws GRBException, IOException {
-        if (allRequired()) {
-            // Limit the search space by setting a gap for the worst possible solution that will be accepted
-            model.set(GRB.DoubleParam.PoolGap, 1);
-            // do a systematic search for the k-best solutions
-            model.set(GRB.IntParam.PoolSearchMode, 2);
-            int nSolutions = model.get(GRB.IntAttr.SolCount);
-            System.out.println("Number of solutions found: " + nSolutions);
+    private void getAllSols() throws GRBException {
+        // Limit the search space by setting a gap for the worst possible solution that will be accepted
+        model.set(GRB.DoubleParam.PoolGap, 2);
+        // do a systematic search for the k-best solutions
+        model.set(GRB.IntParam.PoolSearchMode, 2);
 
+        int nSolutions = model.get(GRB.IntAttr.SolCount);
+        System.out.println("Number of solutions found: " + nSolutions);
+    }
+
+    private void printAllSolutions() throws GRBException, IOException {
+        Boolean allRequired = false;
+        for (String arg: args) {
+            if (arg.equals("-allOpt") || arg.equals("-all")) {allRequired = true; break;}
+        }
+        if (allRequired) {
             for (int k = 0; k < model.get(GRB.IntAttr.SolCount); ++k) {
                 model.set(GRB.IntParam.SolutionNumber, k);
                 double[][] x = model.get(GRB.DoubleAttr.Xn, S);
