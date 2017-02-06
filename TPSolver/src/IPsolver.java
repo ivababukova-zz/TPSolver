@@ -57,8 +57,8 @@ public class IPsolver {
             getAllSols();
 
             model.optimize();
+            debugModel();
             printAllSolutions();
-
             model.dispose(); env.dispose();
 
         } catch (GRBException e) {
@@ -289,39 +289,42 @@ public class IPsolver {
     private void setMultipleObjectives(ArrayList<String> objectives, int isMin, String response) throws GRBException {
         System.out.println("Multiobjective Optimisation. " + response + ":");
         double[][] optCostSol, optFlightsSol, optTripDurationSol, optConnectionsCountSol;
-        double optCost = 0, optTripDuration = 0;
-        int optFlightsNo = 0, optConnCount = 0;
+        GRBLinExpr multiObjFunc = new GRBLinExpr();
         for (String obj: objectives) {
             if (obj.equals("-cost")) {
                 model.setObjective(costObj(), isMin);
                 model.optimize();
                 optCostSol = model.get(GRB.DoubleAttr.X, S);
-                optCost = getSolutionCost(optCostSol);
+                double optCost = getSolutionCost(optCostSol);
+                multiObjFunc.multAdd(1/(optCost + 0.01), costObj());
+                System.out.println("optimal cost: " + optCost);
             }
             if (obj.equals("-flights")) {
                 model.setObjective(flightsObj(), isMin);
                 model.optimize();
                 optFlightsSol = model.get(GRB.DoubleAttr.X, S);
-                optFlightsNo = getSolutionNumbOfFlights(optFlightsSol);
+                int optFlightsNo = getSolutionNumbOfFlights(optFlightsSol);
+                multiObjFunc.multAdd(1.0/(optFlightsNo + 0.01), flightsObj());
+                System.out.println("optimal number of flights: " + optFlightsNo);
             }
             if (obj.equals("-trip_duration")) {
                 model.setObjective(tripDurationObj(), isMin);
                 model.optimize();
                 optTripDurationSol = model.get(GRB.DoubleAttr.X, S);
-                optTripDuration = getSolutionDuration(optTripDurationSol);
+                double optTripDuration = getSolutionDuration(optTripDurationSol);
+                multiObjFunc.multAdd(1.0/(optTripDuration + 0.01), tripDurationObj());
+                System.out.println("optimal trip duration: " + optTripDuration);
+
             }
             if (obj.equals("-connections")) {
                 model.setObjective(connectionsObj(), isMin);
                 model.optimize();
                 optConnectionsCountSol = model.get(GRB.DoubleAttr.X, S);
-                optConnCount = getSolutionNumbOfConnections(optConnectionsCountSol);
+                int optConnCount = getSolutionNumbOfConnections(optConnectionsCountSol);
+                multiObjFunc.multAdd(1/(optConnCount + 0.01), connectionsObj());
+                System.out.println("optimal conections number: " + optConnCount);
             }
         }
-        GRBLinExpr multiObjFunc = new GRBLinExpr();
-        multiObjFunc.multAdd(0.5/optCost, costObj());
-        multiObjFunc.multAdd(1.0/optFlightsNo, flightsObj());
-        multiObjFunc.multAdd(1.0/optTripDuration, tripDurationObj());
-        multiObjFunc.multAdd(0.5/optConnCount, connectionsObj());
         model.setObjective(multiObjFunc, isMin);
     }
 
@@ -389,7 +392,7 @@ public class IPsolver {
 
     private void getAllSols() throws GRBException {
         // Limit the search space by setting a gap for the worst possible solution that will be accepted
-        model.set(GRB.DoubleParam.PoolGap, 2);
+        model.set(GRB.DoubleParam.PoolGap, 1);
         // do a systematic search for the k-best solutions
         model.set(GRB.IntParam.PoolSearchMode, 2);
 
