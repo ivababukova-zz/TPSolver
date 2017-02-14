@@ -1,22 +1,23 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by ivababukova on 12/17/16.
  */
 public class HelperMethods {
 
-    private ArrayList<Airport> airports;
-    private ArrayList<Flight> flights;
+    private HashMap<String, Airport> airports;
+    private HashMap<Integer, Flight> flights;
     double T;
 
-    public HelperMethods(ArrayList<Airport> a, ArrayList<Flight> f, double T){
+    public HelperMethods(HashMap<String, Airport> a, HashMap<Integer, Flight> f, double T){
         this.airports = a;
         this.flights = f;
         this.T = T;
     }
 
     public Airport getHomePoint(){
-        for (Airport a: this.airports) {
+        for (Airport a: this.airports.values()) {
             if(a.purpose.equals("home_point")) return a;
         }
         System.err.println("There is no specified home point");
@@ -24,7 +25,7 @@ public class HelperMethods {
     }
 
     public Flight getFlightByID(int id){
-        for (Flight f: this.flights) {
+        for (Flight f: this.flights.values()) {
             if (f.id == id) return f;
         }
         return null;
@@ -33,7 +34,7 @@ public class HelperMethods {
     // this containts trip property 4
     public ArrayList<Integer> allToAirport(Airport a) {
         ArrayList<Integer> toa = new ArrayList<>();
-        for (Flight f: flights) {
+        for (Flight f: flights.values()) {
             double time = f.date + f.duration;
             if (f.arr == a && time <= T) {
                 toa.add(f.id);
@@ -44,7 +45,7 @@ public class HelperMethods {
 
     public ArrayList<Integer> allFromAirport(Airport a) {
         ArrayList<Integer> froma = new ArrayList<>();
-        for (Flight f: flights) {
+        for (Flight f: flights.values()) {
             double time = f.date + f.duration;
             if (f.dep == a && time <= T) {
                 froma.add(f.id);
@@ -57,7 +58,7 @@ public class HelperMethods {
         ArrayList<Integer> froma = new ArrayList<>();
         Flight f = getFlightByID(prev);
         Airport dep = f.arr;
-        for (Flight fl: flights) {
+        for (Flight fl: flights.values()) {
             if (fl.dep == dep && fl.date > f.date) {
                 double stay_time = fl.date - (f.date + f.duration + dep.conn_time);
                 if (stay_time >= lb && stay_time <= up) {
@@ -70,7 +71,7 @@ public class HelperMethods {
 
     public ArrayList<Integer> allToBefore(Airport a, double date) {
         ArrayList<Integer> toa = new ArrayList<>();
-        for (Flight f: flights) {
+        for (Flight f: flights.values()) {
             if (f.arr == a && (f.date + f.duration + a.conn_time) <= date) {
                 toa.add(f.id);
             }
@@ -80,7 +81,7 @@ public class HelperMethods {
 
     public ArrayList<Integer> allFromAfter(Airport a, double date) {
         ArrayList<Integer> froma = new ArrayList<>();
-        for (Flight f: flights) {
+        for (Flight f: flights.values()) {
             // allow for at least 1 day stay at a. Date is multiplied by 0 due to
             // choco not supporting double values properly
             if (f.dep == a && f.date >= date + 10) {
@@ -94,7 +95,7 @@ public class HelperMethods {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
         Airport a = fl.arr;
         double connTime = a.conn_time;
-        for (Flight f: flights) {
+        for (Flight f: flights.values()) {
             double time = fl.date + fl.duration + connTime;
             if (f.dep == a && time <= f.date) {
                 allowedFlights.add(f.id);
@@ -106,7 +107,7 @@ public class HelperMethods {
     public ArrayList<Integer> allowedLastFlights(Flight fl) {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
         Airport a = fl.arr;
-        for (Flight f: flights) {
+        for (Flight f: flights.values()) {
             double time = fl.date + fl.duration;
             if (f.dep == a && time <= f.date){
                 allowedFlights.add(f.id);
@@ -120,7 +121,7 @@ public class HelperMethods {
         ArrayList<Integer> forbidden = new ArrayList<>();
         Flight next = getFlightByID(next_id);
         double conn_time = getConnTimeIP(next);
-        for (Flight prev : flights) {
+        for (Flight prev : flights.values()) {
             double arrival_prev = prev.date + prev.duration;
             if (arrival_prev + conn_time > next.date) {
                 forbidden.add(prev.id);
@@ -148,7 +149,7 @@ public class HelperMethods {
 
     public ArrayList<Airport> getDestinations(){
         ArrayList<Airport> destinations = new ArrayList<>();
-        for (Airport a: this.airports) {
+        for (Airport a: this.airports.values()) {
             if(a.purpose.equals("destination")) {
                 destinations.add(a);
             }
@@ -158,7 +159,7 @@ public class HelperMethods {
 
     public ArrayList<Integer> allConnectionFlights(){
         ArrayList<Integer> all = new ArrayList<>();
-        for (Flight f : flights) {
+        for (Flight f : flights.values()) {
             if (f.arr.purpose.equals("connecting")) {
                 all.add(f.id);
             }
@@ -169,7 +170,7 @@ public class HelperMethods {
     public Flight getCheapestAfter(float cost){
         double cheapest = 99999;
         Flight cheapestF = null;
-        for (Flight f: flights) {
+        for (Flight f: flights.values()) {
             if(f.cost > cost && f.cost < cheapest) {
                 cheapest = f.cost;
                 cheapestF = f;

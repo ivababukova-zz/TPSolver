@@ -3,14 +3,15 @@ import gurobi.*;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by ivababukova on 1/11/17.
  */
 public class IPsolver {
 
-    private ArrayList<Flight> flights;
-    private ArrayList<Airport> airports;
+    private HashMap<Integer, Flight> flights;
+    private HashMap<String, Airport> airports;
     private HelperMethods h;
     private int T;
     private int B; // upper bound on the cost
@@ -22,8 +23,8 @@ public class IPsolver {
     GRBVar[][] S;
 
     public IPsolver(
-            ArrayList<Airport> as,
-            ArrayList<Flight> fs,
+            HashMap<String, Airport> as,
+            HashMap<Integer, Flight> fs,
             int Time,
             int Bound,
             String[] argsss
@@ -131,7 +132,7 @@ public class IPsolver {
 
     private void tripProperty2() throws GRBException {
         GRBLinExpr expr1, expr2;
-        for (Airport a: this.airports) {
+        for (Airport a: this.airports.values()) {
             ArrayList<Integer> all_to = h.allToAirport(a);
             ArrayList<Integer> all_from = h.allFromAirport(a);
             for (int i = 1; i < m; i++) {
@@ -480,6 +481,6 @@ public class IPsolver {
     private void addSpecialFlight(){
         Airport a0 = h.getHomePoint();
         Flight special = new Flight(flights.size()+1, a0, a0, T, 0, 0);
-        flights.add(special);
+        flights.put( flights.size() + 1, special);
     }
 }

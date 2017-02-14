@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.chocosolver.solver.Model;
@@ -12,7 +13,7 @@ import org.chocosolver.solver.variables.*;
  */
 public class CPsolver {
 
-    ArrayList<Flight> flights; // all flights
+    HashMap<Integer, Flight> flights; // all flights
     HelperMethods h;
     int T; // holiday time
     int B; // upper bound on the total flights cost
@@ -31,8 +32,8 @@ public class CPsolver {
     IntVar cost_sum, trip_duration, connections_count;
 
     public CPsolver(
-            ArrayList<Airport> as,
-            ArrayList<Flight> fs,
+            HashMap<String, Airport> as,
+            HashMap<Integer, Flight> fs,
             int holiday_time,
             int ub,
             String[] arguments,

@@ -24,23 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="InstanceParser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="InstanceParser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/InstanceParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="58" column="25" lean-forward="false" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IPsolver.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3120">
-              <caret line="208" column="29" lean-forward="true" selection-start-line="208" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+            <state relative-caret-position="495">
+              <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="87" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,10 +39,21 @@
       <file leaf-file-name="CPsolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2235">
-              <caret line="112" column="78" lean-forward="false" selection-start-line="112" selection-start-column="58" selection-end-line="112" selection-end-column="78" />
+            <state relative-caret-position="-660">
+              <caret line="51" column="23" lean-forward="false" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IPsolver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1312">
+              <caret line="483" column="41" lean-forward="false" selection-start-line="483" selection-start-column="41" selection-end-line="483" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <marker date="1487070180000" expanded="true" signature="204:249" ph="..." />
               </folding>
             </state>
           </provider>
@@ -63,9 +62,11 @@
       <file leaf-file-name="HelperMethods.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/HelperMethods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="133" column="36" lean-forward="true" selection-start-line="133" selection-start-column="36" selection-end-line="133" selection-end-column="36" />
-              <folding />
+            <state relative-caret-position="400">
+              <caret line="172" column="39" lean-forward="false" selection-start-line="172" selection-start-column="39" selection-end-line="172" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,8 +74,18 @@
       <file leaf-file-name="small_test.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/small_test.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="183" column="5" lean-forward="true" selection-start-line="183" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/skyscanner/test">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" column="13" lean-forward="true" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -91,9 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>There is no specified</find>
-      <find>sum</find>
-      <find>destination</find>
       <find>Cuba</find>
       <find>Korea, South</find>
       <find>170</find>
@@ -119,8 +127,11 @@
       <find>getAllSols</find>
       <find>trip_duration</find>
       <find>The optimal objective</find>
-      <find>getHomePoint</find>
       <find>setObjectiveFunction</find>
+      <find>getHomePoint</find>
+      <find>getSolution</find>
+      <find>WAW</find>
+      <find>connection</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -131,7 +142,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/company/Main.java" />
         <option value="$PROJECT_DIR$/data/test1_airports.in" />
         <option value="$PROJECT_DIR$/src/main/Solver.java" />
         <option value="$PROJECT_DIR$/src/main/Solution.java" />
@@ -165,7 +175,6 @@
         <option value="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/src/common/CPsolver.java" />
         <option value="$PROJECT_DIR$/src/common/IPsolver.java" />
-        <option value="$PROJECT_DIR$/src/Airport.java" />
         <option value="$PROJECT_DIR$/src/Flight.java" />
         <option value="$PROJECT_DIR$/src/Tuple.java" />
         <option value="$PROJECT_DIR$/src/ui/UserInterface.java" />
@@ -177,11 +186,13 @@
         <option value="$PROJECT_DIR$/src/Triplet.java" />
         <option value="$PROJECT_DIR$/src/CPconstraints.java" />
         <option value="$PROJECT_DIR$/data/test_max_flights.json" />
-        <option value="$PROJECT_DIR$/src/InstanceParser.java" />
-        <option value="$PROJECT_DIR$/src/HelperMethods.java" />
         <option value="$PROJECT_DIR$/data/small_test.json" />
+        <option value="$PROJECT_DIR$/src/Airport.java" />
+        <option value="$PROJECT_DIR$/data/skyscanner/test" />
         <option value="$PROJECT_DIR$/src/CPsolver.java" />
         <option value="$PROJECT_DIR$/src/IPsolver.java" />
+        <option value="$PROJECT_DIR$/src/InstanceParser.java" />
+        <option value="$PROJECT_DIR$/src/HelperMethods.java" />
       </list>
     </option>
   </component>
@@ -211,9 +222,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -254,8 +264,27 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPSolver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TPSolver" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="random_data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -289,7 +318,7 @@
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="InstanceParser" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="data/small_test.json -ip -max -trip_duration" />
+      <option name="PROGRAM_PARAMETERS" value="data/skyscanner/test -ip -min -cost" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -906,12 +935,15 @@
       <workItem from="1484738140237" duration="10666000" />
       <workItem from="1485025093868" duration="33350000" />
       <workItem from="1485613909647" duration="47414000" />
-      <workItem from="1485957299851" duration="12663000" />
+      <workItem from="1485957299851" duration="21922000" />
+      <workItem from="1486321633502" duration="5326000" />
+      <workItem from="1486804274377" duration="654000" />
+      <workItem from="1486992263551" duration="14555000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="322502000" />
+    <option name="totallyTimeSpent" value="352296000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="6" />
@@ -926,26 +958,26 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35390624" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39296874" sideWeight="0.87784094" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35625" sideWeight="0.48736462" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45546874" sideWeight="0.12215909" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32761732" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -987,7 +1019,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -996,7 +1028,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/data/test1_airports.in" />
     <entry file="jar://$PROJECT_DIR$/choco-solver-4.0.1-with-dependencies.jar!/org/chocosolver/solver/ISelf.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1151,7 +1182,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="19" column="5" lean-forward="true" selection-start-line="6" selection-start-column="4" selection-end-line="19" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1159,24 +1189,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="25" column="5" lean-forward="false" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CPconstraints.java" />
-    <entry file="file://$PROJECT_DIR$/src/Airport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/test_max_flights.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1395">
           <caret line="93" column="5" lean-forward="false" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1188,46 +1208,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/InstanceParser.java">
+    <entry file="file://$PROJECT_DIR$/data/small_test.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="58" column="25" lean-forward="false" selection-start-line="58" selection-start-column="14" selection-end-line="58" selection-end-column="25" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Airport.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/skyscanner/test">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="13" lean-forward="true" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1312">
+          <caret line="483" column="41" lean-forward="false" selection-start-line="483" selection-start-column="41" selection-end-line="483" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
+            <marker date="1487070180000" expanded="true" signature="204:249" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HelperMethods.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="133" column="36" lean-forward="true" selection-start-line="133" selection-start-column="36" selection-end-line="133" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/small_test.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="183" column="5" lean-forward="true" selection-start-line="183" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2235">
-          <caret line="112" column="78" lean-forward="false" selection-start-line="112" selection-start-column="58" selection-end-line="112" selection-end-column="78" />
+        <state relative-caret-position="400">
+          <caret line="172" column="39" lean-forward="false" selection-start-line="172" selection-start-column="39" selection-end-line="172" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/IPsolver.java">
+    <entry file="file://$PROJECT_DIR$/src/CPsolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3120">
-          <caret line="208" column="29" lean-forward="true" selection-start-line="208" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+        <state relative-caret-position="-660">
+          <caret line="51" column="23" lean-forward="false" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/InstanceParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="87" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

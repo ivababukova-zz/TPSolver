@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -5,13 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.util.HashMap;
 
 public class InstanceParser {
 
     private static String filename;
     private static int B = 1000000;
-    private static ArrayList<Airport> airports = new ArrayList<>();
-    private static ArrayList<Flight> flights = new ArrayList<>();
+    private static HashMap<String, Airport> airports;
+    private static HashMap<Integer, Flight> flights;
 
     public static void main(String[] args) throws ContradictionException, IOException, ParseException {
         if (args.length < 2) {
@@ -32,32 +34,45 @@ public class InstanceParser {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             String turn = "";
+            Boolean consumed = true;
             while ((line = br.readLine()) != null) {
                 line = line.replace("[", "").replace("]", "");
-                if (line.equals("airports") || line.equals("flights") || line.equals("holiday")) {
+                if (line.contains("airports") || line.contains("flights") || line.contains("holiday")) {
                     turn = line;
+                    consumed = false;
                 }
                 else {
+                    String[] props = turn.split(", ");
                     String[] lines = line.split(", ");
-                    if (turn.equals("flights")) {
+                    if (props[0].equals("flights")) {
+                        if (!consumed) {
+                            consumed = true;
+                            int hashCapacity = Integer.parseInt(props[1]);
+                            flights = new HashMap<>(hashCapacity + 1); // +1 for the dummy flight in ip
+                        }
                         int id = Integer.parseInt(lines[0]);
                         double date = Float.parseFloat(lines[1]) * 100;
                         double duration = Float.parseFloat(lines[2]) * 100;
-                        Airport dep = getByName(lines[3].replace("\"", "").trim());
-                        Airport arr = getByName(lines[4].replace("\"", "").trim());
+                        Airport dep = airports.get(lines[3].replace("\"", "").trim());
+                        Airport arr = airports.get(lines[4].replace("\"", "").trim());
                         double price = Float.parseFloat(lines[5]) * 100;
                         Flight f = new Flight(id, dep, arr, date, duration, price);
-                        flights.add(f);
+                        flights.put(id, f);
                     }
-                    if (turn.equals("airports")) {
+                    if (props[0].equals("airports")) {
+                        if (!consumed){
+                            consumed = true;
+                            int hashCapacity = Integer.parseInt(props[1]);
+                            airports = new HashMap<>(hashCapacity);
+                        }
                         String name = lines[0].replace("\"", "").trim();
                         double conntime = Float.parseFloat(lines[1]) * 100;
                         String purpose = lines[2].replace("\"", "").trim();
                         Airport a = new Airport(name, conntime, purpose);
-                        airports.add(a);
+                        airports.put(name, a);
                     }
 
-                    if (turn.equals("holiday")) {
+                    if (props[0].equals("holiday")) {
                         T = Integer.parseInt(lines[0])*100;
                     }
                 }
@@ -74,94 +89,30 @@ public class InstanceParser {
         else printUsageEclipse();
     }
 
-    static void readJsonFile(String[] args) throws IOException, ParseException {
-        filename = args[0];
-        JSONParser p = new JSONParser();
-        Object obj = p.parse(new FileReader(filename));
-        JSONObject jobj = (JSONObject) obj;
-        JSONArray jairports = (JSONArray) jobj.get("airports");
-        JSONArray jflights = (JSONArray) jobj.get("flights");
-        JSONArray jtuples = (JSONArray) jobj.get("hard_constraint_2");
-        JSONArray jtriplets = (JSONArray) jobj.get("hard_constraint_1");
-
-        int T = ((Number)jobj.get("holiday_time")).intValue() * 100;
-        createAirports(jairports);
-        flights = createFlights(jflights);
-        ArrayList<Tuple> tuples = null;
-        ArrayList<Triplet> triplets = null;
-        if (args.length > 2 && args[1].equals("-cp")) {
-            if (jtuples != null && args[2].equals("-hc2")) tuples = createHC2(jtuples);
-            if (jtriplets != null && args[2].equals("-hc1")) triplets = createHC1(jtriplets);
-        }
-        if (args[1].equals("-cp")) {
-            CPsolver s = new CPsolver(airports, flights, T, B, args, tuples, triplets);
-            s.getSolution();
-        }
-        else if (args[1].equals("-ip")) {
-            IPsolver s = new IPsolver(airports, flights, T, B, args);
-            s.getSolution();
-        }
-        else printUsageEclipse();
-    }
-
-    static ArrayList<Flight> createFlights(JSONArray jflights){
-        ArrayList<Flight> flights = new ArrayList<>();
-        for(int i = 0; i < jflights.size(); i++) {
-            JSONObject flight = (JSONObject) jflights.get(i);
-            int id = ((Number)flight.get("id")).intValue();
-            Airport dep = getByName((String) flight.get("dep_airport"));
-            Airport arr = getByName((String) flight.get("arr_airport"));
-            double date = ((Number)flight.get("date")).doubleValue() * 100;
-            double duration = ((Number)flight.get("duration")).doubleValue() * 100;
-            double price = ((Number)flight.get("price")).doubleValue() * 100;
-            Flight f = new Flight(id, dep, arr, date, duration, price);
-            flights.add(f);
-        }
-        return flights;
-    }
-
-    static void createAirports(JSONArray jairports) {
-        for (int i = 0; i < jairports.size(); i++) {
-            JSONObject airport = (JSONObject) jairports.get(i);
-            String name = (String) airport.get("name");
-            double conn_time = ((Number)airport.get("connection_time")).doubleValue() * 100;
-            String purpose = (String) airport.get("purpose");
-            Airport a = new Airport(name, conn_time, purpose);
-            airports.add(a);
-        }
-    }
-
     static ArrayList<Tuple> createHC2 (JSONArray jtuples) {
         ArrayList<Tuple> tuples = new ArrayList<>();
-        for (int i = 0; i < jtuples.size(); i++) {
-            JSONObject tuple = (JSONObject) jtuples.get(i);
-            Airport a = getByName((String) tuple.get("airport"));
-            double date = ((Number)tuple.get("date")).doubleValue() * 100;
-            Tuple t = new Tuple(a, date);
-            tuples.add(t);
-        }
+//        for (int i = 0; i < jtuples.size(); i++) {
+//            JSONObject tuple = (JSONObject) jtuples.get(i);
+//            Airport a = getByName((String) tuple.get("airport"));
+//            double date = ((Number)tuple.get("date")).doubleValue() * 100;
+//            Tuple t = new Tuple(a, date);
+//            tuples.add(t);
+//        }
         return tuples;
     }
 
     private static ArrayList<Triplet> createHC1 (JSONArray jtriplets) {
         ArrayList<Triplet> triplets = new ArrayList<>();
-        for (int i = 0; i < jtriplets.size(); i++) {
-            JSONObject triplet = (JSONObject) jtriplets.get(i);
-            Airport a = getByName((String) triplet.get("airport"));
-            double lb = ((Number)triplet.get("lb")).doubleValue() * 100;
-            double ub = ((Number)triplet.get("ub")).doubleValue() * 100;
-            Triplet tr = new Triplet(a, lb, ub);
-            triplets.add(tr);
-        }
+//        for (int i = 0; i < jtriplets.size(); i++) {
+//            JSONObject triplet = (JSONObject) jtriplets.get(i);
+//            Airport a = getByName((String) triplet.get("airport"));
+//            double lb = ((Number)triplet.get("lb")).doubleValue() * 100;
+//            double ub = ((Number)triplet.get("ub")).doubleValue() * 100;
+//            Triplet tr = new Triplet(a, lb, ub);
+//            triplets.add(tr);
+//        }
 
         return triplets;
-    }
-
-    private static Airport getByName(String name){
-        for (Airport a : airports) {
-            if (a.name.equals(name)) return a;
-        }
-        return null;
     }
 
     public static void printUsageEclipse() {
