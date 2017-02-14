@@ -9,12 +9,7 @@ import java.util.HashMap;
 
 public class InstanceParser {
 
-    private static String filename;
     private static int B = 1000000;
-    private static HashMap<String, Airport> airports;
-    private static HashMap<Integer, Flight> flights;
-    private static HashMap<String, ArrayList<Integer>> depFlights;
-    private static HashMap<String, ArrayList<Integer>> arrFlights;
 
     public static void main(String[] args) throws ContradictionException, IOException, ParseException {
         if (args.length < 2) {
@@ -30,7 +25,11 @@ public class InstanceParser {
         readFile(args);
     }
     static void readFile(String[] args) throws IOException, ParseException {
-        filename = args[0];
+        String filename = args[0];
+        HashMap<String, Airport> airports = null;
+        HashMap<Integer, Flight> flights = null;
+        HashMap<String, ArrayList<Integer>> depFlights = null;
+        HashMap<String, ArrayList<Integer>> arrFlights = null;
         int T = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -89,12 +88,13 @@ public class InstanceParser {
                 }
             }
         }
+        HelperMethods h = new HelperMethods(airports, flights, depFlights, arrFlights);
         if (args[1].equals("-cp")) {
-            CPsolver s = new CPsolver(airports, flights, T, B, args, null, null, depFlights, arrFlights);
+            CPsolver s = new CPsolver(flights, T, B, args, null, null, depFlights, arrFlights, h);
             s.getSolution();
         }
         else if (args[1].equals("-ip")) {
-            IPsolver s = new IPsolver(airports, flights, T, B, args, depFlights, arrFlights);
+            IPsolver s = new IPsolver(airports, flights, T, B, args, depFlights, arrFlights, h);
             s.getSolution();
         }
         else printUsageEclipse();

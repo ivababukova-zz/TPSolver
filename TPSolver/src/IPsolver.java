@@ -31,10 +31,18 @@ public class IPsolver {
             int Bound,
             String[] argsss,
             HashMap<String, ArrayList<Integer>> dep,
-            HashMap<String, ArrayList<Integer>> arr
+            HashMap<String, ArrayList<Integer>> arr,
+            HelperMethods h
             ) {
-        flights = fs; airports = as; T = Time; B = Bound; args = argsss; depFlights = dep; arrFlights = arr;
-        h = new HelperMethods(as, fs, T, dep); addSpecialFlight();
+        flights = fs;
+        airports = as;
+        T = Time;
+        B = Bound;
+        args = argsss;
+        depFlights = dep;
+        arrFlights = arr;
+        this.h = h;
+        addSpecialFlight();
     }
 
     public void getSolution() throws IOException {
@@ -125,7 +133,7 @@ public class IPsolver {
 
     private void tripProperty1() throws GRBException {
         GRBLinExpr expr1;
-        Airport a0 = h.getHomePoint();
+        Airport a0 = h.a0;
         ArrayList<Integer> from_home = depFlights.get(a0.name);
         expr1 = new GRBLinExpr();
         for (int j: from_home) {
@@ -175,7 +183,7 @@ public class IPsolver {
 
     private void tripProperty5() throws GRBException {
         GRBLinExpr expr;
-        ArrayList<Airport> D =  h.getDestinations();
+        ArrayList<Airport> D =  h.destinations;
         for (Airport d : D) {
             ArrayList<Integer> all_to = arrFlights.get(d.name);
             expr = new GRBLinExpr();
@@ -195,7 +203,7 @@ public class IPsolver {
         GRBLinExpr expr = new GRBLinExpr();
         for(int i = 0; i < m; i++) {
             for(int j = 0; j < m; j++) {
-                expr.addTerm(h.getFlightByID(j+1).cost, S[i][j]);
+                expr.addTerm(flights.get(j+1).cost, S[i][j]);
             }
         }
         return expr;
@@ -214,7 +222,7 @@ public class IPsolver {
 
     // minimise or maximise the duration of the trip
     private GRBLinExpr tripDurationObj() throws GRBException {
-        Airport a0 = h.getHomePoint();
+        Airport a0 = h.a0;
         ArrayList<Integer> toHome = arrFlights.get(a0.name);
         int dummy = toHome.size() - 1;
         toHome.remove(dummy);
@@ -237,7 +245,7 @@ public class IPsolver {
 
                 model.addConstr(Y[i][j], GRB.GREATER_EQUAL, potentialLast, "");
                 // the value of last is equal to the sum of the date and duration of the last flight
-                trip_duration.addTerm(h.getFlightByID(fj+1).date + h.getFlightByID(fj+1).duration, Y[i][j]);
+                trip_duration.addTerm(flights.get(fj+1).date + flights.get(fj+1).duration, Y[i][j]);
             }
         }
         return trip_duration;
@@ -257,7 +265,10 @@ public class IPsolver {
     }
 
     private GRBLinExpr connectionsObj () throws GRBException {
-        ArrayList<Integer> allConnFlights = h.allConnectionFlights();
+        ArrayList<Integer> allConnFlights = new ArrayList<>();
+        for (Airport conn : h.connecting) {
+            allConnFlights.addAll(arrFlights.get(conn.name));
+        }
         GRBLinExpr connections_count = new GRBLinExpr();
 
         for (int i = 0; i < m - 1; i++) {
@@ -347,7 +358,7 @@ public class IPsolver {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m - 1; j++) {
                 if (x[i][j] > 0.5) {
-                    cost += h.getFlightByID(j+1).cost;
+                    cost += flights.get(j+1).cost;
                 }
             }
         }
@@ -356,7 +367,7 @@ public class IPsolver {
 
     private double getSolutionDuration(double[][] x) {
         int lastFlight = getLastFlight(x);
-        Flight f = h.getFlightByID(lastFlight);
+        Flight f = flights.get(lastFlight);
         return f.duration + f.date;
     }
 
@@ -395,10 +406,13 @@ public class IPsolver {
 
     private int getSolutionNumbOfConnections(double[][] x) {
         int connections_count = 0;
-        ArrayList<Integer> connections = h.allConnectionFlights();
+        ArrayList<Integer> allConnFlights = new ArrayList<>();
+        for (Airport conn : h.connecting) {
+            allConnFlights.addAll(arrFlights.get(conn.name));
+        }
         for (int i = 0; i < m - 1; i++) {
             for (int j = 0; j < m - 1; j++) {
-                if (x[i][j] > 0.5 && connections.contains(j+1)) connections_count ++;
+                if (x[i][j] > 0.5 && allConnFlights.contains(j+1)) connections_count ++;
             }
         }
         return connections_count;
@@ -442,15 +456,15 @@ public class IPsolver {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < m; j++) {
                 if (x[i][j] > 0.5 && j != m-1) {
-                    cost = cost + h.getFlightByID(j+1).cost;
+                    cost = cost + flights.get(j+1).cost;
                     System.out.println(
                         MessageFormat.format(
                             "Flight with id {0} from {1} to {2} on date: {3} costs: {4}",
                             (j+1),
-                            h.getFlightByID(j + 1).dep.name,
-                            h.getFlightByID(j + 1).arr.name,
-                            h.getFlightByID(j + 1).date / 100,
-                            h.getFlightByID(j + 1).cost / 100
+                            flights.get(j + 1).dep.name,
+                            flights.get(j + 1).arr.name,
+                            flights.get(j + 1).date / 100,
+                            flights.get(j + 1).cost / 100
                         )
                     );
                 }
@@ -488,7 +502,7 @@ public class IPsolver {
     }
 
     private void addSpecialFlight(){
-        Airport a0 = h.getHomePoint();
+        Airport a0 = h.a0;
         Flight special = new Flight(flights.size()+1, a0, a0, T, 0, 0);
         flights.put( flights.size() + 1, special);
         ArrayList<Integer> froma0 = depFlights.get(a0.name);

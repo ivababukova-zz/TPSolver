@@ -34,7 +34,6 @@ public class CPsolver {
     IntVar cost_sum, trip_duration, connections_count;
 
     public CPsolver(
-            HashMap<String, Airport> as,
             HashMap<Integer, Flight> fs,
             int holiday_time,
             int ub,
@@ -42,12 +41,13 @@ public class CPsolver {
             ArrayList<Tuple> tups,
             ArrayList<Triplet> tris,
             HashMap<String, ArrayList<Integer>> dep,
-            HashMap<String, ArrayList<Integer>> arr
+            HashMap<String, ArrayList<Integer>> arr,
+            HelperMethods h
     ){
         flights = fs;
         T = holiday_time;
         B = ub;
-        h = new HelperMethods(as, fs, T, dep);
+        this.h = h;
         args = arguments;
         tuples = tups;
         triplets = tris;
@@ -71,7 +71,7 @@ public class CPsolver {
     }
 
     private int findSchedule() {
-        Airport a0 = h.getHomePoint(); // the home point
+        Airport a0 = h.a0; // the home point
         int[] to_home = h.arrayToint(arrFlights.get(a0.name)); // all flights arriving from a0
         int[] from_home = h.arrayToint(depFlights.get(a0.name)); // all flights departing from a0
 
@@ -86,7 +86,7 @@ public class CPsolver {
         if (tuples != null) hardConstraint2(); // if hc2 is required, impose it
 
         for(int i = 1; i <= flights.size(); i++) {
-            Flight f = h.getFlightByID(i);
+            Flight f = flights.get(i);
             tripProperties2and3and4(f); // impose trip properties 2, 3 and 4
             sequenceConstraints(i, to_home, f); // impose valid sequence rules
             costAndConnectionsCountConstraints(i);
@@ -98,7 +98,7 @@ public class CPsolver {
 
     private void lastFlightConstraint(int i) {
         for (int j = 1; j <= flights.size(); j++) {
-            Flight f = h.getFlightByID(j);
+            Flight f = flights.get(j);
             model.ifThen(
                     model.and(
                             model.arithm(z, "=", i),
@@ -111,13 +111,18 @@ public class CPsolver {
 
     // set the values of C
     private void costAndConnectionsCountConstraints(int i){
+        ArrayList<Integer> fconnecting = new ArrayList<>();
+        for (Airport conn : h.connecting) {
+            fconnecting.addAll(arrFlights.get(conn.name));
+        }
+        int[] connfl = h.arrayToint(fconnecting);
         for (int j = 0; j <= flights.size(); j++) {
             this.model.ifThen(
                     model.arithm(S[j], "=", i),
-                    model.arithm(C[j], "=", (int) h.getFlightByID(i).cost)
+                    model.arithm(C[j], "=", (int) flights.get(i).cost)
             );
             model.ifThenElse(
-                        model.member(S[j], h.arrayToint(h.allConnectionFlights())),
+                        model.member(S[j], connfl),
                         model.arithm(isConnection[j], "=", 1),
                         model.arithm(isConnection[j], "=", 0)
             );
@@ -126,9 +131,12 @@ public class CPsolver {
 
     // enforces trip properties 2, 3 and 4
     private void tripProperties2and3and4(Flight f){
-        int[] allowed_next = h.arrayToint(h.allowedNextFlights(f)); // trip property 3
-        int[] allowed_last = h.arrayToint(h.allowedLastFlights(f)); // trip property 4
+        int[] allowed_next = h.arrayToint(h.allowedNext(f, f.arr.conn_time)); // trip property 3
 
+        ArrayList<Integer> allowedNext = h.allowedNext(f, 0); // trip property 4
+        ArrayList<Integer> toa0 = arrFlights.get(h.a0.name);
+
+        int[] allowed_last = h.intersection(allowedNext, toa0);
         // todo there is no need to enforce trip property 4, it is already enforced
         // when last flight is constrained to arrive at the home point
         for (int j = 1; j < flights.size(); j++) {
@@ -149,7 +157,7 @@ public class CPsolver {
 
     // all destinations must be visited
     private int tripProperty5(){
-        for (Airport d: h.getDestinations()) {
+        for (Airport d: h.destinations) {
             int[] all_to = h.arrayToint(arrFlights.get(d.name)); // all flights that fly to d
             if (all_to.length == 0) {
                 System.out.println("It is impossible to visit destination " + d.name + ".\nThe depFlights has no solution.");
@@ -228,7 +236,7 @@ public class CPsolver {
                     model.member(S[i-1], all_to)
             );
             for (int prev : all_to) {
-                int[] next = h.allowedNextFlightsHC1(prev, lb, ub);
+                int[] next = h.arrayToint(h.allowedNextHC1(flights.get(prev), lb, ub));
                 model.ifThen(
                         model.arithm(S[i-1], "=", prev),
                         model.member(S[i], next)
@@ -236,8 +244,8 @@ public class CPsolver {
             }
         }
     }
-
     /*** end of hard constraint 1 code ***/
+
 
     /*** HARD CONSTRAINT 2 CODE ***/
     private void hardConstraint2(){
@@ -277,7 +285,6 @@ public class CPsolver {
     }
 
     /*** end of hard constraint 2 code ***/
-
 
     public void getSolution() {
         if (init() == 0) return;
@@ -352,10 +359,10 @@ public class CPsolver {
         for (int i = 0; i < x.getIntVal(z); i++) {
             String nextVar = x.getIntVal(S[i]) + " ";
             System.out.print("  Flight with id " + nextVar);
-            System.out.print("from " + h.getFlightByID(x.getIntVal(S[i])).dep.name);
-            System.out.print(" to " + h.getFlightByID(x.getIntVal(S[i])).arr.name);
-            System.out.print(" on date: " + h.getFlightByID(x.getIntVal(S[i])).date / 100);
-            System.out.println(" costs: " + h.getFlightByID(x.getIntVal(S[i])).cost / 100);
+            System.out.print("from " + flights.get(x.getIntVal(S[i])).dep.name);
+            System.out.print(" to " + flights.get(x.getIntVal(S[i])).arr.name);
+            System.out.print(" on date: " + flights.get(x.getIntVal(S[i])).date / 100);
+            System.out.println(" costs: " + flights.get(x.getIntVal(S[i])).cost / 100);
         }
         System.out.print("  Trip duration: " + (x.getIntVal(trip_duration) / 100.0));
         System.out.print(" Total cost: " + (x.getIntVal(cost_sum) / 100.0));
