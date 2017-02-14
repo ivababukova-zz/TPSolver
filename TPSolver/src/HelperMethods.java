@@ -159,7 +159,7 @@ public class HelperMethods {
     public ArrayList<Integer> allConnectionFlights(){
         ArrayList<Integer> all = new ArrayList<>();
         for (Flight f : flights) {
-            if (f.arr.purpose.equals("connection")) {
+            if (f.arr.purpose.equals("connecting")) {
                 all.add(f.id);
             }
         }

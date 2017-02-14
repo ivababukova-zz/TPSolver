@@ -4,13 +4,12 @@ import org.json.simple.parser.*;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.BufferedReader;
 
 public class InstanceParser {
 
     private static String filename;
     private static int B = 1000000;
-    private static int T = 0;
     private static ArrayList<Airport> airports = new ArrayList<>();
     private static ArrayList<Flight> flights = new ArrayList<>();
 
@@ -25,12 +24,58 @@ public class InstanceParser {
                 return;
             }
         }
-        readJsonFile(args);
+        readFile(args);
+    }
+    static void readFile(String[] args) throws IOException, ParseException {
+        filename = args[0];
+        int T = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            String turn = "";
+            while ((line = br.readLine()) != null) {
+                line = line.replace("[", "").replace("]", "");
+                if (line.equals("airports") || line.equals("flights") || line.equals("holiday")) {
+                    turn = line;
+                }
+                else {
+                    String[] lines = line.split(", ");
+                    if (turn.equals("flights")) {
+                        int id = Integer.parseInt(lines[0]);
+                        double date = Float.parseFloat(lines[1]) * 100;
+                        double duration = Float.parseFloat(lines[2]) * 100;
+                        Airport dep = getByName(lines[3].replace("\"", "").trim());
+                        Airport arr = getByName(lines[4].replace("\"", "").trim());
+                        double price = Float.parseFloat(lines[5]) * 100;
+                        Flight f = new Flight(id, dep, arr, date, duration, price);
+                        flights.add(f);
+                    }
+                    if (turn.equals("airports")) {
+                        String name = lines[0].replace("\"", "").trim();
+                        double conntime = Float.parseFloat(lines[1]) * 100;
+                        String purpose = lines[2].replace("\"", "").trim();
+                        Airport a = new Airport(name, conntime, purpose);
+                        airports.add(a);
+                    }
+
+                    if (turn.equals("holiday")) {
+                        T = Integer.parseInt(lines[0])*100;
+                    }
+                }
+            }
+        }
+        if (args[1].equals("-cp")) {
+            CPsolver s = new CPsolver(airports, flights, T, B, args, null, null);
+            s.getSolution();
+        }
+        else if (args[1].equals("-ip")) {
+            IPsolver s = new IPsolver(airports, flights, T, B, args);
+            s.getSolution();
+        }
+        else printUsageEclipse();
     }
 
     static void readJsonFile(String[] args) throws IOException, ParseException {
         filename = args[0];
-
         JSONParser p = new JSONParser();
         Object obj = p.parse(new FileReader(filename));
         JSONObject jobj = (JSONObject) obj;
@@ -39,7 +84,7 @@ public class InstanceParser {
         JSONArray jtuples = (JSONArray) jobj.get("hard_constraint_2");
         JSONArray jtriplets = (JSONArray) jobj.get("hard_constraint_1");
 
-        T = ((Number)jobj.get("holiday_time")).intValue() * 100;
+        int T = ((Number)jobj.get("holiday_time")).intValue() * 100;
         createAirports(jairports);
         flights = createFlights(jflights);
         ArrayList<Tuple> tuples = null;

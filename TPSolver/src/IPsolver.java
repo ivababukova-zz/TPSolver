@@ -49,7 +49,11 @@ public class IPsolver {
 
             /*** All Constraints ***/
             model.addConstr(S[m-1][m-1], GRB.EQUAL, 1.0, "End with special flight");
-            matrixConstraints(); tripProperty1(); tripProperty2(); tripProperties3and4(); tripProperty5();
+            matrixConstraints();
+            tripProperty1();
+            tripProperty2();
+            tripProperties3and4();
+            tripProperty5();
 
             model.getEnv().set("OutputFlag", "0"); // set to 1 to get Gurobi custom output
 
