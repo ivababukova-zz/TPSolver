@@ -14,6 +14,8 @@ import org.chocosolver.solver.variables.*;
 public class CPsolver {
 
     HashMap<Integer, Flight> flights; // all flights
+    HashMap<String, ArrayList<Integer>> depFlights;
+    HashMap<String, ArrayList<Integer>> arrFlights;
     HelperMethods h;
     int T; // holiday time
     int B; // upper bound on the total flights cost
@@ -38,15 +40,19 @@ public class CPsolver {
             int ub,
             String[] arguments,
             ArrayList<Tuple> tups,
-            ArrayList<Triplet> tris
+            ArrayList<Triplet> tris,
+            HashMap<String, ArrayList<Integer>> dep,
+            HashMap<String, ArrayList<Integer>> arr
     ){
         flights = fs;
         T = holiday_time;
         B = ub;
-        h = new HelperMethods(as, fs, T);
+        h = new HelperMethods(as, fs, T, dep);
         args = arguments;
         tuples = tups;
         triplets = tris;
+        depFlights = dep;
+        arrFlights = arr;
     }
 
     private int init(){
@@ -66,8 +72,8 @@ public class CPsolver {
 
     private int findSchedule() {
         Airport a0 = h.getHomePoint(); // the home point
-        int[] to_home = h.arrayToint(h.allToAirport(a0)); // all flights arriving from a0
-        int[] from_home = h.arrayToint(h.allFromAirport(a0)); // all flights departing from a0
+        int[] to_home = h.arrayToint(arrFlights.get(a0.name)); // all flights arriving from a0
+        int[] from_home = h.arrayToint(depFlights.get(a0.name)); // all flights departing from a0
 
         model.member(S[0], from_home).post(); // trip property 1
         model.arithm(S[1], "!=", 0).post(); // S can not be empty
@@ -144,9 +150,9 @@ public class CPsolver {
     // all destinations must be visited
     private int tripProperty5(){
         for (Airport d: h.getDestinations()) {
-            int[] all_to = h.arrayToint(h.allToAirport(d)); // all flights that fly to d
+            int[] all_to = h.arrayToint(arrFlights.get(d.name)); // all flights that fly to d
             if (all_to.length == 0) {
-                System.out.println("It is impossible to visit destination " + d.name + ".\nThe instance has no solution.");
+                System.out.println("It is impossible to visit destination " + d.name + ".\nThe depFlights has no solution.");
                 return 0;
             }
             IntVar X = this.model.intVar(1, all_to.length);
@@ -215,7 +221,7 @@ public class CPsolver {
     }
 
     private void hc1(IntVar[] D, Airport a, double lb, double ub, int index) {
-        int[] all_to = h.arrayToint(h.allToAirport(a));
+        int[] all_to = h.arrayToint(arrFlights.get(a.name));
         for (int i = 1; i <= flights.size(); i++) {
             model.ifThen(
                     model.arithm(D[index], "=", i),

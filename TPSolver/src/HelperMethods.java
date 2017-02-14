@@ -8,12 +8,14 @@ public class HelperMethods {
 
     private HashMap<String, Airport> airports;
     private HashMap<Integer, Flight> flights;
+    private HashMap<String, ArrayList<Integer>> instance;
     double T;
 
-    public HelperMethods(HashMap<String, Airport> a, HashMap<Integer, Flight> f, double T){
+    public HelperMethods(HashMap<String, Airport> a, HashMap<Integer, Flight> f, double T, HashMap<String, ArrayList<Integer>> instance){
         this.airports = a;
         this.flights = f;
         this.T = T;
+        this.instance = instance;
     }
 
     public Airport getHomePoint(){
@@ -31,28 +33,17 @@ public class HelperMethods {
         return null;
     }
 
-    // this containts trip property 4
-    public ArrayList<Integer> allToAirport(Airport a) {
-        ArrayList<Integer> toa = new ArrayList<>();
-        for (Flight f: flights.values()) {
-            double time = f.date + f.duration;
-            if (f.arr == a && time <= T) {
-                toa.add(f.id);
-            }
-        }
-        return toa;
-    }
-
-    public ArrayList<Integer> allFromAirport(Airport a) {
-        ArrayList<Integer> froma = new ArrayList<>();
-        for (Flight f: flights.values()) {
-            double time = f.date + f.duration;
-            if (f.dep == a && time <= T) {
-                froma.add(f.id);
-            }
-        }
-        return froma;
-    }
+//    // this containts trip property 4
+//    public ArrayList<Integer> allToAirport(Airport a) {
+//        ArrayList<Integer> toa = new ArrayList<>();
+//        for (Flight f: flights.values()) {
+//            double time = f.date + f.duration;
+//            if (f.arr == a && time <= T) {
+//                toa.add(f.id);
+//            }
+//        }
+//        return toa;
+//    }
 
     public int[] allowedNextFlightsHC1(int prev, double lb, double up) {
         ArrayList<Integer> froma = new ArrayList<>();

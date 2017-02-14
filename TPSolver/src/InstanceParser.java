@@ -1,4 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -14,6 +13,8 @@ public class InstanceParser {
     private static int B = 1000000;
     private static HashMap<String, Airport> airports;
     private static HashMap<Integer, Flight> flights;
+    private static HashMap<String, ArrayList<Integer>> depFlights;
+    private static HashMap<String, ArrayList<Integer>> arrFlights;
 
     public static void main(String[] args) throws ContradictionException, IOException, ParseException {
         if (args.length < 2) {
@@ -58,18 +59,28 @@ public class InstanceParser {
                         double price = Float.parseFloat(lines[5]) * 100;
                         Flight f = new Flight(id, dep, arr, date, duration, price);
                         flights.put(id, f);
+                        ArrayList<Integer> fromKey = depFlights.get(f.dep.name);
+                        ArrayList<Integer> toKey = arrFlights.get(f.arr.name);
+                        fromKey.add(id);
+                        toKey.add(id);
+                        depFlights.put(f.dep.name, fromKey);
+                        arrFlights.put(f.arr.name, toKey);
                     }
                     if (props[0].equals("airports")) {
                         if (!consumed){
                             consumed = true;
                             int hashCapacity = Integer.parseInt(props[1]);
                             airports = new HashMap<>(hashCapacity);
+                            depFlights = new HashMap<>(hashCapacity);
+                            arrFlights = new HashMap<>(hashCapacity);
                         }
                         String name = lines[0].replace("\"", "").trim();
                         double conntime = Float.parseFloat(lines[1]) * 100;
                         String purpose = lines[2].replace("\"", "").trim();
                         Airport a = new Airport(name, conntime, purpose);
                         airports.put(name, a);
+                        depFlights.put(a.name, new ArrayList<>());
+                        arrFlights.put(a.name, new ArrayList<>());
                     }
 
                     if (props[0].equals("holiday")) {
@@ -79,11 +90,11 @@ public class InstanceParser {
             }
         }
         if (args[1].equals("-cp")) {
-            CPsolver s = new CPsolver(airports, flights, T, B, args, null, null);
+            CPsolver s = new CPsolver(airports, flights, T, B, args, null, null, depFlights, arrFlights);
             s.getSolution();
         }
         else if (args[1].equals("-ip")) {
-            IPsolver s = new IPsolver(airports, flights, T, B, args);
+            IPsolver s = new IPsolver(airports, flights, T, B, args, depFlights, arrFlights);
             s.getSolution();
         }
         else printUsageEclipse();
@@ -119,12 +130,12 @@ public class InstanceParser {
         System.out.println("Usage with Eclipse:"
                 + "\n  1. Go to \"Run/Run Configurations ...\""
                 + "\n  2. Click on \"Arguments\" and add to \"program arguments\" <filename> <model> [-options],");
-        System.out.println("where:\n  <filename> is the relative path to and the name of the TP instance you want to solve,");
+        System.out.println("where:\n  <filename> is the relative path to and the name of the TP depFlights you want to solve,");
         System.out.println("             which must be a .json file containing a list of airports, a list of flights and");
-        System.out.println("             a holiday time. See example instance files for more info.");
+        System.out.println("             a holiday time. See example depFlights files for more info.");
         System.out.println("\n    <model> is either:");
-        System.out.println("      -cp: the instance will be solved using the TP Constraint Programming Model");
-        System.out.println("      -ip: the instance will be solved using the TP Integer Programming Model");
+        System.out.println("      -cp: the depFlights will be solved using the TP Constraint Programming Model");
+        System.out.println("      -ip: the depFlights will be solved using the TP Integer Programming Model");
         System.out.println("\n    [options] are optional. They can be 0 or more of the following parameters:\n");
         System.out.println("        <objective> <objective variable> [-allOpt]: finds optimal solutions, where:");
         System.out.println("          -allOpt: is an optional flag. It returns all optimal solutions.");
@@ -140,12 +151,12 @@ public class InstanceParser {
         System.out.println("      -hc1: finds solutions that comply with hard constraint 1 (HC1). HC1 requires the following:");
         System.out.println("            \"Travellers may wish to spend a certain amount of consecutive days at a given destination," +
                 "\n             specified by both upper and lower bounds.\" " +
-                "\n             The destination and the bounds are specified in the instance file.\n");
+                "\n             The destination and the bounds are specified in the depFlights file.\n");
         System.out.println("      -hc2: finds solutions that comply with hard constraint 2 (HC2). HC2 requires the following:");
         System.out.println("            \"Travellers may require to spend a given date at a given destination\"" +
-                "\n            The destination and the date are specified in the instance file.\n");
+                "\n            The destination and the date are specified in the depFlights file.\n");
         System.out.println("Example program arguments:"
-                + "\n    \"data/small_test.json -cp -all\": this runs the CP solver and prints all solutions for small_test.json instance. "
+                + "\n    \"data/small_test.json -cp -all\": this runs the CP solver and prints all solutions for small_test.json depFlights. "
                 + "\n    \"data/small_test.json -ip -min -cost -allOpt\": this runs the IP solver and returns all optimal solutions with minimum flights cost");
     }
 }

@@ -12,6 +12,8 @@ public class IPsolver {
 
     private HashMap<Integer, Flight> flights;
     private HashMap<String, Airport> airports;
+    private HashMap<String, ArrayList<Integer>> depFlights;
+    private HashMap<String, ArrayList<Integer>> arrFlights;
     private HelperMethods h;
     private int T;
     private int B; // upper bound on the cost
@@ -27,10 +29,12 @@ public class IPsolver {
             HashMap<Integer, Flight> fs,
             int Time,
             int Bound,
-            String[] argsss
+            String[] argsss,
+            HashMap<String, ArrayList<Integer>> dep,
+            HashMap<String, ArrayList<Integer>> arr
             ) {
-        flights = fs; airports = as; T = Time; B = Bound; args = argsss;
-        h = new HelperMethods(as, fs, T); addSpecialFlight();
+        flights = fs; airports = as; T = Time; B = Bound; args = argsss; depFlights = dep; arrFlights = arr;
+        h = new HelperMethods(as, fs, T, dep); addSpecialFlight();
     }
 
     public void getSolution() throws IOException {
@@ -122,19 +126,22 @@ public class IPsolver {
     private void tripProperty1() throws GRBException {
         GRBLinExpr expr1;
         Airport a0 = h.getHomePoint();
-        ArrayList<Integer> from_home = h.allFromAirport(a0);
+        ArrayList<Integer> from_home = depFlights.get(a0.name);
         expr1 = new GRBLinExpr();
         for (int j: from_home) {
+//            System.out.print(j + " ");
             expr1.addTerm(1.0, S[0][j - 1]);
         }
         model.addConstr(expr1, GRB.EQUAL, 1.0, "Trip property 1");
+//        System.out.println();
     }
 
     private void tripProperty2() throws GRBException {
         GRBLinExpr expr1, expr2;
         for (Airport a: this.airports.values()) {
-            ArrayList<Integer> all_to = h.allToAirport(a);
-            ArrayList<Integer> all_from = h.allFromAirport(a);
+//            System.out.print(a.name + " ");
+            ArrayList<Integer> all_to = arrFlights.get(a.name);
+            ArrayList<Integer> all_from = depFlights.get(a.name);
             for (int i = 1; i < m; i++) {
                 expr1 = new GRBLinExpr();
                 expr2 = new GRBLinExpr();
@@ -142,8 +149,10 @@ public class IPsolver {
                     expr1.addTerm(1.0, S[i-1][j1-1]);
                 }
                 for (int j2 : all_from) {
+//                    System.out.print(j2 + " ");
                     expr2.addTerm(1.0, S[i][j2-1]);
                 }
+//                System.out.println();
                 model.addConstr(expr1, GRB.EQUAL, expr2, "Trip property 2 " + a.name);
             }
         }
@@ -168,7 +177,7 @@ public class IPsolver {
         GRBLinExpr expr;
         ArrayList<Airport> D =  h.getDestinations();
         for (Airport d : D) {
-            ArrayList<Integer> all_to = h.allToAirport(d);
+            ArrayList<Integer> all_to = arrFlights.get(d.name);
             expr = new GRBLinExpr();
             for(int i = 0; i < m - 1; i++) {
                 for (int j : all_to) {
@@ -206,7 +215,7 @@ public class IPsolver {
     // minimise or maximise the duration of the trip
     private GRBLinExpr tripDurationObj() throws GRBException {
         Airport a0 = h.getHomePoint();
-        ArrayList<Integer> toHome = h.allToAirport(a0);
+        ArrayList<Integer> toHome = arrFlights.get(a0.name);
         int dummy = toHome.size() - 1;
         toHome.remove(dummy);
         GRBVar[][] Y = createNarray(m - 2, toHome.size());
@@ -482,5 +491,11 @@ public class IPsolver {
         Airport a0 = h.getHomePoint();
         Flight special = new Flight(flights.size()+1, a0, a0, T, 0, 0);
         flights.put( flights.size() + 1, special);
+        ArrayList<Integer> froma0 = depFlights.get(a0.name);
+        froma0.add(special.id);
+        depFlights.put(a0.name, froma0);
+        ArrayList<Integer> toa0 = arrFlights.get(a0.name);
+        toa0.add(special.id);
+        arrFlights.put(a0.name, toa0);
     }
 }
