@@ -236,10 +236,10 @@ public class CPsolver {
                     model.member(S[i-1], all_to)
             );
             for (int prev : all_to) {
-                int[] next = h.arrayToint(h.allowedNextHC1(flights.get(prev), lb, ub));
+                int[] allowed_next = h.arrayToint(h.allowedNextHC1(flights.get(prev), lb, ub));
                 model.ifThen(
                         model.arithm(S[i-1], "=", prev),
-                        model.member(S[i], next)
+                        model.member(S[i], allowed_next)
                 );
             }
         }

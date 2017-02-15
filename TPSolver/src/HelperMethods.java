@@ -78,7 +78,8 @@ public class HelperMethods {
         ArrayList<Integer> froma = new ArrayList<>();
         for (int j : depFlights.get(f.arr.name)) {
             Flight fl = flights.get(j);
-            if (fl.date > f.date) {
+            double time = f.date + f.duration;
+            if (fl.date > time) {
                 double stay_time = fl.date - (f.date + f.duration + f.arr.conn_time);
                 if (stay_time >= lb && stay_time <= up) {
                     froma.add(fl.id);

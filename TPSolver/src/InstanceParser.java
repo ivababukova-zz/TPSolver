@@ -44,7 +44,7 @@ public class InstanceParser {
                 else {
                     String[] props = turn.split(", ");
                     String[] lines = line.split(", ");
-                    if (props[0].equals("flights")) {
+                    if (props[0].replace("\"", "").trim().equals("flights")) {
                         if (!consumed) {
                             consumed = true;
                             int hashCapacity = Integer.parseInt(props[1]);
@@ -65,7 +65,7 @@ public class InstanceParser {
                         depFlights.put(f.dep.name, fromKey);
                         arrFlights.put(f.arr.name, toKey);
                     }
-                    if (props[0].equals("airports")) {
+                    if (props[0].replace("\"", "").trim().equals("airports")) {
                         if (!consumed){
                             consumed = true;
                             int hashCapacity = Integer.parseInt(props[1]);
@@ -82,12 +82,13 @@ public class InstanceParser {
                         arrFlights.put(a.name, new ArrayList<>());
                     }
 
-                    if (props[0].equals("holiday")) {
+                    if (props[0].replace("\"", "").trim().equals("holiday")) {
                         T = Integer.parseInt(lines[0])*100;
                     }
                 }
             }
         }
+        System.out.println("Reading data in finished.");
         HelperMethods h = new HelperMethods(airports, flights, depFlights, arrFlights);
         if (args[1].equals("-cp")) {
             CPsolver s = new CPsolver(flights, T, B, args, null, null, depFlights, arrFlights, h);
