@@ -37,11 +37,16 @@ public class InstanceParser {
             Boolean consumed = true;
             while ((line = br.readLine()) != null) {
                 line = line.replace("[", "").replace("]", "");
-                if (line.contains("airports") || line.contains("flights") || line.contains("holiday")) {
+                if (line.contains("airports") || line.contains("flights")) {
                     turn = line;
                     consumed = false;
                 }
-                else {
+                if (line.contains("holiday")) {
+                    String[] props = line.split(", ");
+                    T = (int)(Float.parseFloat(props[1])*100);
+                    consumed = false;
+                }
+                else if (!line.contains("airports") && !line.contains("flights") && !line.contains("holiday")) {
                     String[] props = turn.split(", ");
                     String[] lines = line.split(", ");
                     if (props[0].replace("\"", "").trim().equals("flights")) {
@@ -74,16 +79,12 @@ public class InstanceParser {
                             arrFlights = new HashMap<>(hashCapacity);
                         }
                         String name = lines[0].replace("\"", "").trim();
-                        double conntime = Float.parseFloat(lines[1]) * 100;
+                        double conntime = Float.parseFloat(lines[1].replace("\"", "").trim()) * 100;
                         String purpose = lines[2].replace("\"", "").trim();
                         Airport a = new Airport(name, conntime, purpose);
                         airports.put(name, a);
                         depFlights.put(a.name, new ArrayList<>());
                         arrFlights.put(a.name, new ArrayList<>());
-                    }
-
-                    if (props[0].replace("\"", "").trim().equals("holiday")) {
-                        T = Integer.parseInt(lines[0])*100;
                     }
                 }
             }
