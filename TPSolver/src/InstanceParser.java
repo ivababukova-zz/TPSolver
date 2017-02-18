@@ -3,6 +3,7 @@ import org.json.simple.*;
 import org.json.simple.parser.*;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.SyncFailedException;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public class InstanceParser {
         readFile(args);
     }
     static void readFile(String[] args) throws IOException, ParseException {
+        long startRead = System.nanoTime();
         String filename = args[0];
         HashMap<String, Airport> airports = null;
         HashMap<Integer, Flight> flights = null;
@@ -89,7 +91,9 @@ public class InstanceParser {
                 }
             }
         }
-        System.out.println("Reading data in finished.");
+        long finishRead = System.nanoTime();
+        double readTime = (finishRead - startRead) / 1000000000.0;
+        System.out.println("Reading data in took " + readTime + " seconds.");
         HelperMethods h = new HelperMethods(airports, flights, depFlights, arrFlights);
         if (args[1].equals("-cp")) {
             CPsolver s = new CPsolver(flights, T, B, args, null, null, depFlights, arrFlights, h);
@@ -100,6 +104,8 @@ public class InstanceParser {
             s.getSolution();
         }
         else printUsageEclipse();
+        double finish = (System.nanoTime() - finishRead) / 1000000000.0;
+        System.out.println("Solver took " + finish + " seconds to solve.");
     }
 
     static ArrayList<Tuple> createHC2 (JSONArray jtuples) {
