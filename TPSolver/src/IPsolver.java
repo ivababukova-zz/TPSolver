@@ -34,7 +34,7 @@ public class IPsolver {
             HashMap<String, ArrayList<Integer>> dep,
             HashMap<String, ArrayList<Integer>> arr,
             HelperMethods h
-            ) {
+    ) {
         flights = fs;
         airports = as;
         T = Time;
@@ -46,10 +46,11 @@ public class IPsolver {
         addSpecialFlight();
     }
 
-    public void getSolution() throws IOException {
+    public void getSolution(long stopTime) throws IOException {
         try {
             env = new GRBEnv("tp.log");
             model = new GRBModel(env);
+            model.set(GRB.DoubleParam.TimeLimit, stopTime);
             this.m = flights.size(); // add the extra flight
             // Create Xi,j
             S = new GRBVar[m][m];
@@ -370,7 +371,6 @@ public class IPsolver {
     }
 
     @SuppressWarnings("Duplicates")
-    // todo test this, because it seems like it returns the last flight id
     private int getSolutionNumbOfFlights(double[][] x) {
         int flightsNumb = 0;
         for (int i = 0; i < m - 1; i++) {

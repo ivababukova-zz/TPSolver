@@ -56,11 +56,13 @@ public class CPsolver {
         arrFlights = arr;
     }
 
-    private int init(){
+    private int init(long stopTime){
+        System.out.println("stop time: " + stopTime);
         model = new Model("TP CPsolver");
         S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         z = model.intVar("End of schedule", 2, flights.size());
         solver = model.getSolver();
+        solver.limitTime(stopTime * 1000); // choco limitTime is in milliseconds
         C = model.intVarArray("The cost of each taken flight", flights.size() + 1, 0, 5000000);
         cost_sum = model.intVar(0, B); // the total cost of the trip
         trip_duration = model.intVar(1, T);
@@ -287,8 +289,8 @@ public class CPsolver {
 
     /*** end of hard constraint 2 code ***/
 
-    public void getSolution() {
-        if (init() == 0) return;
+    public void getSolution(long stopTime) {
+        if (init(stopTime) == 0) return;
 
         String response = "";
         Boolean m = true, allRequired = false;

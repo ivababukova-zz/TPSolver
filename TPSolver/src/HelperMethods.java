@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.IntSummaryStatistics;
 
 /**
  * Created by ivababukova on 12/17/16.
@@ -38,7 +39,7 @@ public class HelperMethods {
         this.arrFlights = arr;
     }
 
-    public ArrayList<Integer> allToBefore(Airport a, double date) {
+    public ArrayList<Integer> allToBefore(Airport a, int date) {
         ArrayList<Integer> toa = new ArrayList<>();
         for (int j : arrFlights.get(a.name)) {
             Flight f = flights.get(j);
@@ -49,7 +50,7 @@ public class HelperMethods {
         return toa;
     }
 
-    public ArrayList<Integer> allFromAfter(Airport a, double date) {
+    public ArrayList<Integer> allFromAfter(Airport a, int date) {
         ArrayList<Integer> froma = new ArrayList<>();
         for (int j : depFlights.get(a.name)) {
             Flight f = flights.get(j);
@@ -62,11 +63,11 @@ public class HelperMethods {
         return froma;
     }
 
-    public ArrayList<Integer> allowedNext(Flight fl, double connTime) {
+    public ArrayList<Integer> allowedNext(Flight fl, int connTime) {
         ArrayList<Integer> allowedFlights = new ArrayList<>();
         for (int j : depFlights.get(fl.arr.name)) {
             Flight f = flights.get(j);
-            double time = fl.date + fl.duration + connTime;
+            int time = fl.date + fl.duration + connTime;
             if (time <= f.date) {
                 allowedFlights.add(f.id);
             }
@@ -74,13 +75,13 @@ public class HelperMethods {
         return allowedFlights;
     }
 
-    public ArrayList<Integer> allowedNextHC1(Flight f, double lb, double up) {
+    public ArrayList<Integer> allowedNextHC1(Flight f, int lb, int up) {
         ArrayList<Integer> froma = new ArrayList<>();
         for (int j : depFlights.get(f.arr.name)) {
             Flight fl = flights.get(j);
-            double time = f.date + f.duration;
+            int time = f.date + f.duration;
             if (fl.date > time) {
-                double stay_time = fl.date - (f.date + f.duration + f.arr.conn_time);
+                int stay_time = fl.date - (f.date + f.duration + f.arr.conn_time);
                 if (stay_time >= lb && stay_time <= up) {
                     froma.add(fl.id);
                 }
@@ -93,9 +94,9 @@ public class HelperMethods {
     public ArrayList<Integer> disallowedPrev(int next_id) {
         ArrayList<Integer> forbidden = new ArrayList<>();
         Flight next = flights.get(next_id);
-        double conn_time = getConnTimeIP(next);
+        int conn_time = getConnTimeIP(next);
         for (Flight prev : flights.values()) {
-            double arrival_prev = prev.date + prev.duration;
+            int arrival_prev = prev.date + prev.duration;
             if (arrival_prev + conn_time > next.date) {
                 forbidden.add(prev.id);
             }
@@ -104,7 +105,7 @@ public class HelperMethods {
     }
 
     // this is for trip properties 3,4 for the IP model
-    public double getConnTimeIP(Flight f) {
+    public int getConnTimeIP(Flight f) {
         if (f.arr == a0 && f.dep == a0 && f.duration == 0 && f.cost == 0) {
             return 0;
         }
