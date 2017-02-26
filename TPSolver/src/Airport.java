@@ -4,11 +4,11 @@
 public class Airport {
 
     public String name;
-    public double conn_time;
+    public int conn_time;
     public String purpose;
     public int index; // this is for hard constraint 2
 
-    public Airport(String name, double t, String p){
+    public Airport(String name, int t, String p){
         this.name = name;
         this.conn_time = t;
         this.purpose = p.trim();

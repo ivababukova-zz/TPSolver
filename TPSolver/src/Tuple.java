@@ -5,8 +5,8 @@
 public class Tuple {
 
     private Airport a;
-    private double date;
-    public Tuple(Airport x, double y) {
+    private int date;
+    public Tuple(Airport x, int y) {
         this.a = x;
         this.date = y;
     }
@@ -15,7 +15,7 @@ public class Tuple {
         return this.a;
     }
 
-    public double getDate(){
+    public int getDate(){
         return this.date;
     }
 }

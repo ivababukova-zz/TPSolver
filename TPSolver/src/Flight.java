@@ -6,16 +6,16 @@ public class Flight {
     public int id;
     public Airport dep;
     public Airport arr;
-    public double date;
-    public double duration;
-    public double cost;
+    public int date;
+    public int duration;
+    public int cost;
 
     public Flight(int id,
                   Airport dep,
                   Airport arr,
-                  double date,
-                  double duration,
-                  double cost){
+                  int date,
+                  int duration,
+                  int cost){
         this.id = id;
         this.dep = dep;
         this.arr = arr;

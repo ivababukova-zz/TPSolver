@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -133,7 +134,7 @@ public class CPsolver {
     private void tripProperties2and3and4(Flight f){
         int[] allowed_next = h.arrayToint(h.allowedNext(f, f.arr.conn_time)); // trip property 3
 
-        ArrayList<Integer> allowedNext = h.allowedNext(f, 0); // trip property 4
+        ArrayList<Integer> allowedNext = h.allowedNext(f, f.arr.conn_time); // trip property 4
         ArrayList<Integer> toa0 = arrFlights.get(h.a0.name);
 
         int[] allowed_last = h.intersection(allowedNext, toa0);
@@ -160,7 +161,7 @@ public class CPsolver {
         for (Airport d: h.destinations) {
             int[] all_to = h.arrayToint(arrFlights.get(d.name)); // all flights that fly to d
             if (all_to.length == 0) {
-                System.out.println("It is impossible to visit destination " + d.name + ".\nThe depFlights has no solution.");
+                System.out.println("It is impossible to visit destination " + d.name + ".");
                 return 0;
             }
             IntVar X = this.model.intVar(1, all_to.length);
@@ -221,14 +222,14 @@ public class CPsolver {
         for (Triplet tri : this.triplets) {
             Airport a = tri.getA();
             a.setIndex(index);
-            double lb = tri.getLb();
-            double ub = tri.getUb();
+            int lb = tri.getLb();
+            int ub = tri.getUb();
             this.hc1(D, a, lb, ub, index);
             index ++;
         }
     }
 
-    private void hc1(IntVar[] D, Airport a, double lb, double ub, int index) {
+    private void hc1(IntVar[] D, Airport a, int lb, int ub, int index) {
         int[] all_to = h.arrayToint(arrFlights.get(a.name));
         for (int i = 1; i <= flights.size(); i++) {
             model.ifThen(
@@ -261,14 +262,14 @@ public class CPsolver {
         for (Tuple tup : this.tuples) {
             Airport a = tup.getA();
             a.setIndex(index);
-            double date = tup.getDate();
+            int date = tup.getDate();
             this.dateLocationConstraint(D, a, date, index);
             index ++;
         }
     }
 
     // hard constraint 2
-    private void dateLocationConstraint(IntVar[] D, Airport a, double date, int index) {
+    private void dateLocationConstraint(IntVar[] D, Airport a, int date, int index) {
         System.out.println("Be at destination " + a.name + " at date " + date/100);
         int[] all_to_before = h.arrayToint(h.allToBefore(a, date)); // all flights to desired destination
         int[] all_from_after = h.arrayToint(h.allFromAfter(a, date)); // all flights from desired destination
@@ -310,12 +311,11 @@ public class CPsolver {
 
         if (to_optimise.size() > 1) multiobjective(to_optimise, m, response);
 
-        System.out.println("nodes: " + solver.getMeasures().getNodeCount() +
-                "   cpu: " + solver.getMeasures().getTimeCount());
+        System.out.println("nodes: " + solver.getMeasures().getNodeCount() + " cpu: " + solver.getMeasures().getTimeCount());
     }
 
     private void getSingleSolution(Boolean m, ArrayList<IntVar> to_optimise, String response) {
-        System.out.println("Single solution with " + response + ":");
+//        System.out.println("Single solution with " + response + ":");
         Solution x;
         if (to_optimise.size() > 0) x = solver.findOptimalSolution(to_optimise.get(0), m);
         else x = solver.findSolution();
@@ -327,7 +327,7 @@ public class CPsolver {
     }
 
     private void getAllSolutions(Boolean m, ArrayList<IntVar> to_optimise, String response) {
-        System.out.println("Multiple solutions with " + response + ":");
+//        System.out.println("Multiple solutions with " + response + ":");
         List<Solution> solutions;
         if (to_optimise.size() > 0) solutions = solver.findAllOptimalSolutions(to_optimise.get(0), m);
         else solutions = solver.findAllSolutions();
@@ -339,7 +339,7 @@ public class CPsolver {
     private void multiobjective(ArrayList<IntVar> obj, Boolean goal, String response) {
         IntVar[] objectives = new IntVar[obj.size()];
         obj.toArray(objectives);
-        System.out.println("Doing multiobjective optimisation with " + response + ":");
+//        System.out.println("Doing multiobjective optimisation with " + response + ":");
         ParetoOptimizer po = new ParetoOptimizer(goal, objectives);
         solver.plugMonitor(po);
         while (solver.solve()) {
@@ -351,21 +351,23 @@ public class CPsolver {
     }
 
     private void printSolution(Solution x) {
-        System.out.print("  ");
+        System.out.print("Schedule: ");
         for (int i = 0; i < x.getIntVal(z); i++) {
             System.out.print(x.getIntVal(S[i]) + " ");
         }
         System.out.println();
-        for (int i = 0; i < x.getIntVal(z); i++) {
-            String nextVar = x.getIntVal(S[i]) + " ";
-            System.out.print("  Flight with id " + nextVar);
-            System.out.print("from " + flights.get(x.getIntVal(S[i])).dep.name);
-            System.out.print(" to " + flights.get(x.getIntVal(S[i])).arr.name);
-            System.out.print(" on date: " + flights.get(x.getIntVal(S[i])).date / 100);
-            System.out.println(" costs: " + flights.get(x.getIntVal(S[i])).cost / 100);
-        }
-        System.out.print("  Trip duration: " + (x.getIntVal(trip_duration) / 100.0));
-        System.out.print(" Total cost: " + (x.getIntVal(cost_sum) / 100.0));
-        System.out.println(" Number of connections: " + (x.getIntVal(connections_count)) + "\n");
+//        for (int i = 0; i < x.getIntVal(z); i++) {
+//            String nextVar = x.getIntVal(S[i]) + " ";
+//            System.out.print("  Flight with id " + nextVar);
+//            System.out.print("from " + flights.get(x.getIntVal(S[i])).dep.name);
+//            System.out.print(" to " + flights.get(x.getIntVal(S[i])).arr.name);
+//            System.out.print(" on date: " + flights.get(x.getIntVal(S[i])).date / 100);
+//            System.out.println(" costs: " + flights.get(x.getIntVal(S[i])).cost / 100);
+//        }
+        System.out.println("Cost: " + x.getIntVal(cost_sum) / 100.00);
+        System.out.println("ConnectingF: " + (x.getIntVal(connections_count)));
+        System.out.println("TripD: " + x.getIntVal(trip_duration) / 100.00);
+        System.out.println("FlightsNo: " + x.getIntVal(z));
+        System.out.println();
     }
 }

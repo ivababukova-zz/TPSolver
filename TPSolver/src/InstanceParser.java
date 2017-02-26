@@ -58,11 +58,11 @@ public class InstanceParser {
                             flights = new HashMap<>(hashCapacity + 1); // +1 for the dummy flight in ip
                         }
                         int id = Integer.parseInt(lines[0]);
-                        double date = Float.parseFloat(lines[1]) * 100;
-                        double duration = Float.parseFloat(lines[2]) * 100;
+                        int date = Math.round(Float.parseFloat(lines[1]) * 100);
+                        int duration = Math.round(Float.parseFloat(lines[2]) * 100);
                         Airport dep = airports.get(lines[3].replace("\"", "").trim());
                         Airport arr = airports.get(lines[4].replace("\"", "").trim());
-                        double price = Float.parseFloat(lines[5]) * 100;
+                        int price = Math.round(Float.parseFloat(lines[5]) * 100);
                         Flight f = new Flight(id, dep, arr, date, duration, price);
                         flights.put(id, f);
                         ArrayList<Integer> fromKey = depFlights.get(f.dep.name);
@@ -81,7 +81,7 @@ public class InstanceParser {
                             arrFlights = new HashMap<>(hashCapacity);
                         }
                         String name = lines[0].replace("\"", "").trim();
-                        double conntime = Float.parseFloat(lines[1].replace("\"", "").trim()) * 100;
+                        int conntime = Math.round(Float.parseFloat(lines[1].replace("\"", "").trim()) * 100);
                         String purpose = lines[2].replace("\"", "").trim();
                         Airport a = new Airport(name, conntime, purpose);
                         airports.put(name, a);
@@ -93,7 +93,7 @@ public class InstanceParser {
         }
         long finishRead = System.nanoTime();
         double readTime = (finishRead - startRead) / 1000000000.0;
-        System.out.println("Reading data in took " + readTime + " seconds.");
+        System.out.println("Reading data: " + readTime + " seconds.");
         HelperMethods h = new HelperMethods(airports, flights, depFlights, arrFlights);
         if (args[1].equals("-cp")) {
             CPsolver s = new CPsolver(flights, T, B, args, null, null, depFlights, arrFlights, h);
@@ -105,7 +105,7 @@ public class InstanceParser {
         }
         else printUsageEclipse();
         double finish = (System.nanoTime() - finishRead) / 1000000000.0;
-        System.out.println("Solver took " + finish + " seconds to solve.");
+        System.out.println("Solving: " + finish + " seconds.");
     }
 
     static ArrayList<Tuple> createHC2 (JSONArray jtuples) {

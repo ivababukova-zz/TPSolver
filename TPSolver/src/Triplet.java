@@ -5,9 +5,9 @@
 public class Triplet {
 
     private Airport a;
-    private double lb;
-    private double ub;
-    public Triplet(Airport x, double lb, double ub) {
+    private int lb;
+    private int ub;
+    public Triplet(Airport x, int lb, int ub) {
         this.a = x;
         this.lb = lb;
         this.ub = ub;
@@ -17,11 +17,11 @@ public class Triplet {
         return this.a;
     }
 
-    public double getLb(){
+    public int getLb(){
         return this.lb;
     }
 
-    public double getUb(){
+    public int getUb(){
         return this.ub;
     }
 
