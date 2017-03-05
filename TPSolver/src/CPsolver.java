@@ -57,7 +57,6 @@ public class CPsolver {
     }
 
     private int init(long stopTime){
-        System.out.println("stop time: " + stopTime);
         model = new Model("TP CPsolver");
         S = model.intVarArray("Flights Schedule", flights.size() + 1, 0, flights.size());
         z = model.intVar("End of schedule", 2, flights.size());

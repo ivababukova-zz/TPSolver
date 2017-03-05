@@ -95,7 +95,7 @@ public class InstanceParser {
         double readTime = (finishRead - startRead) / 1000000000.0;
         System.out.println("Reading data: " + readTime + " seconds.");
         HelperMethods h = new HelperMethods(airports, flights, depFlights, arrFlights);
-        long stoptime = setEndTime(flights.size(), airports.size(), T);
+        long stoptime = setEndTime(flights.size(), airports.size(), T); // timeout in seconds
         if (args[1].equals("-cp")) {
             CPsolver s = new CPsolver(flights, T, B, args, null, null, depFlights, arrFlights, h);
             s.getSolution(stoptime);
@@ -112,20 +112,26 @@ public class InstanceParser {
     // the program termination time depends on the complexity of the instance
     static long setEndTime(int m, int n, int T) {
         long timeout = 0;
-        if (m < 20) {
+        if (m <= 20) {
             timeout = 30; // 30 seconds timeout
         }
-        else if (m > 20 && m < 40) {
+        else if (m > 20 && m <= 40) {
             timeout = 50;
         }
-        else if (m > 40 && m < 60) {
+        else if (m > 40 && m <= 60) {
             timeout = 100;
         }
-        else if (m > 60 && m < 100) {
+        else if (m > 60 && m <= 100) {
             timeout = 200;
         }
+        else if (m > 100 && m <= 400) {
+            timeout = 600;
+        }
+        else if (m > 500 && m <= 1000) {
+            timeout = 1200;
+        }
         else {
-            timeout = 600; // timeout is 10 minutes
+            timeout = 3000;
         }
         return timeout;
     }

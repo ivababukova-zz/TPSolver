@@ -64,7 +64,6 @@ public class IPsolver {
 
             /*** All Constraints ***/
             model.addConstr(S[m-1][m-1], GRB.EQUAL, 1, "End with special flight");
-//            model.addConstr(S[1][12], GRB.EQUAL, 1.0, "");
             matrixConstraints();
             tripProperty1();
             tripProperty2();
@@ -77,7 +76,7 @@ public class IPsolver {
             getAllSols();
 
             model.optimize();
-//            debugModel();
+            debugModel();
             printAllSolutions();
             model.dispose(); env.dispose();
 
